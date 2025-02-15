@@ -12,6 +12,12 @@
 
 #import "RCTModulesConformingToProtocolsProvider.h"
 #import "RCTThirdPartyComponentsProvider.h"
+#import "react/renderer/components/rnblurview/ComponentDescriptors.h"
+#import "react/renderer/components/rnblurview/EventEmitters.h"
+#import "react/renderer/components/rnblurview/Props.h"
+#import "react/renderer/components/rnblurview/RCTComponentViewHelpers.h"
+#import "react/renderer/components/rnblurview/ShadowNodes.h"
+#import "react/renderer/components/rnblurview/States.h"
 #import "react/renderer/components/rnscreens/ComponentDescriptors.h"
 #import "react/renderer/components/rnscreens/EventEmitters.h"
 #import "react/renderer/components/rnscreens/Props.h"

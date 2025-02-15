@@ -1,0 +1,35 @@
+import React from "react";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  useWindowDimensions,
+} from "react-native";
+import { ThemeManager } from "../../classes/ThemeManager";
+import { ButtonText } from "../texts/ButtonText";
+
+interface CustomProps {
+  text: string;
+}
+
+export const Button76: React.FC<CustomProps> = ({ text }) => {
+  const theme = new ThemeManager();
+  const { width } = useWindowDimensions();
+
+  const styles = StyleSheet.create({
+    componentStyle: {
+      backgroundColor: theme.colors.stripe3,
+      borderRadius: 10,
+      padding: 5,
+      alignContent: "center",
+      justifyContent: "center",
+      // height:
+      width: width - 40,
+    },
+  });
+
+  return (
+    <TouchableOpacity style={styles.componentStyle}>
+      <ButtonText>{text}</ButtonText>
+    </TouchableOpacity>
+  );
+};
