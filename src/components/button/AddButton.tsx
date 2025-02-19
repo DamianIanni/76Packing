@@ -16,8 +16,8 @@ export const AddButton: React.FC<CustomProps> = ({ text }) => {
       padding: 5,
       alignContent: "center",
       justifyContent: "center",
-      height: 50,
-      width: 50,
+      height: 40,
+      width: 40,
     },
   });
 
@@ -27,6 +27,7 @@ export const AddButton: React.FC<CustomProps> = ({ text }) => {
         source={require("../../assets/icons/add_icon.png")}
         style={{
           resizeMode: "contain",
+          height: 40,
           width: "100%",
         }}
       />

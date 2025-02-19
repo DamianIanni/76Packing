@@ -15,7 +15,6 @@ interface CustomProps {
 
 export const CardComponent: React.FC<CustomProps> = ({}) => {
   const theme = new ThemeManager();
-  const { width } = useWindowDimensions();
 
   const content = ["14 days", "Items 6/14", "Luggage done"];
 
@@ -26,7 +25,7 @@ export const CardComponent: React.FC<CustomProps> = ({}) => {
       //   alignContent: "center",
       //   justifyContent: "center",
       height: 150,
-      width: width - 40,
+      width: theme.standarWidth,
       backgroundColor: theme.colors.backgroundCard,
       elevation: 8,
       shadowColor: "rgba(0, 0, 0, 0.4)", // Color de sombra (semi-transparente)

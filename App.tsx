@@ -6,6 +6,7 @@ import {
   ImageSourcePropType,
   Platform,
   Text,
+  View,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -14,13 +15,14 @@ import HomeScreen from "./src/views/HomeScreen";
 import SettingScreen from "./src/views/SettingScreen";
 import SplashScreen from "./src/views/SplashScreen";
 import { ThemeManager } from "./src/classes/ThemeManager";
+import { BlurView } from "@react-native-community/blur";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const icons: Record<string, ImageSourcePropType> = {
   sett: require("./src/assets/icons/settings.png"),
-  fav: require("./src/assets/icons/star.png"),
+  fav: require("./src/assets/icons/bookmark.png"),
   default: require("./src/assets/icons/luggage.png"),
 };
 
@@ -37,11 +39,11 @@ export default function App(): React.JSX.Element {
   const [isSplashVisible, setIsSplashVisible] = useState(true);
   const theme = new ThemeManager();
 
-  useEffect(() => {
-    // Hacer que la barra de estado y la barra de navegación siempre sean transparentes
-    StatusBar.setBarStyle("dark-content"); // O "light-content" dependiendo del fondo
-    StatusBar.setBackgroundColor("transparent", true); // Hace que el fondo sea transparente
-  }, []);
+  // useEffect(() => {
+  //   // Hacer que la barra de estado y la barra de navegación siempre sean transparentes
+  // StatusBar.setBarStyle("dark-content"); // O "light-content" dependiendo del fondo
+  // StatusBar.setBackgroundColor("transparent", true); // Hace que el fondo sea transparente
+  // }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsSplashVisible(false), 3000);
@@ -55,10 +57,14 @@ export default function App(): React.JSX.Element {
         screenOptions={{
           tabBarStyle: {
             position: "absolute",
-            backgroundColor: "rgba(0,0,0,0)", // Transparente
+            // backgroundColor: "#fff",
+            backgroundColor:
+              Platform.OS === "ios" ? "transparent" : theme.colors.background, // Transparente
             borderTopWidth: 0,
-            elevation: 0,
-            bottom: Platform.OS === "android" ? 10 : 5,
+            elevation: 8,
+            // height:
+            bottom: Platform.OS === "android" ? 5 : 0,
+            // marginBottom: 15,
           },
           // tabBarLabelStyle: {
           //   fontFamily: "Afacad-bold",
@@ -66,6 +72,28 @@ export default function App(): React.JSX.Element {
           // },
           tabBarActiveTintColor: "#1AA6B7",
           headerShown: false,
+          tabBarBackground: () =>
+            Platform.OS === "ios" ? (
+              <BlurView
+                blurAmount={15}
+                blurType={theme.themeMode ? "dark" : "light"}
+                style={{
+                  width: "100%",
+                  height: 90,
+                  // backgroundColor: theme.colors.background,
+                }}
+              />
+            ) : (
+              <View
+                // blurAmount={15}
+                // blurType={theme.themeMode ? "dark" : "light"}
+                style={{
+                  width: "100%",
+                  height: 90,
+                  backgroundColor: theme.colors.background,
+                }}
+              />
+            ),
         }}
       >
         <Tab.Screen
@@ -76,6 +104,7 @@ export default function App(): React.JSX.Element {
             tabBarLabel: ({ color }) => (
               <Text
                 style={{
+                  letterSpacing: 2,
                   fontFamily: "Afacad-SemiBold",
                   fontSize: Platform.OS === "android" ? 14 : 16,
                   color,
@@ -97,6 +126,7 @@ export default function App(): React.JSX.Element {
             tabBarLabel: ({ color }) => (
               <Text
                 style={{
+                  letterSpacing: 2,
                   fontFamily: "Afacad-SemiBold",
                   fontSize: Platform.OS === "android" ? 14 : 16,
                   color,
@@ -118,6 +148,7 @@ export default function App(): React.JSX.Element {
             tabBarLabel: ({ color }) => (
               <Text
                 style={{
+                  letterSpacing: 2,
                   fontFamily: "Afacad-SemiBold",
                   fontSize: Platform.OS === "android" ? 14 : 16,
                   color,
@@ -141,13 +172,13 @@ export default function App(): React.JSX.Element {
         <SplashScreen />
       ) : (
         <NavigationContainer>
-          <SafeAreaView
+          {/* <SafeAreaView
             style={{ flex: 1, backgroundColor: theme.colors.background }}
-          >
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
-              <Stack.Screen name="MainTabs" component={MyTabs} />
-            </Stack.Navigator>
-          </SafeAreaView>
+          > */}
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="MainTabs" component={MyTabs} />
+          </Stack.Navigator>
+          {/* </SafeAreaView> */}
         </NavigationContainer>
       )}
     </>

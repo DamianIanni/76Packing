@@ -1,4 +1,4 @@
-import { useColorScheme } from "react-native";
+import { useColorScheme, useWindowDimensions } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
 export class ThemeManager {
@@ -11,6 +11,10 @@ export class ThemeManager {
   //get theme mode
   get themeMode() {
     return this.isDarkMode;
+  }
+
+  get standarWidth() {
+    return useWindowDimensions().width - 50;
   }
 
   // Colores para los dos temas
@@ -27,7 +31,10 @@ export class ThemeManager {
       text76: "#173B61",
       stripe1: "#D9ECF2", // Borde
       stripe2: "#FF414D", // Resaltado
-      stripe3: "#1AA6B7", // Colores atenuados
+      stripe3: "#1AA6B7", // Colores atenuados,
+      divider: "#CAC4D0",
+      checkIcon: this.isDarkMode ? "#ffffff" : "#1AA6B7",
+      nonCheckIcon: this.isDarkMode ? "#ffffff" : "black",
     };
   }
 
