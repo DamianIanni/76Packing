@@ -12,6 +12,7 @@ import {
 } from "react-native";
 
 import { Colors } from "react-native/Libraries/NewAppScreen";
+import { CardInputComponent } from "../components/cards/CardInputComponent";
 
 const SettingScreen = (): React.JSX.Element => {
   const theme = new ThemeManager();
@@ -34,6 +35,7 @@ const SettingScreen = (): React.JSX.Element => {
       >
         Settings
       </Text>
+      {/* <CardInputComponent /> */}
       {/* <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={theme.colors.background}

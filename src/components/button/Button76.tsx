@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  StyleSheet,
-  TouchableOpacity,
-  useWindowDimensions,
-} from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { ThemeManager } from "../../classes/ThemeManager";
 import { ButtonText } from "../texts/ButtonText";
 
@@ -13,7 +9,6 @@ interface CustomProps {
 
 export const Button76: React.FC<CustomProps> = ({ text }) => {
   const theme = new ThemeManager();
-  const { width } = useWindowDimensions();
 
   const styles = StyleSheet.create({
     componentStyle: {
@@ -23,7 +18,7 @@ export const Button76: React.FC<CustomProps> = ({ text }) => {
       alignContent: "center",
       justifyContent: "center",
       // height:
-      width: width - 40,
+      width: theme.standarWidth,
     },
   });
 
