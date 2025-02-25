@@ -16,25 +16,37 @@ import {
   Text,
   useColorScheme,
   View,
+  FlatList,
   Platform,
 } from "react-native";
 import TopProfileBar from "../components/topBars/TopProfileBar";
 import { CardListComponent } from "../components/cards/CardListComponent";
 import { CardInputComponent } from "../components/cards/CardInputComponent";
 
-const HomeScreen = (): React.JSX.Element => {
+export const FavouriteScreen = (): React.JSX.Element => {
   const theme = new ThemeManager();
   const style = StyleSheet.create({
-    text: {
-      fontFamily: "Afacad-BoldItalic",
-      fontSize: 20,
-    },
     container: {
       flex: 1,
       alignItems: "center",
       backgroundColor: theme.colors.background,
+      width: "100%",
+    },
+    listContainer: {
+      paddingTop: 10,
+      paddingBottom: 70,
+      alignItems: "center",
+      width: "100%",
+      //   backgroundColor: "red",
+      gap: 15, // No funciona en FlatList, por eso lo manejamos en renderItem
+    },
+    itemContainer: {
+      width: "100%",
+      marginBottom: 10, // Espacio entre los elementos
     },
   });
+
+  const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
 
   return (
     <SafeAreaView
@@ -48,36 +60,20 @@ const HomeScreen = (): React.JSX.Element => {
     >
       <StatusBar
         barStyle={theme.themeMode ? "light-content" : "dark-content"}
-        backgroundColor={theme.colors.background}
+        backgroundColor={"transparent"}
       />
-      <TopProfileBar text="Damian" />
 
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        // bounces
+      <FlatList
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          backgroundColor: theme.colors.background,
-          alignItems: "center",
-          paddingBottom: Platform.OS === "android" ? 80 : 60,
-        }}
-        style={{
-          width: "100%",
-        }}
-      >
-        <Title>where to?</Title>
-        <ContentText>Place, city or country</ContentText>
-        <BigTitle>SPAIN</BigTitle>
-        <Button76 text="next" />
-        <AddButton text="+" />
-        <CardComponent />
-        <TopBar text="malaga" />
-        <CardListComponent title="carry on" />
-        {/* <CardListComponent title="36l backpack" /> */}
-        <CardInputComponent title="55l backpack" />
-      </ScrollView>
+        data={data}
+        style={{ width: "100%" }}
+        contentContainerStyle={style.listContainer}
+        renderItem={({ item }) => (
+          <View style={style.itemContainer}>
+            <CardComponent key={item} />
+          </View>
+        )}
+      />
     </SafeAreaView>
   );
 };
-
-export default HomeScreen;

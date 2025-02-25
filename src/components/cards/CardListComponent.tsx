@@ -82,7 +82,7 @@ export const CardListComponent: React.FC<customProps> = ({ title }) => {
       height: 24,
       width: 24,
       tintColor: theme.colors.checkIcon,
-      //   backgroundColor: "white",
+      // backgroundColor: "white",
     },
     iconNonChecked: {
       height: 24,

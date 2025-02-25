@@ -16,6 +16,13 @@ import SettingScreen from "./src/views/SettingScreen";
 import SplashScreen from "./src/views/SplashScreen";
 import { ThemeManager } from "./src/classes/ThemeManager";
 import { BlurView } from "@react-native-community/blur";
+import { PersonalDataScreen } from "./src/views/dataEntryScreens/PersonalDataScreen";
+import { StyleDataScreen } from "./src/views/dataEntryScreens/StyleDataScreen";
+import { TravelDataScreen } from "./src/views/dataEntryScreens/TravelDataScreen";
+import { LuggageDataScreen } from "./src/views/dataEntryScreens/LuggageDataScreen";
+import { ShowLuggageScreen } from "./src/views/ShowLuggageScreen";
+import { PackingLoadingScreen } from "./src/views/PackingLoadingScreen";
+import { FavouriteScreen } from "./src/views/FavouritesScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -39,14 +46,8 @@ export default function App(): React.JSX.Element {
   const [isSplashVisible, setIsSplashVisible] = useState(true);
   const theme = new ThemeManager();
 
-  // useEffect(() => {
-  //   // Hacer que la barra de estado y la barra de navegación siempre sean transparentes
-  // StatusBar.setBarStyle("dark-content"); // O "light-content" dependiendo del fondo
-  // StatusBar.setBackgroundColor("transparent", true); // Hace que el fondo sea transparente
-  // }, []);
-
   useEffect(() => {
-    const timer = setTimeout(() => setIsSplashVisible(false), 3000);
+    const timer = setTimeout(() => setIsSplashVisible(false), 2000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -57,14 +58,11 @@ export default function App(): React.JSX.Element {
         screenOptions={{
           tabBarStyle: {
             position: "absolute",
-            // backgroundColor: "#fff",
             backgroundColor:
               Platform.OS === "ios" ? "transparent" : theme.colors.background, // Transparente
             borderTopWidth: 0,
             elevation: 8,
-            // height:
             bottom: Platform.OS === "android" ? 5 : 0,
-            // marginBottom: 15,
           },
           // tabBarLabelStyle: {
           //   fontFamily: "Afacad-bold",
@@ -80,13 +78,10 @@ export default function App(): React.JSX.Element {
                 style={{
                   width: "100%",
                   height: 90,
-                  // backgroundColor: theme.colors.background,
                 }}
               />
             ) : (
               <View
-                // blurAmount={15}
-                // blurType={theme.themeMode ? "dark" : "light"}
                 style={{
                   width: "100%",
                   height: 90,
@@ -98,7 +93,7 @@ export default function App(): React.JSX.Element {
       >
         <Tab.Screen
           name="Favourites"
-          component={SettingScreen}
+          component={FavouriteScreen}
           options={{
             title: "Favourites",
             tabBarLabel: ({ color }) => (
@@ -173,14 +168,22 @@ export default function App(): React.JSX.Element {
       ) : (
         <NavigationContainer>
           {/* <SafeAreaView
-            style={{ flex: 1, backgroundColor: theme.colors.background }}
-          > */}
+          style={{ flex: 1, backgroundColor: theme.colors.background }}
+        > */}
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="MainTabs" component={MyTabs} />
           </Stack.Navigator>
           {/* </SafeAreaView> */}
         </NavigationContainer>
       )}
+      {/* <PersonalDataScreen /> */}
+      {/* <StyleDataScreen /> */}
+      {/* <TravelDataScreen /> */}
+      {/* <LuggageDataScreen /> */}
+      {/* <HomeScreen /> */}
+      {/* <ShowLuggageScreen /> */}
+      {/* <PackingLoadingScreen /> */}
+      {/* <SplashScreen /> */}
     </>
   );
 }

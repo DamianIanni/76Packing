@@ -36,9 +36,9 @@ const SplashScreen = () => {
       zIndex: 5,
     },
     stripeContainer: theme.stripStyleContainer as ViewStyle,
-    stripe1: theme.stripeStyle.stripe1 as ViewStyle,
-    stripe2: theme.stripeStyle.stripe2 as ViewStyle,
-    stripe3: theme.stripeStyle.stripe3 as ViewStyle,
+    stripe1: theme.tallStripeStyle.stripe1 as ViewStyle,
+    stripe2: theme.tallStripeStyle.stripe2 as ViewStyle,
+    stripe3: theme.tallStripeStyle.stripe3 as ViewStyle,
   });
 
   useEffect(() => {
