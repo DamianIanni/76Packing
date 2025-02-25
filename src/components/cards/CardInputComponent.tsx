@@ -8,6 +8,7 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   Platform,
+  ViewStyle,
 } from "react-native";
 import { ThemeManager } from "../../classes/ThemeManager";
 import { ContentText } from "../texts/ContentText";
@@ -20,37 +21,45 @@ const normalizeFontSize = (size: number) => {
 
 interface customProps {
   title: string;
+  customWidth?: number;
+  z?: number | undefined;
+  multiline?: boolean;
+  innerPad?: number;
 }
 
-export const CardInputComponent: React.FC<customProps> = ({ title }) => {
+export const CardInputComponent: React.FC<customProps> = ({
+  title,
+  customWidth,
+  z,
+  innerPad,
+  multiline,
+}) => {
+  customWidth = customWidth ? customWidth : 0;
+  z = z ? z : undefined;
   const theme = new ThemeManager();
   const styles = StyleSheet.create({
     principalContainer: {
       alignItems: "flex-start",
-      flex: 1,
+      elevation: z,
+      zIndex: Platform.OS === "android" ? undefined : z,
     },
     mainCointainer: {
       borderRadius: 10,
       backgroundColor: theme.colors.backgroundCard,
-      width: theme.standarWidth,
+      width: theme.standarWidth - customWidth,
       justifyContent: "center",
       alignItems: "flex-start",
       flexDirection: "column",
-      //   gap: 40,
-      padding: Platform.OS === "ios" ? 10 : 0,
-      //   paddingTop: 5,
+      padding: Platform.OS === "ios" ? 10 : 2,
     },
     input: {
       width: "100%",
-      // backgroundColor: "red",
       fontFamily: "Afacad-Medium",
       fontSize: normalizeFontSize(20),
       color: theme.colors.text,
       letterSpacing: 3,
-      maxHeight: 200,
-      // textAlignVertical: "center",
-      // height: "auto",
-      // height: 30,
+      maxHeight: 150,
+      paddingRight: innerPad ? innerPad : 0,
     },
   });
 
@@ -61,13 +70,13 @@ export const CardInputComponent: React.FC<customProps> = ({ title }) => {
     // >
     //   <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.principalContainer}>
-      <Title style={{ left: 10 }}>{title}</Title>
+      <Title>{title}</Title>
       <View style={styles.mainCointainer}>
         <TextInput
-          //   placeholderTextColor={"#2A2A2D"}
+          // placeholderTextColor={"#2A2A2D"}
           style={styles.input}
           placeholder="the lakes"
-          multiline={true}
+          multiline={multiline}
           keyboardType="default"
         />
       </View>

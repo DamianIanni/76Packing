@@ -26,10 +26,11 @@ const TopBar: React.FC<CustomProps> = ({ text }) => {
       // backgroundColor: theme.colors.stripe1,
       // paddingHorizontal: 10,
       width: "100%",
+      // width: theme.standarWidth,
     },
     iconContainer: {
       position: "absolute",
-      left: 0,
+      left: 12,
     },
     icon: {
       width: 45,

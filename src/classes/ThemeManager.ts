@@ -1,4 +1,9 @@
-import { useColorScheme, useWindowDimensions } from "react-native";
+import {
+  useColorScheme,
+  useWindowDimensions,
+  Platform,
+  PixelRatio,
+} from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
 export class ThemeManager {
@@ -33,7 +38,7 @@ export class ThemeManager {
       stripe2: "#FF414D", // Resaltado
       stripe3: "#1AA6B7", // Colores atenuados,
       divider: "#CAC4D0",
-      checkIcon: this.isDarkMode ? "#ffffff" : "#1AA6B7",
+      checkIcon: this.isDarkMode ? "#1AA6B7" : "#1AA6B7",
       nonCheckIcon: this.isDarkMode ? "#ffffff" : "black",
     };
   }
@@ -75,7 +80,7 @@ export class ThemeManager {
     return {
       flexDirection: "row",
       justifyContent: "center",
-      zIndex: 0,
+      // zIndex: 0,
       position: "absolute",
       height: "100%",
       width: "100%",
@@ -83,22 +88,100 @@ export class ThemeManager {
     };
   }
 
-  get stripeStyle() {
+  get rotatedStripStyleContainer() {
+    return {
+      flexDirection: "row",
+      justifyContent: "center",
+      // zIndex: 0,
+      position: "absolute",
+      top: 0,
+      height: "100%",
+      width: "100%",
+      gap: 10,
+      // marginBottom: "20%",
+      // backgroundColor: "red",
+      // transform: [{ rotate: "45deg" }],
+    };
+  }
+
+  get tallStripeStyle() {
     return {
       stripe1: {
-        backgroundColor: "#D9ECF2",
-        width: 70,
+        backgroundColor: this.isDarkMode ? "#1AA6B7" : "#D9ECF2",
+        width: PixelRatio.get() * 20,
         height: "100%",
+        zIndex: Platform.OS === "android" ? undefined : -2,
+        elevation: 10,
+        shadowColor: "rgba(0, 0, 0, 0.4)", // Color de sombra (semi-transparente)
+        shadowOffset: { width: 2, height: 3 }, // Desplazamiento de la sombra
+        shadowOpacity: 1,
+        shadowRadius: 8,
+        // transform: [{ rotate: "45deg" }],
+        // marginLeft: -100,
       },
       stripe2: {
         backgroundColor: "#FF414D",
-        width: 70,
+        width: PixelRatio.get() * 20,
         height: "100%",
+        zIndex: Platform.OS === "android" ? undefined : -1,
+        elevation: 9,
+        shadowColor: "rgba(0, 0, 0, 0.4)", // Color de sombra (semi-transparente)
+        shadowOffset: { width: 2, height: 3 }, // Desplazamiento de la sombra
+        shadowOpacity: 1,
+        shadowRadius: 8, // Difuminado de la sombra
+        // transform: [{ rotate: "45deg" }],
+        // marginLeft: -50,
       },
       stripe3: {
-        backgroundColor: "#1AA6B7",
-        width: 70,
+        backgroundColor: this.isDarkMode ? "#D9ECF2" : "#1AA6B7",
+        width: PixelRatio.get() * 20,
         height: "100%",
+        zIndex: Platform.OS === "android" ? undefined : 0,
+        elevation: 10,
+        shadowColor: "rgba(0, 0, 0, 0.4)", // Color de sombra (semi-transparente)
+        shadowOffset: { width: 2, height: 3 }, // Desplazamiento de la sombra
+        shadowOpacity: 1,
+        shadowRadius: 8, // Difuminado de la sombra
+        // transform: [{ rotate: "45deg" }],
+        // marginLeft: -50,
+      },
+    };
+  }
+
+  get stripeStyle() {
+    return {
+      stripe1: {
+        backgroundColor: this.isDarkMode ? "#1AA6B7" : "#D9ECF2",
+        width: PixelRatio.get() * 20,
+        height: "70%",
+        zIndex: Platform.OS === "android" ? undefined : -2,
+        elevation: 5,
+        shadowColor: "rgba(0, 0, 0, 0.4)", // Color de sombra (semi-transparente)
+        shadowOffset: { width: 2, height: 3 }, // Desplazamiento de la sombra
+        shadowOpacity: 1,
+        shadowRadius: 8, // Difuminado de la sombra
+      },
+      stripe2: {
+        backgroundColor: "#FF414D",
+        width: PixelRatio.get() * 20,
+        height: "80%",
+        zIndex: Platform.OS === "android" ? undefined : -1,
+        elevation: 5,
+        shadowColor: "rgba(0, 0, 0, 0.4)", // Color de sombra (semi-transparente)
+        shadowOffset: { width: 2, height: 3 }, // Desplazamiento de la sombra
+        shadowOpacity: 1,
+        shadowRadius: 8, // Difuminado de la sombra
+      },
+      stripe3: {
+        backgroundColor: this.isDarkMode ? "#D9ECF2" : "#1AA6B7",
+        width: PixelRatio.get() * 20,
+        height: "90%",
+        zIndex: Platform.OS === "android" ? undefined : 0,
+        elevation: 5,
+        shadowColor: "rgba(0, 0, 0, 0.4)", // Color de sombra (semi-transparente)
+        shadowOffset: { width: 2, height: 3 }, // Desplazamiento de la sombra
+        shadowOpacity: 1,
+        shadowRadius: 8, // Difuminado de la sombra
       },
     };
   }

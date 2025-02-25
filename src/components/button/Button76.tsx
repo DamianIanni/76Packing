@@ -19,6 +19,9 @@ export const Button76: React.FC<CustomProps> = ({ text }) => {
       justifyContent: "center",
       // height:
       width: theme.standarWidth,
+      // marginBottom: 50,
+      position: "absolute",
+      bottom: 50,
     },
   });
 

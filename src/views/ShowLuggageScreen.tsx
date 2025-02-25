@@ -22,7 +22,7 @@ import TopProfileBar from "../components/topBars/TopProfileBar";
 import { CardListComponent } from "../components/cards/CardListComponent";
 import { CardInputComponent } from "../components/cards/CardInputComponent";
 
-const HomeScreen = (): React.JSX.Element => {
+export const ShowLuggageScreen = (): React.JSX.Element => {
   const theme = new ThemeManager();
   const style = StyleSheet.create({
     text: {
@@ -50,7 +50,7 @@ const HomeScreen = (): React.JSX.Element => {
         barStyle={theme.themeMode ? "light-content" : "dark-content"}
         backgroundColor={theme.colors.background}
       />
-      <TopProfileBar text="Damian" />
+      <TopBar text="spain" />
 
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
@@ -65,19 +65,8 @@ const HomeScreen = (): React.JSX.Element => {
           width: "100%",
         }}
       >
-        <Title>where to?</Title>
-        <ContentText>Place, city or country</ContentText>
-        <BigTitle>SPAIN</BigTitle>
-        <Button76 text="next" />
-        <AddButton text="+" />
-        <CardComponent />
-        <TopBar text="malaga" />
         <CardListComponent title="carry on" />
-        {/* <CardListComponent title="36l backpack" /> */}
-        <CardInputComponent title="55l backpack" />
       </ScrollView>
     </SafeAreaView>
   );
 };
-
-export default HomeScreen;
