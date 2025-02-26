@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C80B921A6F3F58F76C31292 /* libPods-Awesome76.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-Awesome76.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		3116EDF1C54B45E78A42A9E7 /* Afacad-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B420ED2CF28D44AABC17F00E /* Afacad-Regular.ttf */; };
 		467771359C0C4F658A852DFE /* Afacad-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ACDAA04E4F29461386076DA4 /* Afacad-Italic.ttf */; };
@@ -18,28 +17,31 @@
 		7A7D2A9D77044C90AF5644A4 /* Afacad-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42F02E640F8A43079113FDB8 /* Afacad-BoldItalic.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		858261CF14A04B68A22F1ACD /* Afacad-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 38FC7D119D2343F7A86A7CCD /* Afacad-SemiBoldItalic.ttf */; };
+		94DF7E902A1FD3634FA3B383 /* Pods_Awesome76.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B181E2FE230BDEC4F78A5CF /* Pods_Awesome76.framework */; };
+		A320730F2D6F44D7004494B4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A320730E2D6F44D7004494B4 /* GoogleService-Info.plist */; };
 		C642F9263E93491AB5A9E52E /* Afacad-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B138DD3834F4931ADD9BF7F /* Afacad-SemiBold.ttf */; };
 		CDDB34EB1C46444184509AA2 /* Afacad-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 124DD3B39B834EA498F40B44 /* Afacad-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		124DD3B39B834EA498F40B44 /* Afacad-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Afacad-Bold.ttf"; path = "../src/assets/fonts/Afacad-Bold.ttf"; sourceTree = "<group>"; };
+		124DD3B39B834EA498F40B44 /* Afacad-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Afacad-Bold.ttf"; path = "../src/assets/fonts/Afacad-Bold.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Awesome76.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Awesome76.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Awesome76/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Awesome76/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = Awesome76/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		38FC7D119D2343F7A86A7CCD /* Afacad-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Afacad-SemiBoldItalic.ttf"; path = "../src/assets/fonts/Afacad-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		38FC7D119D2343F7A86A7CCD /* Afacad-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Afacad-SemiBoldItalic.ttf"; path = "../src/assets/fonts/Afacad-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		3B181E2FE230BDEC4F78A5CF /* Pods_Awesome76.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Awesome76.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-Awesome76.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Awesome76.debug.xcconfig"; path = "Target Support Files/Pods-Awesome76/Pods-Awesome76.debug.xcconfig"; sourceTree = "<group>"; };
-		42F02E640F8A43079113FDB8 /* Afacad-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Afacad-BoldItalic.ttf"; path = "../src/assets/fonts/Afacad-BoldItalic.ttf"; sourceTree = "<group>"; };
+		42F02E640F8A43079113FDB8 /* Afacad-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Afacad-BoldItalic.ttf"; path = "../src/assets/fonts/Afacad-BoldItalic.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-Awesome76.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Awesome76.release.xcconfig"; path = "Target Support Files/Pods-Awesome76/Pods-Awesome76.release.xcconfig"; sourceTree = "<group>"; };
-		5B138DD3834F4931ADD9BF7F /* Afacad-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Afacad-SemiBold.ttf"; path = "../src/assets/fonts/Afacad-SemiBold.ttf"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-Awesome76.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Awesome76.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B138DD3834F4931ADD9BF7F /* Afacad-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Afacad-SemiBold.ttf"; path = "../src/assets/fonts/Afacad-SemiBold.ttf"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Awesome76/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Awesome76/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		A2B1DA0FDE4546FF8E5D2E4B /* Afacad-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Afacad-MediumItalic.ttf"; path = "../src/assets/fonts/Afacad-MediumItalic.ttf"; sourceTree = "<group>"; };
-		ACDAA04E4F29461386076DA4 /* Afacad-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Afacad-Italic.ttf"; path = "../src/assets/fonts/Afacad-Italic.ttf"; sourceTree = "<group>"; };
-		B420ED2CF28D44AABC17F00E /* Afacad-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Afacad-Regular.ttf"; path = "../src/assets/fonts/Afacad-Regular.ttf"; sourceTree = "<group>"; };
-		B9636058C04149CBA85E11FB /* Afacad-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Afacad-Medium.ttf"; path = "../src/assets/fonts/Afacad-Medium.ttf"; sourceTree = "<group>"; };
+		A2B1DA0FDE4546FF8E5D2E4B /* Afacad-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Afacad-MediumItalic.ttf"; path = "../src/assets/fonts/Afacad-MediumItalic.ttf"; sourceTree = "<group>"; };
+		A320730E2D6F44D7004494B4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		ACDAA04E4F29461386076DA4 /* Afacad-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Afacad-Italic.ttf"; path = "../src/assets/fonts/Afacad-Italic.ttf"; sourceTree = "<group>"; };
+		B420ED2CF28D44AABC17F00E /* Afacad-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Afacad-Regular.ttf"; path = "../src/assets/fonts/Afacad-Regular.ttf"; sourceTree = "<group>"; };
+		B9636058C04149CBA85E11FB /* Afacad-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Afacad-Medium.ttf"; path = "../src/assets/fonts/Afacad-Medium.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -48,7 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-Awesome76.a in Frameworks */,
+				94DF7E902A1FD3634FA3B383 /* Pods_Awesome76.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +62,7 @@
 			children = (
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				761780EC2CA45674006654EE /* AppDelegate.swift */,
+				A320730E2D6F44D7004494B4 /* GoogleService-Info.plist */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
@@ -71,7 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-Awesome76.a */,
+				3B181E2FE230BDEC4F78A5CF /* Pods_Awesome76.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -89,7 +92,6 @@
 				38FC7D119D2343F7A86A7CCD /* Afacad-SemiBoldItalic.ttf */,
 			);
 			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -198,6 +200,7 @@
 				7A7D2A9D77044C90AF5644A4 /* Afacad-BoldItalic.ttf in Resources */,
 				467771359C0C4F658A852DFE /* Afacad-Italic.ttf in Resources */,
 				4EBC9E0D6B964A699D528EE3 /* Afacad-Medium.ttf in Resources */,
+				A320730F2D6F44D7004494B4 /* GoogleService-Info.plist in Resources */,
 				716E5ED254FB47C99B87AEAF /* Afacad-MediumItalic.ttf in Resources */,
 				3116EDF1C54B45E78A42A9E7 /* Afacad-Regular.ttf in Resources */,
 				C642F9263E93491AB5A9E52E /* Afacad-SemiBold.ttf in Resources */,
@@ -304,6 +307,7 @@
 				DEVELOPMENT_TEAM = 39RW66RHV3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Awesome76/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Packing 76";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -316,6 +320,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.awesome76;
 				PRODUCT_NAME = Awesome76;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -332,6 +337,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 39RW66RHV3;
 				INFOPLIST_FILE = Awesome76/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Packing 76";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -344,6 +350,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.awesome76;
 				PRODUCT_NAME = Awesome76;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -399,6 +406,17 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers/react/nativemodule/core",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-Samples/ReactCommon_Samples.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-Samples/ReactCommon_Samples.framework/Headers/platform/ios",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-Fabric/React_Fabric.framework/Headers/react/renderer/components/view/platform/cxx",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-NativeModulesApple/React_NativeModulesApple.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-graphics/React_graphics.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-graphics/React_graphics.framework/Headers/react/renderer/graphics/platform/ios",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
@@ -419,10 +437,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
@@ -472,6 +487,17 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers/react/nativemodule/core",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-Samples/ReactCommon_Samples.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-Samples/ReactCommon_Samples.framework/Headers/platform/ios",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-Fabric/React_Fabric.framework/Headers/react/renderer/components/view/platform/cxx",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-NativeModulesApple/React_NativeModulesApple.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-graphics/React_graphics.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-graphics/React_graphics.framework/Headers/react/renderer/graphics/platform/ios",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
@@ -491,10 +517,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;

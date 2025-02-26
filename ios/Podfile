@@ -1,4 +1,11 @@
-# Resolve react_native_pods.rb with node to allow for hoisting
+
+use_frameworks!
+# Resolución de react_native_pods.rb con node para permitir hoisting
+use_modular_headers!
+
+# Asegúrate de colocar `use_frameworks!` para habilitar el enlace dinámico
+
+
 require Pod::Executable.execute_command('node', ['-p',
   'require.resolve(
     "react-native/scripts/react_native_pods.rb",
@@ -19,17 +26,21 @@ target 'Awesome76' do
 
   use_react_native!(
     :path => config[:reactNativePath],
-    # An absolute path to your application root.
+    # Ruta absoluta a la raíz de tu aplicación
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  # Añadir pods de Firebase
+  pod 'FirebaseCore'
+  pod 'FirebaseAnalytics'
+  pod 'FirebaseAuth'
+  pod 'FirebaseFirestore'
+
   post_install do |installer|
-    # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
     react_native_post_install(
       installer,
       config[:reactNativePath],
       :mac_catalyst_enabled => false,
-      # :ccache_enabled => true
     )
   end
 end

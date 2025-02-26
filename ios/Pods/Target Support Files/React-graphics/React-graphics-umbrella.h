@@ -21,10 +21,10 @@
 #import "react/renderer/graphics/Geometry.h"
 #import "react/renderer/graphics/Isolation.h"
 #import "react/renderer/graphics/LinearGradient.h"
-#import "react/renderer/graphics/Float.h"
-#import "react/renderer/graphics/HostPlatformColor.h"
-#import "react/renderer/graphics/PlatformColorParser.h"
-#import "react/renderer/graphics/RCTPlatformColorUtils.h"
+#import "react/renderer/graphics/platform/ios/react/renderer/graphics/Float.h"
+#import "react/renderer/graphics/platform/ios/react/renderer/graphics/HostPlatformColor.h"
+#import "react/renderer/graphics/platform/ios/react/renderer/graphics/PlatformColorParser.h"
+#import "react/renderer/graphics/platform/ios/react/renderer/graphics/RCTPlatformColorUtils.h"
 #import "react/renderer/graphics/Point.h"
 #import "react/renderer/graphics/Rect.h"
 #import "react/renderer/graphics/RectangleCorners.h"
@@ -35,6 +35,6 @@
 #import "react/renderer/graphics/ValueUnit.h"
 #import "react/renderer/graphics/Vector.h"
 
-FOUNDATION_EXPORT double react_renderer_graphicsVersionNumber;
-FOUNDATION_EXPORT const unsigned char react_renderer_graphicsVersionString[];
+FOUNDATION_EXPORT double React_graphicsVersionNumber;
+FOUNDATION_EXPORT const unsigned char React_graphicsVersionString[];
 

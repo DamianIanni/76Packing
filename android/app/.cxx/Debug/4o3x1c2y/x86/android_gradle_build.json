@@ -28,9 +28,9 @@
       "runtimeFiles": [
         "/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/build/intermediates/cxx/Debug/4o3x1c2y/obj/x86/libreact_codegen_safeareacontext.so",
         "/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/build/intermediates/cxx/Debug/4o3x1c2y/obj/x86/libreact_codegen_rnscreens.so",
-        "/Users/damianianni/.gradle/caches/8.10.2/transforms/d7d422c0963f92aa7b8a765f3bd54231/transformed/fbjni-0.7.0/prefab/modules/fbjni/libs/android.x86/libfbjni.so",
-        "/Users/damianianni/.gradle/caches/8.10.2/transforms/ffe8bc820e361c19e57c6796da86db29/transformed/react-android-0.77.0-debug/prefab/modules/jsi/libs/android.x86/libjsi.so",
-        "/Users/damianianni/.gradle/caches/8.10.2/transforms/ffe8bc820e361c19e57c6796da86db29/transformed/react-android-0.77.0-debug/prefab/modules/reactnative/libs/android.x86/libreactnative.so"
+        "/Users/damianianni/.gradle/caches/8.10.2/transforms/dae0c6b59e4c0b1bfcdd80496e3b9df1/transformed/fbjni-0.7.0/prefab/modules/fbjni/libs/android.x86/libfbjni.so",
+        "/Users/damianianni/.gradle/caches/8.10.2/transforms/88ffa52577eee7a453e7cd98a207eaf2/transformed/react-android-0.77.0-debug/prefab/modules/jsi/libs/android.x86/libjsi.so",
+        "/Users/damianianni/.gradle/caches/8.10.2/transforms/88ffa52577eee7a453e7cd98a207eaf2/transformed/react-android-0.77.0-debug/prefab/modules/reactnative/libs/android.x86/libreactnative.so"
       ]
     },
     "react_codegen_rnblurview::@9a34ffec6e39b5c9049e": {
@@ -44,9 +44,9 @@
       "artifactName": "react_codegen_rnscreens",
       "output": "/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/build/intermediates/cxx/Debug/4o3x1c2y/obj/x86/libreact_codegen_rnscreens.so",
       "runtimeFiles": [
-        "/Users/damianianni/.gradle/caches/8.10.2/transforms/ffe8bc820e361c19e57c6796da86db29/transformed/react-android-0.77.0-debug/prefab/modules/reactnative/libs/android.x86/libreactnative.so",
-        "/Users/damianianni/.gradle/caches/8.10.2/transforms/ffe8bc820e361c19e57c6796da86db29/transformed/react-android-0.77.0-debug/prefab/modules/jsi/libs/android.x86/libjsi.so",
-        "/Users/damianianni/.gradle/caches/8.10.2/transforms/d7d422c0963f92aa7b8a765f3bd54231/transformed/fbjni-0.7.0/prefab/modules/fbjni/libs/android.x86/libfbjni.so"
+        "/Users/damianianni/.gradle/caches/8.10.2/transforms/88ffa52577eee7a453e7cd98a207eaf2/transformed/react-android-0.77.0-debug/prefab/modules/reactnative/libs/android.x86/libreactnative.so",
+        "/Users/damianianni/.gradle/caches/8.10.2/transforms/88ffa52577eee7a453e7cd98a207eaf2/transformed/react-android-0.77.0-debug/prefab/modules/jsi/libs/android.x86/libjsi.so",
+        "/Users/damianianni/.gradle/caches/8.10.2/transforms/dae0c6b59e4c0b1bfcdd80496e3b9df1/transformed/fbjni-0.7.0/prefab/modules/fbjni/libs/android.x86/libfbjni.so"
       ]
     },
     "react_codegen_safeareacontext::@7984cd80db47aa7b952a": {
@@ -55,9 +55,9 @@
       "artifactName": "react_codegen_safeareacontext",
       "output": "/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/build/intermediates/cxx/Debug/4o3x1c2y/obj/x86/libreact_codegen_safeareacontext.so",
       "runtimeFiles": [
-        "/Users/damianianni/.gradle/caches/8.10.2/transforms/d7d422c0963f92aa7b8a765f3bd54231/transformed/fbjni-0.7.0/prefab/modules/fbjni/libs/android.x86/libfbjni.so",
-        "/Users/damianianni/.gradle/caches/8.10.2/transforms/ffe8bc820e361c19e57c6796da86db29/transformed/react-android-0.77.0-debug/prefab/modules/jsi/libs/android.x86/libjsi.so",
-        "/Users/damianianni/.gradle/caches/8.10.2/transforms/ffe8bc820e361c19e57c6796da86db29/transformed/react-android-0.77.0-debug/prefab/modules/reactnative/libs/android.x86/libreactnative.so"
+        "/Users/damianianni/.gradle/caches/8.10.2/transforms/dae0c6b59e4c0b1bfcdd80496e3b9df1/transformed/fbjni-0.7.0/prefab/modules/fbjni/libs/android.x86/libfbjni.so",
+        "/Users/damianianni/.gradle/caches/8.10.2/transforms/88ffa52577eee7a453e7cd98a207eaf2/transformed/react-android-0.77.0-debug/prefab/modules/jsi/libs/android.x86/libjsi.so",
+        "/Users/damianianni/.gradle/caches/8.10.2/transforms/88ffa52577eee7a453e7cd98a207eaf2/transformed/react-android-0.77.0-debug/prefab/modules/reactnative/libs/android.x86/libreactnative.so"
       ]
     }
   },
