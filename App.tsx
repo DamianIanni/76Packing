@@ -24,6 +24,28 @@ import { ShowLuggageScreen } from "./src/views/ShowLuggageScreen";
 import { PackingLoadingScreen } from "./src/views/PackingLoadingScreen";
 import { FavouriteScreen } from "./src/views/FavouritesScreen";
 
+import firebase from "@react-native-firebase/app";
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+
+const os = Platform.OS;
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAQkl6-3r_vtR3sBhp_Wff6n1Oz6dI1cYk",
+  authDomain: "TU_AUTH_DOMAIN",
+  projectId: "packing76-c5925",
+  storageBucket: "packing76-c5925.firebasestorage.app",
+  messagingSenderId: "141645736683",
+  appId:
+    os === "android"
+      ? "1:141645736683:android:03632ffdce6b035e6becae"
+      : "1:141645736683:ios:0099a12ab7333bf26becae",
+  measurementId: "TU_MEASUREMENT_ID",
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 

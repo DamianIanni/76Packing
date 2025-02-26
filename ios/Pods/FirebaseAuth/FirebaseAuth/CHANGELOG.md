@@ -1,7 +1,3 @@
-# 11.9.0
-- [changed] Using reCAPTCHA Enterprise and Firebase Auth requires reCAPTCHA
-  Enterprise 18.7.0 or later.
-
 # 11.8.1
 - [fixed] Suppress deprecation build warning introduced in 11.8.0.
 
