@@ -16,7 +16,12 @@ import {
 } from "react-native";
 import { CardInputComponent } from "../../components/cards/CardInputComponent";
 
-export const LuggageDataScreen = (): React.JSX.Element => {
+type CustomProps = {
+  navigation: any;
+};
+
+export const LuggageDataScreen = (props: CustomProps): React.JSX.Element => {
+  const { navigation } = props;
   const theme = new ThemeManager();
   const style = StyleSheet.create({
     container: {
@@ -52,7 +57,7 @@ export const LuggageDataScreen = (): React.JSX.Element => {
           // backgroundColor={theme.colors.background}
           backgroundColor={"transparent"}
         />
-        <TopBar text="" />
+        <TopBar navigation={navigation} text="" />
         <View
           style={[
             style.stripeContainer,

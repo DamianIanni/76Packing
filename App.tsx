@@ -47,7 +47,7 @@ export default function App(): React.JSX.Element {
   const theme = new ThemeManager();
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsSplashVisible(false), 2000);
+    const timer = setTimeout(() => setIsSplashVisible(false), 3000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -172,6 +172,15 @@ export default function App(): React.JSX.Element {
         > */}
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="MainTabs" component={MyTabs} />
+            <Stack.Screen name="PersonalData" component={PersonalDataScreen} />
+            <Stack.Screen name="StyleData" component={StyleDataScreen} />
+            <Stack.Screen name="TravelData" component={TravelDataScreen} />
+            <Stack.Screen name="LuggageData" component={LuggageDataScreen} />
+            <Stack.Screen name="ShowLuggage" component={ShowLuggageScreen} />
+            <Stack.Screen
+              name="PackingLoading"
+              component={PackingLoadingScreen}
+            />
           </Stack.Navigator>
           {/* </SafeAreaView> */}
         </NavigationContainer>

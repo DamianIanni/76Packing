@@ -18,8 +18,14 @@ import { Colors } from "react-native/Libraries/NewAppScreen";
 import { CardInputComponent } from "../components/cards/CardInputComponent";
 import { NameText } from "../components/texts/NameText";
 
-const SettingScreen = (): React.JSX.Element => {
+type CustomProps = {
+  navigation: any;
+};
+
+const SettingScreen = (props: CustomProps): React.JSX.Element => {
   const theme = new ThemeManager();
+  const { navigation } = props;
+  // console.log("Navigation prop:", navigation);
 
   const styles = StyleSheet.create({
     text: {
@@ -162,12 +168,20 @@ const SettingScreen = (): React.JSX.Element => {
 
         <View style={styles.mainCointainer}>
           <View style={styles.elementListContainer}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("PersonalData")}
+            >
               <NameText style={{ fontFamily: "Afacad-Bold" }}>PROFILE</NameText>
             </TouchableOpacity>
             <Divider />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("StyleData")}>
               <NameText style={{ fontFamily: "Afacad-Bold" }}>STYLE</NameText>
+            </TouchableOpacity>
+            <Divider />
+            <TouchableOpacity
+              onPress={() => navigation.navigate("LuggageData")}
+            >
+              <NameText style={{ fontFamily: "Afacad-Bold" }}>LUGGAGE</NameText>
             </TouchableOpacity>
             <Divider />
             <TouchableOpacity>

@@ -45,10 +45,10 @@ const SplashScreen = () => {
     setTimeout(() => {
       Animated.timing(opacity, {
         toValue: 0,
-        duration: 800,
+        duration: 1000,
         useNativeDriver: true,
       }).start();
-    }, 2200);
+    }, 2000);
   }, []);
 
   return (

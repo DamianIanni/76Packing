@@ -12,9 +12,10 @@ import { BigTitle } from "../texts/BigTitle";
 
 interface CustomProps {
   text: string;
+  navigation?: any;
 }
 
-const TopBar: React.FC<CustomProps> = ({ text }) => {
+const TopBar: React.FC<CustomProps> = ({ text, navigation }) => {
   const theme = new ThemeManager();
 
   const styles = StyleSheet.create({
@@ -41,7 +42,10 @@ const TopBar: React.FC<CustomProps> = ({ text }) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.iconContainer}>
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        style={styles.iconContainer}
+      >
         <Image
           source={require("../../assets/icons/back_arrow.png")}
           style={styles.icon}

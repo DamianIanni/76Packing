@@ -22,7 +22,12 @@ import TopProfileBar from "../components/topBars/TopProfileBar";
 import { CardListComponent } from "../components/cards/CardListComponent";
 import { CardInputComponent } from "../components/cards/CardInputComponent";
 
-export const ShowLuggageScreen = (): React.JSX.Element => {
+type CustomProps = {
+  navigation: any;
+};
+
+export const ShowLuggageScreen = (props: CustomProps): React.JSX.Element => {
+  const { navigation } = props;
   const theme = new ThemeManager();
   const style = StyleSheet.create({
     text: {
@@ -50,7 +55,7 @@ export const ShowLuggageScreen = (): React.JSX.Element => {
         barStyle={theme.themeMode ? "light-content" : "dark-content"}
         backgroundColor={theme.colors.background}
       />
-      <TopBar text="spain" />
+      <TopBar navigation={navigation} text="spain" />
 
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
