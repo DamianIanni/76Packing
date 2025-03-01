@@ -1,9 +1,15 @@
 /Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/arm64-v8a/CMakeFiles/appmodules.dir
 /Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/arm64-v8a/CMakeFiles/edit_cache.dir
 /Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/arm64-v8a/CMakeFiles/rebuild_cache.dir
+/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/arm64-v8a/rnasyncstorage_autolinked_build/CMakeFiles/react_codegen_rnasyncstorage.dir
+/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/arm64-v8a/rnasyncstorage_autolinked_build/CMakeFiles/edit_cache.dir
+/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/arm64-v8a/rnasyncstorage_autolinked_build/CMakeFiles/rebuild_cache.dir
 /Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/arm64-v8a/rnblurview_autolinked_build/CMakeFiles/react_codegen_rnblurview.dir
 /Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/arm64-v8a/rnblurview_autolinked_build/CMakeFiles/edit_cache.dir
 /Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/arm64-v8a/rnblurview_autolinked_build/CMakeFiles/rebuild_cache.dir
+/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/arm64-v8a/RNGoogleSignInCGen_autolinked_build/CMakeFiles/react_codegen_RNGoogleSignInCGen.dir
+/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/arm64-v8a/RNGoogleSignInCGen_autolinked_build/CMakeFiles/edit_cache.dir
+/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/arm64-v8a/RNGoogleSignInCGen_autolinked_build/CMakeFiles/rebuild_cache.dir
 /Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/arm64-v8a/safeareacontext_autolinked_build/CMakeFiles/react_codegen_safeareacontext.dir
 /Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/arm64-v8a/safeareacontext_autolinked_build/CMakeFiles/edit_cache.dir
 /Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/arm64-v8a/safeareacontext_autolinked_build/CMakeFiles/rebuild_cache.dir

@@ -44,7 +44,9 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
+  include("/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/armeabi-v7a/rnasyncstorage_autolinked_build/cmake_install.cmake")
   include("/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/armeabi-v7a/rnblurview_autolinked_build/cmake_install.cmake")
+  include("/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/armeabi-v7a/RNGoogleSignInCGen_autolinked_build/cmake_install.cmake")
   include("/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/armeabi-v7a/safeareacontext_autolinked_build/cmake_install.cmake")
   include("/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/armeabi-v7a/rnscreens_autolinked_build/cmake_install.cmake")
 

@@ -129,6 +129,9 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# env
+.env
+
 # Ignorar archivos de compilación
 android/app/build/
 android/app/build/outputs/apk/

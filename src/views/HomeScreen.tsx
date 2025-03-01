@@ -17,10 +17,13 @@ import {
   useColorScheme,
   View,
   Platform,
+  Button,
 } from "react-native";
 import TopProfileBar from "../components/topBars/TopProfileBar";
 import { CardListComponent } from "../components/cards/CardListComponent";
 import { CardInputComponent } from "../components/cards/CardInputComponent";
+
+import { signInWithGoogle } from "../utils/signIn";
 
 const HomeScreen = (): React.JSX.Element => {
   const theme = new ThemeManager();
@@ -65,7 +68,8 @@ const HomeScreen = (): React.JSX.Element => {
           width: "100%",
         }}
       >
-        <Title>where to?</Title>
+        <Button title="iniciar sesion" onPress={() => signInWithGoogle()} />
+        {/* <Title>where to?</Title>
         <ContentText>Place, city or country</ContentText>
         <BigTitle>SPAIN</BigTitle>
         <Button76 text="next" />
@@ -73,8 +77,7 @@ const HomeScreen = (): React.JSX.Element => {
         <CardComponent />
         <TopBar text="malaga" />
         <CardListComponent title="carry on" />
-        {/* <CardListComponent title="36l backpack" /> */}
-        <CardInputComponent title="55l backpack" />
+        <CardInputComponent title="55l backpack" /> */}
       </ScrollView>
     </SafeAreaView>
   );

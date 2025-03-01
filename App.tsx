@@ -26,25 +26,30 @@ import { FavouriteScreen } from "./src/views/FavouritesScreen";
 
 import firebase from "@react-native-firebase/app";
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import {
+  getAuth,
+  initializeAuth,
+  getReactNativePersistence,
+} from "firebase/auth";
+import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
 
 const os = Platform.OS;
-
 const firebaseConfig = {
-  apiKey: "AIzaSyAQkl6-3r_vtR3sBhp_Wff6n1Oz6dI1cYk",
+  apiKey: process.env.API_KEY,
   authDomain: "TU_AUTH_DOMAIN",
-  projectId: "packing76-c5925",
-  storageBucket: "packing76-c5925.firebasestorage.app",
-  messagingSenderId: "141645736683",
-  appId:
-    os === "android"
-      ? "1:141645736683:android:03632ffdce6b035e6becae"
-      : "1:141645736683:ios:0099a12ab7333bf26becae",
-  measurementId: "TU_MEASUREMENT_ID",
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId: process.env.PROJECT_ID,
+  appId: os === "android" ? process.env.ANDROID_APP_ID : process.env.IOS_APP_ID,
+  measurementId: process.env.MESSAGING_SENDER_ID,
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+// const auth = getAuth(app);
+
+const auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(ReactNativeAsyncStorage),
+});
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -67,7 +72,7 @@ const ComponentIcon = ({ tintColor, icon }) => {
 export default function App(): React.JSX.Element {
   const [isSplashVisible, setIsSplashVisible] = useState(true);
   const theme = new ThemeManager();
-
+  // console.log("ENV", AA_AA);
   useEffect(() => {
     const timer = setTimeout(() => setIsSplashVisible(false), 3000);
     return () => clearTimeout(timer);

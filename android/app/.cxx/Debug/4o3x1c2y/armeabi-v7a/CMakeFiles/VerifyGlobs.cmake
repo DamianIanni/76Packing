@@ -12,6 +12,31 @@ if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   file(TOUCH_NOCREATE "/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/armeabi-v7a/CMakeFiles/cmake.verify_globs")
 endif()
 
+# react_codegen_SRCS at /Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/CMakeLists.txt:9 (file)
+file(GLOB NEW_GLOB LIST_DIRECTORIES true "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/*.cpp")
+set(OLD_GLOB
+  "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/rnasyncstorage-generated.cpp"
+  )
+if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
+  message("-- GLOB mismatch!")
+  file(TOUCH_NOCREATE "/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/armeabi-v7a/CMakeFiles/cmake.verify_globs")
+endif()
+
+# react_codegen_SRCS at /Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/CMakeLists.txt:9 (file)
+file(GLOB NEW_GLOB LIST_DIRECTORIES true "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/react/renderer/components/rnasyncstorage/*.cpp")
+set(OLD_GLOB
+  "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/react/renderer/components/rnasyncstorage/ComponentDescriptors.cpp"
+  "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/react/renderer/components/rnasyncstorage/EventEmitters.cpp"
+  "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/react/renderer/components/rnasyncstorage/Props.cpp"
+  "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/react/renderer/components/rnasyncstorage/ShadowNodes.cpp"
+  "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/react/renderer/components/rnasyncstorage/States.cpp"
+  "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/react/renderer/components/rnasyncstorage/rnasyncstorageJSI-generated.cpp"
+  )
+if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
+  message("-- GLOB mismatch!")
+  file(TOUCH_NOCREATE "/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/armeabi-v7a/CMakeFiles/cmake.verify_globs")
+endif()
+
 # react_codegen_SRCS at /Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-community/blur/android/build/generated/source/codegen/jni/CMakeLists.txt:9 (file)
 file(GLOB NEW_GLOB LIST_DIRECTORIES true "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-community/blur/android/build/generated/source/codegen/jni/*.cpp")
 set(OLD_GLOB
@@ -31,6 +56,31 @@ set(OLD_GLOB
   "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-community/blur/android/build/generated/source/codegen/jni/react/renderer/components/rnblurview/ShadowNodes.cpp"
   "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-community/blur/android/build/generated/source/codegen/jni/react/renderer/components/rnblurview/States.cpp"
   "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-community/blur/android/build/generated/source/codegen/jni/react/renderer/components/rnblurview/rnblurviewJSI-generated.cpp"
+  )
+if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
+  message("-- GLOB mismatch!")
+  file(TOUCH_NOCREATE "/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/armeabi-v7a/CMakeFiles/cmake.verify_globs")
+endif()
+
+# react_codegen_SRCS at /Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-google-signin/google-signin/android/build/generated/source/codegen/jni/CMakeLists.txt:9 (file)
+file(GLOB NEW_GLOB LIST_DIRECTORIES true "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-google-signin/google-signin/android/build/generated/source/codegen/jni/*.cpp")
+set(OLD_GLOB
+  "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-google-signin/google-signin/android/build/generated/source/codegen/jni/RNGoogleSignInCGen-generated.cpp"
+  )
+if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
+  message("-- GLOB mismatch!")
+  file(TOUCH_NOCREATE "/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/armeabi-v7a/CMakeFiles/cmake.verify_globs")
+endif()
+
+# react_codegen_SRCS at /Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-google-signin/google-signin/android/build/generated/source/codegen/jni/CMakeLists.txt:9 (file)
+file(GLOB NEW_GLOB LIST_DIRECTORIES true "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-google-signin/google-signin/android/build/generated/source/codegen/jni/react/renderer/components/RNGoogleSignInCGen/*.cpp")
+set(OLD_GLOB
+  "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-google-signin/google-signin/android/build/generated/source/codegen/jni/react/renderer/components/RNGoogleSignInCGen/ComponentDescriptors.cpp"
+  "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-google-signin/google-signin/android/build/generated/source/codegen/jni/react/renderer/components/RNGoogleSignInCGen/EventEmitters.cpp"
+  "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-google-signin/google-signin/android/build/generated/source/codegen/jni/react/renderer/components/RNGoogleSignInCGen/Props.cpp"
+  "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-google-signin/google-signin/android/build/generated/source/codegen/jni/react/renderer/components/RNGoogleSignInCGen/RNGoogleSignInCGenJSI-generated.cpp"
+  "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-google-signin/google-signin/android/build/generated/source/codegen/jni/react/renderer/components/RNGoogleSignInCGen/ShadowNodes.cpp"
+  "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-google-signin/google-signin/android/build/generated/source/codegen/jni/react/renderer/components/RNGoogleSignInCGen/States.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")

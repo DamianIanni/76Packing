@@ -1,0 +1,43 @@
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import {
+  getAuth,
+  signInWithCredential,
+  GoogleAuthProvider,
+} from "@react-native-firebase/auth";
+import { Platform } from "react-native";
+
+// Configurar Google Sign-In con el Web Client ID de Firebase
+GoogleSignin.configure({
+  webClientId: process.env.WEB_CLIENT_ID,
+});
+
+export const signInWithGoogle = async () => {
+  try {
+    // Verificar si los servicios de Google Play están disponibles
+    await GoogleSignin.hasPlayServices();
+    Platform.OS === "android" && (await GoogleSignin.signOut());
+    // Iniciar sesión con Google
+    const userInfo = await GoogleSignin.signIn();
+    console.log("USER INFO", userInfo);
+
+    if (userInfo.type === "cancelled") return;
+
+    // Obtener el token de acceso de Google
+    const idToken = userInfo?.data?.idToken;
+    if (!idToken) throw new Error("No se pudo obtener el idToken de Google.");
+
+    // Crear una credencial de Firebase con el token de Google
+    const googleCredential = GoogleAuthProvider.credential(idToken);
+
+    // Obtener la instancia de autenticación de Firebase
+    const auth = getAuth();
+
+    // Iniciar sesión con Firebase usando la credencial de Google
+    await signInWithCredential(auth, googleCredential);
+
+    console.log("Usuario autenticado con éxito en Firebase");
+  } catch (error) {
+    console.error("Google Sign-In Error:", error);
+    console.log("Error details:", JSON.stringify(error, null, 2));
+  }
+};

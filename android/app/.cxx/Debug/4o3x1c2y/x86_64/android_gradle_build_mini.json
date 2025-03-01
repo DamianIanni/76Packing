@@ -1,6 +1,7 @@
 {
   "buildFiles": [
     "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-community/blur/android/build/generated/source/codegen/jni/CMakeLists.txt",
+    "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-google-signin/google-signin/android/build/generated/source/codegen/jni/CMakeLists.txt",
     "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/react-native-safe-area-context/android/src/main/jni/CMakeLists.txt",
     "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/react-native-screens/android/src/main/jni/CMakeLists.txt",
     "/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt"
@@ -56,6 +57,11 @@
         "/Users/damianianni/.gradle/caches/8.10.2/transforms/88ffa52577eee7a453e7cd98a207eaf2/transformed/react-android-0.77.0-debug/prefab/modules/jsi/libs/android.x86_64/libjsi.so",
         "/Users/damianianni/.gradle/caches/8.10.2/transforms/88ffa52577eee7a453e7cd98a207eaf2/transformed/react-android-0.77.0-debug/prefab/modules/reactnative/libs/android.x86_64/libreactnative.so"
       ]
+    },
+    "react_codegen_RNGoogleSignInCGen::@337b7b353bd94a4215c0": {
+      "artifactName": "react_codegen_RNGoogleSignInCGen",
+      "abi": "x86_64",
+      "runtimeFiles": []
     }
   }
 }
