@@ -33,6 +33,9 @@ import {
 } from "firebase/auth";
 import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
 
+import store from "./src/redux/store";
+import { Provider } from "react-redux";
+
 const os = Platform.OS;
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
@@ -72,7 +75,6 @@ const ComponentIcon = ({ tintColor, icon }) => {
 export default function App(): React.JSX.Element {
   const [isSplashVisible, setIsSplashVisible] = useState(true);
   const theme = new ThemeManager();
-  // console.log("ENV", AA_AA);
   useEffect(() => {
     const timer = setTimeout(() => setIsSplashVisible(false), 3000);
     return () => clearTimeout(timer);
@@ -189,7 +191,7 @@ export default function App(): React.JSX.Element {
   }
 
   return (
-    <>
+    <Provider store={store}>
       {isSplashVisible ? (
         <SplashScreen />
       ) : (
@@ -220,6 +222,6 @@ export default function App(): React.JSX.Element {
       {/* <ShowLuggageScreen /> */}
       {/* <PackingLoadingScreen /> */}
       {/* <SplashScreen /> */}
-    </>
+    </Provider>
   );
 }

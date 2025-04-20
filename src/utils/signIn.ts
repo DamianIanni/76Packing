@@ -4,21 +4,24 @@ import {
   signInWithCredential,
   GoogleAuthProvider,
 } from "@react-native-firebase/auth";
+// import getAuth from "firebase/auth";
 import { Platform } from "react-native";
+
+import { setUser } from "../redux/userSlice";
 
 // Configurar Google Sign-In con el Web Client ID de Firebase
 GoogleSignin.configure({
   webClientId: process.env.WEB_CLIENT_ID,
 });
 
-export const signInWithGoogle = async () => {
+export const signInWithGoogle = async (dispatch: any) => {
   try {
     // Verificar si los servicios de Google Play están disponibles
     await GoogleSignin.hasPlayServices();
     Platform.OS === "android" && (await GoogleSignin.signOut());
     // Iniciar sesión con Google
     const userInfo = await GoogleSignin.signIn();
-    console.log("USER INFO", userInfo);
+    console.log("USER INFO", userInfo.data?.idToken);
 
     if (userInfo.type === "cancelled") return;
 
@@ -31,11 +34,28 @@ export const signInWithGoogle = async () => {
 
     // Obtener la instancia de autenticación de Firebase
     const auth = getAuth();
-
+    if (auth.currentUser) {
+      auth.currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
+        console.log("Token:", idToken); // <- este es el que funciona con tu backend
+      });
+    }
     // Iniciar sesión con Firebase usando la credencial de Google
     await signInWithCredential(auth, googleCredential);
 
     console.log("Usuario autenticado con éxito en Firebase");
+    auth.currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
+      console.log("Token:", idToken); // <- este es el que funciona con tu backend
+    });
+    const userData = {
+      id: userInfo?.data?.user?.id,
+      name: userInfo?.data?.user?.name,
+      email: userInfo?.data?.user?.email,
+      photoUrl: userInfo?.data?.user?.photo,
+    };
+
+    // Guardar los datos en Redux
+    dispatch(setUser(userData));
+    console.log("Usuario despachado");
   } catch (error) {
     console.error("Google Sign-In Error:", error);
     console.log("Error details:", JSON.stringify(error, null, 2));

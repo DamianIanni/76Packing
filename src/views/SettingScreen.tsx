@@ -18,6 +18,8 @@ import { Colors } from "react-native/Libraries/NewAppScreen";
 import { CardInputComponent } from "../components/cards/CardInputComponent";
 import { NameText } from "../components/texts/NameText";
 
+import { useSelector } from "react-redux";
+
 type CustomProps = {
   navigation: any;
 };
@@ -25,6 +27,7 @@ type CustomProps = {
 const SettingScreen = (props: CustomProps): React.JSX.Element => {
   const theme = new ThemeManager();
   const { navigation } = props;
+  const user = useSelector((state: any) => state.user);
   // console.log("Navigation prop:", navigation);
 
   const styles = StyleSheet.create({
@@ -126,10 +129,7 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
       />
       <View style={styles.mainPhotoCointainer}>
         <TouchableOpacity style={styles.iconContainer}>
-          <Image
-            source={require("../assets/logos/ME.jpg")}
-            style={styles.icon}
-          />
+          <Image source={{ uri: user.photoUrl }} style={styles.icon} />
         </TouchableOpacity>
         <NameText
           style={{

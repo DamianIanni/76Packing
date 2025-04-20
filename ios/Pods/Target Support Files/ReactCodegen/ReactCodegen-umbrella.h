@@ -36,6 +36,8 @@
 #import "react/renderer/components/safeareacontext/RCTComponentViewHelpers.h"
 #import "react/renderer/components/safeareacontext/ShadowNodes.h"
 #import "react/renderer/components/safeareacontext/States.h"
+#import "rnasyncstorage/rnasyncstorage.h"
+#import "rnasyncstorageJSI.h"
 #import "RNGoogleSignInCGen/RNGoogleSignInCGen.h"
 #import "RNGoogleSignInCGenJSI.h"
 #import "rnscreens/rnscreens.h"

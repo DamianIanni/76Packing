@@ -1,3 +1,4 @@
+/Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/CMakeLists.txt
 /Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-community/blur/android/build/generated/source/codegen/jni/CMakeLists.txt
 /Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/@react-native-google-signin/google-signin/android/build/generated/source/codegen/jni/CMakeLists.txt
 /Users/damianianni/Desktop/PersonalProjects/76Packing/node_modules/react-native-safe-area-context/android/src/main/jni/CMakeLists.txt

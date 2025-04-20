@@ -23,9 +23,12 @@ import TopProfileBar from "../components/topBars/TopProfileBar";
 import { CardListComponent } from "../components/cards/CardListComponent";
 import { CardInputComponent } from "../components/cards/CardInputComponent";
 
+import { useDispatch } from "react-redux";
+
 import { signInWithGoogle } from "../utils/signIn";
 
 const HomeScreen = (): React.JSX.Element => {
+  const dispatch = useDispatch();
   const theme = new ThemeManager();
   const style = StyleSheet.create({
     text: {
@@ -68,7 +71,21 @@ const HomeScreen = (): React.JSX.Element => {
           width: "100%",
         }}
       >
-        <Button title="iniciar sesion" onPress={() => signInWithGoogle()} />
+        <Button
+          title="iniciar sesion google"
+          onPress={() => signInWithGoogle(dispatch)}
+        />
+        {/* <Button
+          title="iniciar sesion facebook"
+          onPress={() => signInWithGoogle(dispatch)}
+        />
+        <Button title="iniciar sesion X" onPress={() => signInWithGoogle(dispatch)} />
+        {Platform.OS === "ios" && (
+          <Button
+            title="iniciar sesion Apple"
+            onPress={() => signInWithGoogle(dispatch)}
+          />
+        )} */}
         {/* <Title>where to?</Title>
         <ContentText>Place, city or country</ContentText>
         <BigTitle>SPAIN</BigTitle>

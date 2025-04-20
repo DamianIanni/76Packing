@@ -12,13 +12,15 @@ import { BigTitle } from "../texts/BigTitle";
 import { AddButton } from "../button/AddButton";
 import { NameText } from "../texts/NameText";
 
+import { useSelector } from "react-redux";
+
 interface CustomProps {
   text: string;
 }
 
 const TopProfileBar: React.FC<CustomProps> = ({ text }) => {
   const theme = new ThemeManager();
-
+  const user = useSelector((state: any) => state.user);
   const styles = StyleSheet.create({
     container: {
       flexDirection: "row",
@@ -70,13 +72,16 @@ const TopProfileBar: React.FC<CustomProps> = ({ text }) => {
     },
   });
 
+  console.log("USER EN TOP PROFILE BAR", user);
+
   return (
     <View style={styles.container}>
       <View style={styles.iconContainer}>
-        <Image
+        {/* <Image
           source={require("../../assets/logos/ME.jpg")}
           style={styles.icon}
-        />
+        /> */}
+        <Image source={{ uri: user.photoUrl }} style={styles.icon} />
       </View>
       <NameText style={styles.title}>{text}</NameText>
       <View style={styles.addButtoncontainer}>
