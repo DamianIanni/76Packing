@@ -23,6 +23,7 @@ import { LuggageDataScreen } from "./src/views/dataEntryScreens/LuggageDataScree
 import { ShowLuggageScreen } from "./src/views/ShowLuggageScreen";
 import { PackingLoadingScreen } from "./src/views/PackingLoadingScreen";
 import { FavouriteScreen } from "./src/views/FavouritesScreen";
+import { LoginScreen } from "./src/views/LoginScreen";
 
 import firebase from "@react-native-firebase/app";
 import { initializeApp } from "firebase/app";
@@ -192,28 +193,33 @@ export default function App(): React.JSX.Element {
 
   return (
     <Provider store={store}>
-      {isSplashVisible ? (
+      {/* {isSplashVisible ? (
         <SplashScreen />
-      ) : (
-        <NavigationContainer>
-          {/* <SafeAreaView
+      ) : ( */}
+      <NavigationContainer>
+        {/* <SafeAreaView
           style={{ flex: 1, backgroundColor: theme.colors.background }}
         > */}
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="MainTabs" component={MyTabs} />
-            <Stack.Screen name="PersonalData" component={PersonalDataScreen} />
-            <Stack.Screen name="StyleData" component={StyleDataScreen} />
-            <Stack.Screen name="TravelData" component={TravelDataScreen} />
-            <Stack.Screen name="LuggageData" component={LuggageDataScreen} />
-            <Stack.Screen name="ShowLuggage" component={ShowLuggageScreen} />
-            <Stack.Screen
-              name="PackingLoading"
-              component={PackingLoadingScreen}
-            />
-          </Stack.Navigator>
-          {/* </SafeAreaView> */}
-        </NavigationContainer>
-      )}
+        <Stack.Navigator
+          initialRouteName="SplashScreen"
+          screenOptions={{ headerShown: false }}
+        >
+          <Stack.Screen name="SplashScreen" component={SplashScreen} />
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
+          <Stack.Screen name="MainTabs" component={MyTabs} />
+          <Stack.Screen name="PersonalData" component={PersonalDataScreen} />
+          <Stack.Screen name="StyleData" component={StyleDataScreen} />
+          <Stack.Screen name="TravelData" component={TravelDataScreen} />
+          <Stack.Screen name="LuggageData" component={LuggageDataScreen} />
+          <Stack.Screen name="ShowLuggage" component={ShowLuggageScreen} />
+          <Stack.Screen
+            name="PackingLoading"
+            component={PackingLoadingScreen}
+          />
+        </Stack.Navigator>
+        {/* </SafeAreaView> */}
+      </NavigationContainer>
+      {/* )} */}
       {/* <PersonalDataScreen /> */}
       {/* <StyleDataScreen /> */}
       {/* <TravelDataScreen /> */}

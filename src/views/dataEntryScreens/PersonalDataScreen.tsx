@@ -35,6 +35,10 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
 
   const { navigation } = props;
 
+  function goToStyleDataScreen() {
+    navigation.navigate("StyleData");
+  }
+
   const style = StyleSheet.create({
     container: {
       flex: 1,
@@ -113,7 +117,7 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
           z={Platform.OS === "ios" ? 0 : 10}
           multiline={false}
         />
-        <Button76 text="next" />
+        <Button76 action={goToStyleDataScreen} text="next" />
       </View>
     </SafeAreaView>
   );

@@ -7,11 +7,18 @@ import {
   StyleSheet,
   ViewStyle,
 } from "react-native";
+import auth from "@react-native-firebase/auth";
 import { ThemeManager } from "../classes/ThemeManager";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const SplashScreen = () => {
+interface CustomProps {
+  navigation: any;
+}
+
+const SplashScreen = (props: CustomProps): React.JSX.Element => {
   const theme = new ThemeManager();
   const opacity = useRef(new Animated.Value(1)).current;
+  const { navigation } = props;
 
   const styles = StyleSheet.create({
     mainView: {
@@ -50,6 +57,28 @@ const SplashScreen = () => {
       }).start();
     }, 2000);
   }, []);
+
+  useEffect(() => {
+    const unsubscribe = auth().onAuthStateChanged((user) => {
+      console.log("USER DESDE AUTH", user);
+
+      if (user) {
+        // Usuario autenticado
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "MainTabs" }],
+        });
+      } else {
+        // No autenticado
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "LoginScreen" }],
+        });
+      }
+    });
+
+    return unsubscribe; // Limpiamos el listener al salir
+  }, [navigation]);
 
   return (
     <>

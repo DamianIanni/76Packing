@@ -23,6 +23,11 @@ type CustomProps = {
 export const StyleDataScreen = (props: CustomProps): React.JSX.Element => {
   const theme = new ThemeManager();
   const { navigation } = props;
+
+  function goToMainTabs() {
+    navigation.navigate("MainTabs");
+  }
+
   const style = StyleSheet.create({
     container: {
       flex: 1,
@@ -90,7 +95,7 @@ export const StyleDataScreen = (props: CustomProps): React.JSX.Element => {
             />
           </KeyboardAvoidingView>
 
-          <Button76 text="next" />
+          <Button76 action={goToMainTabs} text="next" />
         </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>

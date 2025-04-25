@@ -5,9 +5,10 @@ import { ButtonText } from "../texts/ButtonText";
 
 interface CustomProps {
   text: string;
+  action: () => void;
 }
 
-export const Button76: React.FC<CustomProps> = ({ text }) => {
+export const Button76: React.FC<CustomProps> = ({ text, action }) => {
   const theme = new ThemeManager();
 
   const styles = StyleSheet.create({
@@ -26,7 +27,7 @@ export const Button76: React.FC<CustomProps> = ({ text }) => {
   });
 
   return (
-    <TouchableOpacity style={styles.componentStyle}>
+    <TouchableOpacity style={styles.componentStyle} onPress={action}>
       <ButtonText>{text}</ButtonText>
     </TouchableOpacity>
   );

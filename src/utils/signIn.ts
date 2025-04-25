@@ -14,7 +14,9 @@ GoogleSignin.configure({
   webClientId: process.env.WEB_CLIENT_ID,
 });
 
-export const signInWithGoogle = async (dispatch: any) => {
+export const signInWithGoogle = async (
+  dispatch: any
+): Promise<void | boolean> => {
   try {
     // Verificar si los servicios de Google Play están disponibles
     await GoogleSignin.hasPlayServices();
@@ -56,8 +58,10 @@ export const signInWithGoogle = async (dispatch: any) => {
     // Guardar los datos en Redux
     dispatch(setUser(userData));
     console.log("Usuario despachado");
+    return true;
   } catch (error) {
     console.error("Google Sign-In Error:", error);
     console.log("Error details:", JSON.stringify(error, null, 2));
+    return false;
   }
 };

@@ -17,6 +17,7 @@ import {
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { CardInputComponent } from "../components/cards/CardInputComponent";
 import { NameText } from "../components/texts/NameText";
+import auth from "@react-native-firebase/auth";
 
 import { useSelector } from "react-redux";
 
@@ -187,6 +188,20 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
             <TouchableOpacity>
               <NameText style={{ fontFamily: "Afacad-Bold" }}>
                 LANGUAGE
+              </NameText>
+            </TouchableOpacity>
+            <Divider />
+            <TouchableOpacity
+              onPress={() => {
+                auth().signOut();
+                navigation.reset({
+                  index: 0,
+                  routes: [{ name: "LoginScreen" }],
+                });
+              }}
+            >
+              <NameText style={{ fontFamily: "Afacad-Bold", color: "red" }}>
+                LOG OUT
               </NameText>
             </TouchableOpacity>
           </View>

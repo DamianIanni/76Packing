@@ -26,8 +26,13 @@ import TopProfileBar from "../../components/topBars/TopProfileBar";
 // import { CardListComponent } from "../components/cards/CardListComponent";
 import { CardInputComponent } from "../../components/cards/CardInputComponent";
 
-export const TravelDataScreen = (): React.JSX.Element => {
+type CustomProps = {
+  navigation: any;
+};
+
+export const TravelDataScreen = (props: CustomProps): React.JSX.Element => {
   const theme = new ThemeManager();
+  const { navigation } = props;
   const style = StyleSheet.create({
     container: {
       flex: 1,
@@ -65,7 +70,7 @@ export const TravelDataScreen = (): React.JSX.Element => {
           // backgroundColor={theme.colors.background}
           backgroundColor={"transparent"}
         />
-        <TopBar text="" />
+        <TopBar navigation={navigation} text="" />
         <View
           style={[
             style.stripeContainer,
