@@ -6,17 +6,21 @@ import {
 } from "@react-native-firebase/auth";
 // import getAuth from "firebase/auth";
 import { Platform } from "react-native";
-
-import { setUser } from "../redux/userSlice";
+// import { setUserAfterLogin } from "../redux/userSlice";
 
 // Configurar Google Sign-In con el Web Client ID de Firebase
 GoogleSignin.configure({
   webClientId: process.env.WEB_CLIENT_ID,
 });
 
-export const signInWithGoogle = async (
-  dispatch: any
-): Promise<void | boolean> => {
+interface ResponseData {
+  email: string;
+  photoUrl: string | null;
+}
+
+export const signInWithGoogle = async (): Promise<
+  ResponseData | boolean | void
+> => {
   try {
     // Verificar si los servicios de Google Play están disponibles
     await GoogleSignin.hasPlayServices();
@@ -40,25 +44,24 @@ export const signInWithGoogle = async (
       auth.currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
         console.log("Token:", idToken); // <- este es el que funciona con tu backend
       });
+      console.log("Usuario autenticado con éxito en Firebase");
     }
     // Iniciar sesión con Firebase usando la credencial de Google
     await signInWithCredential(auth, googleCredential);
 
-    console.log("Usuario autenticado con éxito en Firebase");
-    auth.currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
-      console.log("Token:", idToken); // <- este es el que funciona con tu backend
-    });
+    // auth.currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
+    //   console.log("Token:", idToken); // <- este es el que funciona con tu backend
+    // });
     const userData = {
-      id: userInfo?.data?.user?.id,
-      name: userInfo?.data?.user?.name,
-      email: userInfo?.data?.user?.email,
-      photoUrl: userInfo?.data?.user?.photo,
+      // googleIdToken: userInfo.data.user.id,
+      email: userInfo.data.user.email,
+      photoUrl: userInfo.data.user.photo,
     };
 
     // Guardar los datos en Redux
-    dispatch(setUser(userData));
-    console.log("Usuario despachado");
-    return true;
+    // dispatch(setUserAfterLogin(userData));
+    // console.log("Usuario despachado");
+    return userData;
   } catch (error) {
     console.error("Google Sign-In Error:", error);
     console.log("Error details:", JSON.stringify(error, null, 2));

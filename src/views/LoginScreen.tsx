@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -14,7 +14,8 @@ import { ThemeManager } from "../classes/ThemeManager";
 import { ContentText } from "../components/texts/ContentText";
 import { BigTitle } from "../components/texts/BigTitle";
 
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../redux/customDispatch";
+import { setUserAfterLogin } from "../redux/userSlice";
 import { signInWithGoogle } from "../utils/signIn";
 
 interface customProps {
@@ -22,15 +23,20 @@ interface customProps {
 }
 
 export const LoginScreen = (props: customProps): React.JSX.Element => {
-  const dispatch = useDispatch();
+  // const [userAccountInfo, setUserAccountInfo] = useState<>()
+
+  const dispatch = useAppDispatch();
   const theme = new ThemeManager();
   const { navigation } = props;
-  const mockedBoolean = null;
+  const mockedBoolean = null; // is gonna be a request to the DB to see if the user has completed they profile
 
   async function handleGoogleSignIn() {
-    const res = await signInWithGoogle(dispatch);
+    const res = await signInWithGoogle();
     if (!res)
       return Alert.alert("Error", "No se pudo iniciar sesión con Google");
+
+    typeof res === "object" && dispatch(setUserAfterLogin(res));
+    // dispatch(setUserAfterLogin(res));
 
     if (!mockedBoolean || null) {
       navigation.reset({

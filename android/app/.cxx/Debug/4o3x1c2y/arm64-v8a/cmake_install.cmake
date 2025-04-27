@@ -46,6 +46,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/arm64-v8a/rnasyncstorage_autolinked_build/cmake_install.cmake")
   include("/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/arm64-v8a/rnblurview_autolinked_build/cmake_install.cmake")
+  include("/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/arm64-v8a/RNDateTimePickerCGen_autolinked_build/cmake_install.cmake")
   include("/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/arm64-v8a/RNGoogleSignInCGen_autolinked_build/cmake_install.cmake")
   include("/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/arm64-v8a/safeareacontext_autolinked_build/cmake_install.cmake")
   include("/Users/damianianni/Desktop/PersonalProjects/76Packing/android/app/.cxx/Debug/4o3x1c2y/arm64-v8a/rnscreens_autolinked_build/cmake_install.cmake")
