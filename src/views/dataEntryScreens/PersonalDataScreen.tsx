@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ThemeManager } from "../../classes/ThemeManager";
 // import { Title } from "../components/texts/Title";
 // import { ContentText } from "../components/texts/ContentText";
@@ -10,32 +10,80 @@ import TopBar from "../../components/topBars/TopBar";
 
 import {
   SafeAreaView,
-  ScrollView,
+  // ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
-  useColorScheme,
+  // Text,
+  // useColorScheme,
   View,
   Platform,
   ViewStyle,
-  TouchableWithoutFeedback,
-  Keyboard,
-  TouchableOpacity,
+  // TouchableWithoutFeedback,
+  // Keyboard,
+  // TouchableOpacity,
 } from "react-native";
-import TopProfileBar from "../../components/topBars/TopProfileBar";
+// import TopProfileBar from "../../components/topBars/TopProfileBar";
 // import { CardListComponent } from "../components/cards/CardListComponent";
 import { CardInputComponent } from "../../components/cards/CardInputComponent";
+import { CardInputPickerComponent } from "../../components/cards/CardInputPickerComponent";
+import { useAppDispatch } from "../../redux/customDispatch";
+import { setUserProfileData } from "../../redux/userSlice";
+import { UserInterface } from "../../models/dataModels";
+import { getReduxStore } from "../../redux/getReduxStore";
 
 type CustomProps = {
   navigation: any;
 };
 
 export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
+  const dispatch = useAppDispatch();
   const theme = new ThemeManager();
+  const store = getReduxStore();
+  const dateStringified = store.dateOfBirth?.toString();
+  const height = store.height
+    ? `${store.height}cm (${cmToFeet(store.height)})`
+    : null;
+
+  const [userName, setUserName] = useState<string>("");
+  const [userSurname, setUserSurname] = useState<string>("");
+  const [userGender, setUserGender] = useState<string | null>("");
+  const [userDayOfBrith, setUserDayOfBrith] = useState<Date | null>(
+    store.dateOfBirth
+  );
+  const [userHeight, setUserHeight] = useState<number | null>(store.height);
 
   const { navigation } = props;
 
+  function cmToFeet(value: number) {
+    var realFeet = (value * 0.3937) / 12;
+    var feet = Math.floor(realFeet);
+    var inches = Math.round((realFeet - feet) * 12);
+    return feet + "'" + inches;
+  }
+
+  function dispatchUser() {
+    //t=Below is the real evaluation
+    // if (!store.userId || !store.email) {
+    //   throw new Error("Faltan datos obligatorios del usuario.");
+    // }
+
+    if (!store.email) {
+      throw new Error("Faltan datos obligatorios del usuario.");
+    }
+    const objectDatapofile: UserInterface = {
+      userId: "123123123123123123123123123123123123",
+      email: store.email,
+      name: userName,
+      surname: userSurname,
+      gender: userGender,
+      dateOfBirth: userDayOfBrith,
+      height: userHeight,
+    };
+    dispatch(setUserProfileData(objectDatapofile));
+  }
+
   function goToStyleDataScreen() {
+    dispatchUser();
     navigation.navigate("StyleData");
   }
 
@@ -90,32 +138,51 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
       </View>
       <View style={style.container2}>
         <CardInputComponent
-          title="Date of birth"
-          // customWidth={150}
-          z={Platform.OS === "ios" ? 0 : 8}
-          multiline={false}
-        />
-        <CardInputComponent
-          title="height"
-          // customWidth={100}
-          z={Platform.OS === "ios" ? 0 : 8}
-          multiline={false}
-        />
-        <CardInputComponent
-          title="gender"
-          //   customWidth={100}
-          z={Platform.OS === "ios" ? 0 : 9}
-          multiline={false}
-        />
-        <CardInputComponent
           title="name"
           z={Platform.OS === "ios" ? 0 : 10}
           multiline={false}
+          action={(e: string) => setUserName(e)}
+          // isEditable={true}
+          value={store.name}
         />
         <CardInputComponent
           title="last name"
           z={Platform.OS === "ios" ? 0 : 10}
           multiline={false}
+          // isEditable={true}
+          action={(e: string) => setUserSurname(e)}
+          value={store.surname}
+        />
+        <CardInputPickerComponent
+          title="Date of birth"
+          // customWidth={150}
+          isDate={true}
+          z={Platform.OS === "ios" ? 0 : 8}
+          multiline={false}
+          action={(date: Date | number) =>
+            setUserDayOfBrith(date instanceof Date ? date : null)
+          }
+          value={dateStringified}
+        />
+        <CardInputPickerComponent
+          title="height"
+          // customWidth={100}
+          z={Platform.OS === "ios" ? 0 : 8}
+          multiline={false}
+          isDate={false}
+          action={(e: number | Date) =>
+            setUserHeight(typeof e === "number" ? e : null)
+          }
+          value={height}
+        />
+        <CardInputComponent
+          // isEditable={true}
+          title="gender"
+          //   customWidth={100}
+          z={Platform.OS === "ios" ? 0 : 9}
+          multiline={false}
+          action={(e: string) => setUserGender(e)}
+          value={store.gender}
         />
         <Button76 action={goToStyleDataScreen} text="next" />
       </View>

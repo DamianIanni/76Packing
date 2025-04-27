@@ -25,6 +25,10 @@ interface customProps {
   z?: number | undefined;
   multiline?: boolean;
   innerPad?: number;
+  placeholder?: string;
+  action: (e: string) => void;
+  value?: string | null;
+  // isEditable: boolean;
 }
 
 export const CardInputComponent: React.FC<customProps> = ({
@@ -33,6 +37,10 @@ export const CardInputComponent: React.FC<customProps> = ({
   z,
   innerPad,
   multiline,
+  placeholder,
+  action,
+  value,
+  // isEditable,
 }) => {
   customWidth = customWidth ? customWidth : 0;
   z = z ? z : undefined;
@@ -63,6 +71,10 @@ export const CardInputComponent: React.FC<customProps> = ({
     },
   });
 
+  const handleAction = (data: string): void => {
+    action(data);
+  };
+
   return (
     // <KeyboardAvoidingView
     //   behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -75,9 +87,12 @@ export const CardInputComponent: React.FC<customProps> = ({
         <TextInput
           // placeholderTextColor={"#2A2A2D"}
           style={styles.input}
-          placeholder="the lakes"
+          placeholder={placeholder ? placeholder : "the lakes"}
           multiline={multiline}
           keyboardType="default"
+          value={value ? value : undefined}
+          onChangeText={(text) => handleAction(text)}
+          // editable={isEditable}
         />
       </View>
     </View>
