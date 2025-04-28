@@ -138,3 +138,8 @@ android/app/build/outputs/apk/
 android/app/build/intermediates/
 *.apk
 *.so
+
+# Xcode
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+*.xcuserdatad/
