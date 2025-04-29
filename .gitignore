@@ -143,3 +143,13 @@ android/app/build/intermediates/
 *.xcuserstate
 *.xcworkspace/xcuserdata/
 *.xcuserdatad/
+/ios/build/
+/ios/Pods/
+
+
+
+# Android build system
+/android/app/.cxx/
+/android/.gradle/
+/android/build/
+/android/app/build/
