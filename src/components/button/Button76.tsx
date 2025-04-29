@@ -4,16 +4,17 @@ import { ThemeManager } from "../../classes/ThemeManager";
 import { ButtonText } from "../texts/ButtonText";
 
 interface CustomProps {
+  disabled: boolean;
   text: string;
   action: () => void;
 }
 
-export const Button76: React.FC<CustomProps> = ({ text, action }) => {
+export const Button76: React.FC<CustomProps> = ({ text, action, disabled }) => {
   const theme = new ThemeManager();
 
   const styles = StyleSheet.create({
     componentStyle: {
-      backgroundColor: theme.colors.stripe3,
+      backgroundColor: !disabled ? "grey" : theme.colors.stripe3,
       borderRadius: 10,
       padding: 5,
       alignContent: "center",
@@ -27,7 +28,11 @@ export const Button76: React.FC<CustomProps> = ({ text, action }) => {
   });
 
   return (
-    <TouchableOpacity style={styles.componentStyle} onPress={action}>
+    <TouchableOpacity
+      style={styles.componentStyle}
+      onPress={action}
+      disabled={!disabled}
+    >
       <ButtonText>{text}</ButtonText>
     </TouchableOpacity>
   );

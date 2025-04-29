@@ -28,7 +28,7 @@ interface customProps {
   multiline?: boolean;
   innerPad?: number;
   placeholder?: string;
-  action: (e: Date | number) => void;
+  action: (e: string | number) => void;
   value?: string | null;
   isDate: boolean;
 }
@@ -46,7 +46,7 @@ export const CardInputPickerComponent: React.FC<customProps> = ({
 }) => {
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [showHeigthPicker, setShowHeigthPicker] = useState<boolean>(false);
-  const [dateOfBirth, setDateOfBirth] = useState<Date>();
+  const [dateOfBirth, setDateOfBirth] = useState<string>();
   const [userHeight, setUserHeight] = useState<number>();
   customWidth = customWidth ? customWidth : 0;
   z = z ? z : undefined;
@@ -78,7 +78,7 @@ export const CardInputPickerComponent: React.FC<customProps> = ({
   });
 
   function whichValueToShow(): string | undefined {
-    return isDate ? dateOfBirth?.toDateString() : userHeight?.toString();
+    return isDate ? dateOfBirth : userHeight?.toString();
   }
 
   const handleActionHeight = (data: number): void => {
@@ -87,8 +87,9 @@ export const CardInputPickerComponent: React.FC<customProps> = ({
   };
 
   const handleActionDOB = (data: Date): void => {
-    setDateOfBirth(data);
-    action(data);
+    setShowDatePicker(false);
+    setDateOfBirth(data.toDateString());
+    action(data.toISOString());
   };
 
   return (

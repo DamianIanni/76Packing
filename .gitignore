@@ -138,3 +138,18 @@ android/app/build/outputs/apk/
 android/app/build/intermediates/
 *.apk
 *.so
+
+# Xcode
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+*.xcuserdatad/
+/ios/build/
+/ios/Pods/
+
+
+
+# Android build system
+/android/app/.cxx/
+/android/.gradle/
+/android/build/
+/android/app/build/
