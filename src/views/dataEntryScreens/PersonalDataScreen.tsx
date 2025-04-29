@@ -62,7 +62,7 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
   }
 
   function dispatchUser() {
-    //t=Below is the real evaluation
+    //Below is the real evaluation
     // if (!store.userId || !store.email) {
     //   throw new Error("Faltan datos obligatorios del usuario.");
     // }
