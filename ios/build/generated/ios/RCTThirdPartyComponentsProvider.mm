@@ -18,6 +18,7 @@
   return @{
 		@"BlurView": NSClassFromString(@"BlurView"), // @react-native-community/blur
 		@"VibrancyView": NSClassFromString(@"VibrancyView"), // @react-native-community/blur
+		@"RNDateTimePicker": NSClassFromString(@"RNDateTimePickerComponentView"), // @react-native-community/datetimepicker
 		@"RNGoogleSignInButton": NSClassFromString(@"RNGoogleSignInButtonComponentView"), // @react-native-google-signin/google-signin
 		@"RNCSafeAreaProvider": NSClassFromString(@"RNCSafeAreaProviderComponentView"), // react-native-safe-area-context
 		@"RNCSafeAreaView": NSClassFromString(@"RNCSafeAreaViewComponentView"), // react-native-safe-area-context

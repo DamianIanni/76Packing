@@ -47,11 +47,11 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
   const [userName, setUserName] = useState<string>("");
   const [userSurname, setUserSurname] = useState<string>("");
   const [userGender, setUserGender] = useState<string | null>("");
-  const [userDayOfBrith, setUserDayOfBrith] = useState<Date | null>(
+  const [userDayOfBrith, setUserDayOfBirth] = useState<string | null>(
     store.dateOfBirth
   );
   const [userHeight, setUserHeight] = useState<number | null>(store.height);
-
+  const isDisabled: boolean = !!(userName && userSurname && userDayOfBrith);
   const { navigation } = props;
 
   function cmToFeet(value: number) {
@@ -67,12 +67,9 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
     //   throw new Error("Faltan datos obligatorios del usuario.");
     // }
 
-    if (!store.email) {
-      throw new Error("Faltan datos obligatorios del usuario.");
-    }
     const objectDatapofile: UserInterface = {
       userId: "123123123123123123123123123123123123",
-      email: store.email,
+      email: "damiangussi@gmail.com",
       name: userName,
       surname: userSurname,
       gender: userGender,
@@ -143,39 +140,44 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
           multiline={false}
           action={(e: string) => setUserName(e)}
           // isEditable={true}
+          placeholder="Required"
           value={store.name}
         />
         <CardInputComponent
           title="last name"
           z={Platform.OS === "ios" ? 0 : 10}
+          placeholder="Required"
           multiline={false}
           // isEditable={true}
           action={(e: string) => setUserSurname(e)}
           value={store.surname}
         />
         <CardInputPickerComponent
+          placeholder="Required"
           title="Date of birth"
           // customWidth={150}
           isDate={true}
           z={Platform.OS === "ios" ? 0 : 8}
           multiline={false}
-          action={(date: Date | number) =>
-            setUserDayOfBrith(date instanceof Date ? date : null)
+          action={(date: string | number) =>
+            setUserDayOfBirth(typeof date === "string" ? date : null)
           }
           value={dateStringified}
         />
         <CardInputPickerComponent
+          placeholder="Not required"
           title="height"
           // customWidth={100}
           z={Platform.OS === "ios" ? 0 : 8}
           multiline={false}
           isDate={false}
-          action={(e: number | Date) =>
+          action={(e: number | string) =>
             setUserHeight(typeof e === "number" ? e : null)
           }
           value={height}
         />
         <CardInputComponent
+          placeholder="Not required"
           // isEditable={true}
           title="gender"
           //   customWidth={100}
@@ -184,7 +186,11 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
           action={(e: string) => setUserGender(e)}
           value={store.gender}
         />
-        <Button76 action={goToStyleDataScreen} text="next" />
+        <Button76
+          action={goToStyleDataScreen}
+          text="next"
+          disabled={isDisabled}
+        />
       </View>
     </SafeAreaView>
   );

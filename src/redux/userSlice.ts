@@ -35,6 +35,7 @@ const userSlice = createSlice({
       state.dateOfBirth = action.payload.dateOfBirth;
       state.gender = action.payload.gender;
       state.height = action.payload.height;
+      state.userId = action.payload.userId;
     },
     // clearUser: (state) => {
     //   state.id = null;

@@ -5,7 +5,7 @@ export interface UserInterface {
   name: string;
   surname: string;
   userId: string;
-  dateOfBirth: Date | null;
+  dateOfBirth: string | null;
   height: number | null;
   gender: string | null;
 }
@@ -38,7 +38,7 @@ export interface UserStateInterface {
   surname: string | null;
   email: string | null;
   photoUrl: string | null;
-  dateOfBirth: Date | null;
+  dateOfBirth: string | null;
   gender: string | null;
   height: number | null;
   style: string | null;
