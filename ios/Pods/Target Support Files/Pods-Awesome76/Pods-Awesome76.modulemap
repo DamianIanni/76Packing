@@ -1,0 +1,6 @@
+framework module Pods_Awesome76 {
+  umbrella header "Pods-Awesome76-umbrella.h"
+
+  export *
+  module * { export * }
+}
