@@ -42,6 +42,8 @@ export interface UserStateInterface {
   gender: string | null;
   height: number | null;
   style: string | null;
+  brands: string | null;
+  savedLuggage: string | null;
   favClothes: FavClothesInterface | null;
   favPacking: FavPackingInterface | null;
 }

@@ -19,6 +19,7 @@ const SplashScreen = (props: CustomProps): React.JSX.Element => {
   const theme = new ThemeManager();
   const opacity = useRef(new Animated.Value(1)).current;
   const { navigation } = props;
+  const mockedBoolean = null;
 
   const styles = StyleSheet.create({
     mainView: {
@@ -64,6 +65,12 @@ const SplashScreen = (props: CustomProps): React.JSX.Element => {
 
       if (user) {
         // Usuario autenticado
+        // !mockedBoolean || null
+        //   ? navigation.reset({
+        //       index: 0,
+        //       routes: [{ name: "PersonalData" }],
+        //     })
+        //   :
         navigation.reset({
           index: 0,
           routes: [{ name: "MainTabs" }],

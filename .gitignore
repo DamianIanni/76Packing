@@ -146,6 +146,12 @@ android/app/build/intermediates/
 /ios/build/
 /ios/Pods/
 
+# Android/Gradle noise
+.gradle
+local.properties
+*.iml
+.idea/
+*.log
 
 
 # Android build system
@@ -153,3 +159,11 @@ android/app/build/intermediates/
 /android/.gradle/
 /android/build/
 /android/app/build/
+
+# iOS build
+ios/Pods/
+ios/build/
+ios/DerivedData/
+ios/*.xcworkspace
+ios/*.xcuserstate
+ios/project.xcworkspace/xcuserdata/

@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { ThemeManager } from "../../classes/ThemeManager";
 import { Button76 } from "../../components/button/Button76";
 import TopBar from "../../components/topBars/TopBar";
+import { useAppDispatch } from "../../redux/customDispatch";
+import { getReduxStore } from "../../redux/getReduxStore";
+import { setUserStyleData } from "../../redux/userSlice";
 
 import {
   SafeAreaView,
@@ -18,13 +21,37 @@ import { CardInputComponent } from "../../components/cards/CardInputComponent";
 
 type CustomProps = {
   navigation: any;
+  route: any;
 };
 
 export const StyleDataScreen = (props: CustomProps): React.JSX.Element => {
   const theme = new ThemeManager();
-  const { navigation } = props;
+  const store = getReduxStore();
+  const { navigation, route } = props;
+  const btnText = route.params?.from ? "Save" : "next";
+  const dispatch = useAppDispatch();
+  const [userStyle, setUserStyle] = useState<string>(store.style || "");
+  const [userBrands, setUserBrands] = useState<string>(store.brands || "");
 
-  function goToMainTabs() {
+  function dispatchUser() {
+    //Below is the real evaluation
+    // if (!store.userId || !store.email) {
+    //   throw new Error("Faltan datos obligatorios del usuario.");
+    // }
+
+    const objectDataStyle = {
+      style: userStyle,
+      brands: userBrands,
+    };
+    dispatch(setUserStyleData(objectDataStyle));
+  }
+
+  function performButtonAction() {
+    dispatchUser();
+    if (route.params?.from) {
+      navigation.goBack();
+      return;
+    }
     navigation.navigate("MainTabs");
   }
 
@@ -79,23 +106,31 @@ export const StyleDataScreen = (props: CustomProps): React.JSX.Element => {
           >
             <CardInputComponent
               title="brands"
-              // customWidth={Platform.OS === "ios" ? 35 : 0}
-              // z={Platform.OS === "ios" ? -1 : 6}
+              z={Platform.OS === "ios" ? 0 : 10}
               multiline={true}
-              // innerPad={5}
+              action={(e: string) => setUserBrands(e)}
+              placeholder="Not required"
+              value={store.brands}
             />
           </KeyboardAvoidingView>
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
           >
             <CardInputComponent
-              title="style"
+              title="Style"
               z={Platform.OS === "ios" ? 0 : 10}
               multiline={true}
+              action={(e: string) => setUserStyle(e)}
+              placeholder="Not required"
+              value={store.style}
             />
           </KeyboardAvoidingView>
 
-          <Button76 action={goToMainTabs} text="next" />
+          <Button76
+            action={performButtonAction}
+            text={btnText}
+            disabled={true}
+          />
         </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>
