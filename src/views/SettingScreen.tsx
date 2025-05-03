@@ -20,7 +20,7 @@ import { NameText } from "../components/texts/NameText";
 import auth from "@react-native-firebase/auth";
 
 import { useSelector } from "react-redux";
-import { getReduxStore } from "../redux/getReduxStore";
+import { getReduxStoreUser } from "../redux/getReduxStore";
 import { useAppDispatch } from "../redux/customDispatch";
 import { clearUser } from "../redux/userSlice";
 
@@ -31,7 +31,7 @@ type CustomProps = {
 const SettingScreen = (props: CustomProps): React.JSX.Element => {
   const theme = new ThemeManager();
   const { navigation } = props;
-  const store = getReduxStore();
+  const store = getReduxStoreUser();
   const dispatch = useAppDispatch();
   // console.log("Navigation prop:", navigation);
 
@@ -214,6 +214,30 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
               }
             >
               <NameText style={{ fontFamily: "Afacad-Bold" }}>TRAVEL</NameText>
+            </TouchableOpacity>
+            <Divider />
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("ActivitiesScreen", {
+                  from: "SettingScreen",
+                })
+              }
+            >
+              <NameText style={{ fontFamily: "Afacad-Bold" }}>
+                ACTIVITIES
+              </NameText>
+            </TouchableOpacity>
+            <Divider />
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("AccommodationScreen", {
+                  from: "SettingScreen",
+                })
+              }
+            >
+              <NameText style={{ fontFamily: "Afacad-Bold" }}>
+                ACCOMMODATION
+              </NameText>
             </TouchableOpacity>
             <Divider />
             <TouchableOpacity>

@@ -46,16 +46,16 @@ const userSlice = createSlice({
       state.style = action.payload.style;
       state.brands = action.payload.brands;
     },
-    setUserLuggageData: (
-      state,
-      action: PayloadAction<{ style: string; brands: string }>
-    ) => {
-      state.style = action.payload.style;
-      state.brands = action.payload.brands;
-    },
+    // setUserLuggageData: (
+    //   state,
+    //   action: PayloadAction<{ style: string; brands: string }>
+    // ) => {
+    //   state.style = action.payload.style;
+    //   state.brands = action.payload.brands;
+    // },
     setSavedLuggageData: (
       state,
-      action: PayloadAction<{ savedLuggage: string }>
+      action: PayloadAction<{ savedLuggage: string[] }>
     ) => {
       state.savedLuggage = action.payload.savedLuggage;
     },

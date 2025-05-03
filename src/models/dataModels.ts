@@ -1,5 +1,14 @@
 export type PackingType = 0 | 1 | 2 | 3;
 
+export interface PropmtDataInterface {
+  destination: string | null;
+  season: string[] | null;
+  activities: string | null;
+  luggage: string[] | null;
+  duration: number | null;
+  accommodation: string | null;
+  utilities: string[] | null;
+}
 export interface UserInterface {
   email: string;
   name: string;
@@ -43,7 +52,7 @@ export interface UserStateInterface {
   height: number | null;
   style: string | null;
   brands: string | null;
-  savedLuggage: string | null;
+  savedLuggage: string[] | null;
   favClothes: FavClothesInterface | null;
   favPacking: FavPackingInterface | null;
 }

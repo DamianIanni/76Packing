@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -31,6 +31,7 @@ interface customProps {
   action: (e: string) => void;
   value?: string | null;
   keyboardType?: keyboards;
+  isLargeText?: boolean;
   // isEditable: boolean;
 }
 
@@ -44,6 +45,7 @@ export const CardInputComponent: React.FC<customProps> = ({
   action,
   value,
   keyboardType,
+  isLargeText,
   // isEditable,
 }) => {
   const [stateValue, setStateValue] = useState<string>(value || "");
@@ -76,6 +78,10 @@ export const CardInputComponent: React.FC<customProps> = ({
     },
   });
 
+  useEffect(() => {
+    setStateValue(value ?? "");
+  }, [value]);
+
   const handleAction = (data: string): void => {
     setStateValue(data);
     action(data);
@@ -92,7 +98,7 @@ export const CardInputComponent: React.FC<customProps> = ({
       <View style={styles.mainCointainer}>
         <TextInput
           // placeholderTextColor={"#2A2A2D"}
-          maxLength={36}
+          maxLength={!isLargeText ? 36 : 500}
           style={styles.input}
           placeholder={placeholder ? placeholder : "the lakes"}
           multiline={multiline}

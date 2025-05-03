@@ -1,43 +1,34 @@
 import React, { useState } from "react";
 import { ThemeManager } from "../../classes/ThemeManager";
-// import { Title } from "../components/texts/Title";
-// import { ContentText } from "../components/texts/ContentText";
-// import { BigTitle } from "../components/texts/BigTitle";
 import { Button76 } from "../../components/button/Button76";
-// import { AddButton } from "../components/button/AddButton";
-// import { CardComponent } from "../components/cards/CardComponent";
 import TopBar from "../../components/topBars/TopBar";
-import { Title } from "../../components/texts/Title";
-import { ContentText } from "../../components/texts/ContentText";
+import { getReduxStoreUser } from "../../redux/getReduxStore";
 import { useAppDispatch } from "../../redux/customDispatch";
-
-import { setTravelData } from "../../redux/propmtDataSlice";
-
+import { setAccommodationData } from "../../redux/propmtDataSlice";
+import { ContentText } from "../../components/texts/ContentText";
+import { Switch } from "react-native";
+import { Title } from "../../components/texts/Title";
 import {
   SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
-  useColorScheme,
   View,
   Platform,
   ViewStyle,
   TouchableWithoutFeedback,
   Keyboard,
   KeyboardAvoidingView,
-  TextInput,
-  PixelRatio,
   Modal,
   Pressable,
   TouchableOpacity,
+  TextInput,
+  PixelRatio,
 } from "react-native";
-import TopProfileBar from "../../components/topBars/TopProfileBar";
-// import { CardListComponent } from "../components/cards/CardListComponent";
 import { CardInputComponent } from "../../components/cards/CardInputComponent";
 
 type CustomProps = {
   navigation: any;
+  route: any;
 };
 
 const normalizeFontSize = (size: number) => {
@@ -45,41 +36,42 @@ const normalizeFontSize = (size: number) => {
   return size / scale;
 };
 
-export const TravelDataScreen = (props: CustomProps): React.JSX.Element => {
-  const theme = new ThemeManager();
+export const AccommodationDataScreen = (
+  props: CustomProps
+): React.JSX.Element => {
+  const { navigation, route } = props;
+  const store = getReduxStoreUser();
   const dispatch = useAppDispatch();
-  const { navigation } = props;
-  const arrSeason = ["Spring", "Summer", "Autumn", "Winter"];
-  const [durationDays, setDurationDays] = useState<number>(0);
-  const [place, setPlace] = useState<string>("");
-  const [seasons, SetSeasons] = useState<string[]>([]);
-  const [showSeasonPickerModal, setShowSeasonPickerModal] = useState(false);
+  const theme = new ThemeManager();
+  const utilitiesList = ["Washing machine", "Dryer"];
+  const [userAccommodation, setUserAccommodation] = useState<string>("");
+  const [utilities, setUtilities] = useState<string[]>([]);
+  const [showUtilitiesPicker, setShowUtilitiesPicker] =
+    useState<boolean>(false);
   const style = StyleSheet.create({
     container: {
       flex: 1,
       alignItems: "center",
       backgroundColor: theme.colors.background,
-      //   width: theme.standarWidth,
-      //   paddingBottom: 50,
     },
     container2: {
       flex: 1,
-      //   backgroundColor: "blue",
       alignItems: "flex-start",
       gap: 15,
     },
-
-    stripeContainer: theme.rotatedStripStyleContainer as ViewStyle,
+    container3: {
+      flex: 1,
+      alignItems: "flex-start",
+      gap: 5,
+      //   backgroundColor: "rgba(0,0,0,0.7)",
+      //   marginTop: 20,
+      //   flexDirection: "row",
+      borderRadius: 10,
+    },
+    stripeContainer: theme.stripStyleContainer as ViewStyle,
     stripe1: theme.stripeStyle.stripe1 as ViewStyle,
     stripe2: theme.stripeStyle.stripe2 as ViewStyle,
     stripe3: theme.stripeStyle.stripe3 as ViewStyle,
-
-    principalContainer: {
-      alignItems: "flex-start",
-      elevation: Platform.OS === "ios" ? 0 : 10,
-      zIndex:
-        Platform.OS === "android" ? undefined : Platform.OS === "ios" ? 0 : 10,
-    },
     mainCointainer: {
       borderRadius: 10,
       backgroundColor: theme.colors.backgroundCard,
@@ -145,28 +137,23 @@ export const TravelDataScreen = (props: CustomProps): React.JSX.Element => {
     },
   });
 
-  const isDisabled = !!(place !== "" && durationDays !== 0);
+  function toggleUtilities(utilitie: string) {
+    setUtilities((prev) =>
+      prev.includes(utilitie)
+        ? prev.filter((s) => s !== utilitie)
+        : [...prev, utilitie]
+    );
+  }
 
   function performButtonAction(): void {
     dispatch(
-      setTravelData({
-        duration: durationDays,
-        destination: place,
-        season: seasons,
+      setAccommodationData({
+        accommodation: userAccommodation,
+        utilities: utilities,
       })
     );
-    navigation.navigate("LuggageData");
+    navigation.navigate("ActivitiesScreen");
   }
-
-  function toggleSeason(season: string) {
-    SetSeasons((prev) =>
-      prev.includes(season)
-        ? prev.filter((s) => s !== season)
-        : [...prev, season]
-    );
-  }
-
-  console.log("SEASONS", seasons);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -198,87 +185,66 @@ export const TravelDataScreen = (props: CustomProps): React.JSX.Element => {
         <View style={style.container2}>
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={{ flex: 1, gap: 15 }}
           >
             <CardInputComponent
-              title="days"
+              title="Accommodation"
               z={Platform.OS === "ios" ? 0 : 10}
-              multiline={false}
-              action={(e: string) =>
-                setDurationDays(Number(e.replace(/[.,]/g, "")))
-              }
-              placeholder="Required"
-              keyboardType="numeric"
-              // value={store.name}
+              multiline={true}
+              action={(e: string) => setUserAccommodation(e)}
+              placeholder="Not required"
+              value={userAccommodation}
+              isLargeText={true}
             />
-            <CardInputComponent
-              title="where to?"
-              z={Platform.OS === "ios" ? 0 : 10}
-              multiline={false}
-              action={(e: string) => setPlace(e)}
-              placeholder="Required"
-            />
-
-            <View style={style.principalContainer}>
-              <Pressable
-                onPress={() => {
-                  setShowSeasonPickerModal(true);
-                }}
-              >
-                <Title>season</Title>
-                <View style={style.mainCointainer}>
-                  <TextInput
-                    style={style.input}
-                    placeholder="Not required"
-                    editable={false}
-                    pointerEvents="none"
-                    multiline={true}
-                    value={seasons
-                      .map((e, i) => {
-                        return e;
-                      })
-                      .join(" - ")}
-                  />
-                </View>
-              </Pressable>
-            </View>
           </KeyboardAvoidingView>
-          <Button76
-            action={performButtonAction}
-            disabled={isDisabled}
-            text="next"
-          />
 
-          <Modal
-            visible={showSeasonPickerModal}
-            transparent
-            animationType="fade"
+          <Pressable
+            onPress={() => {
+              setShowUtilitiesPicker(true);
+            }}
           >
+            <Title>Utilities</Title>
+            <View style={style.mainCointainer}>
+              <TextInput
+                style={style.input}
+                placeholder="Not required"
+                editable={false}
+                pointerEvents="none"
+                multiline={true}
+                value={utilities
+                  .map((e, i) => {
+                    return e;
+                  })
+                  .join(" - ")}
+              />
+            </View>
+          </Pressable>
+
+          <Modal visible={showUtilitiesPicker} transparent animationType="fade">
             <Pressable
               style={[StyleSheet.absoluteFill, style.overlay]}
-              onPress={() => setShowSeasonPickerModal(false)}
+              onPress={() => setShowUtilitiesPicker(false)}
             >
               <TouchableWithoutFeedback>
                 <View style={style.modal}>
-                  <Title>Select Seasons</Title>
+                  <Title>Select utilities</Title>
 
-                  {arrSeason.map((season) => {
-                    const isSelected = seasons.includes(season);
+                  {utilitiesList.map((utilitie) => {
+                    const isSelected = utilities.includes(utilitie);
                     return (
                       <TouchableOpacity
-                        key={season}
+                        key={utilitie}
                         style={[
                           style.option,
                           isSelected && style.selectedOption,
                         ]}
-                        onPress={() => toggleSeason(season)}
+                        onPress={() => toggleUtilities(utilitie)}
                       >
                         <ContentText
                           style={
                             isSelected ? style.selectedText : style.optionText
                           }
                         >
-                          {season}
+                          {utilitie}
                         </ContentText>
                       </TouchableOpacity>
                     );
@@ -287,6 +253,7 @@ export const TravelDataScreen = (props: CustomProps): React.JSX.Element => {
               </TouchableWithoutFeedback>
             </Pressable>
           </Modal>
+          <Button76 action={performButtonAction} disabled={true} text="next" />
         </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>

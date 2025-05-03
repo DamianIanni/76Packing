@@ -25,7 +25,7 @@ import TopProfileBar from "../components/topBars/TopProfileBar";
 // import auth from "@react-native-firebase/auth";
 
 import { useDispatch } from "react-redux";
-import { getReduxStore } from "../redux/getReduxStore";
+import { getReduxStoreUser } from "../redux/getReduxStore";
 interface customProps {
   navigation: any;
 }
@@ -46,7 +46,7 @@ const HomeScreen = (props: customProps): React.JSX.Element => {
     },
   });
 
-  const myStore = getReduxStore();
+  const myStore = getReduxStoreUser();
   console.log("LA STORE DE REDUX", myStore);
 
   return (
