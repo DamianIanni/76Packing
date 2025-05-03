@@ -167,5 +167,6 @@ ios/DerivedData/
 ios/*.xcworkspace
 ios/*.xcuserstate
 ios/project.xcworkspace/xcuserdata/
-
 .DS_Store
+*.xcuserstate
+*.xcuserdata/
