@@ -20,6 +20,9 @@ import { NameText } from "../components/texts/NameText";
 import auth from "@react-native-firebase/auth";
 
 import { useSelector } from "react-redux";
+import { getReduxStoreUser } from "../redux/getReduxStore";
+import { useAppDispatch } from "../redux/customDispatch";
+import { clearUser } from "../redux/userSlice";
 
 type CustomProps = {
   navigation: any;
@@ -28,7 +31,8 @@ type CustomProps = {
 const SettingScreen = (props: CustomProps): React.JSX.Element => {
   const theme = new ThemeManager();
   const { navigation } = props;
-  const user = useSelector((state: any) => state.user);
+  const store = getReduxStoreUser();
+  const dispatch = useAppDispatch();
   // console.log("Navigation prop:", navigation);
 
   const styles = StyleSheet.create({
@@ -130,7 +134,10 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
       />
       <View style={styles.mainPhotoCointainer}>
         <TouchableOpacity style={styles.iconContainer}>
-          <Image source={{ uri: user.photoUrl }} style={styles.icon} />
+          <Image
+            source={{ uri: store.photoUrl || undefined }}
+            style={styles.icon}
+          />
         </TouchableOpacity>
         <NameText
           style={{
@@ -170,19 +177,67 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
         <View style={styles.mainCointainer}>
           <View style={styles.elementListContainer}>
             <TouchableOpacity
-              onPress={() => navigation.navigate("PersonalData")}
+              onPress={() =>
+                navigation.navigate("PersonalData", {
+                  from: "SettingScreen",
+                })
+              }
             >
               <NameText style={{ fontFamily: "Afacad-Bold" }}>PROFILE</NameText>
             </TouchableOpacity>
             <Divider />
-            <TouchableOpacity onPress={() => navigation.navigate("StyleData")}>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("StyleData", {
+                  from: "SettingScreen",
+                })
+              }
+            >
               <NameText style={{ fontFamily: "Afacad-Bold" }}>STYLE</NameText>
             </TouchableOpacity>
             <Divider />
             <TouchableOpacity
-              onPress={() => navigation.navigate("LuggageData")}
+              onPress={() =>
+                navigation.navigate("LuggageData", {
+                  from: "SettingScreen",
+                })
+              }
             >
               <NameText style={{ fontFamily: "Afacad-Bold" }}>LUGGAGE</NameText>
+            </TouchableOpacity>
+            <Divider />
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("TravelData", {
+                  from: "SettingScreen",
+                })
+              }
+            >
+              <NameText style={{ fontFamily: "Afacad-Bold" }}>TRAVEL</NameText>
+            </TouchableOpacity>
+            <Divider />
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("ActivitiesScreen", {
+                  from: "SettingScreen",
+                })
+              }
+            >
+              <NameText style={{ fontFamily: "Afacad-Bold" }}>
+                ACTIVITIES
+              </NameText>
+            </TouchableOpacity>
+            <Divider />
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("AccommodationScreen", {
+                  from: "SettingScreen",
+                })
+              }
+            >
+              <NameText style={{ fontFamily: "Afacad-Bold" }}>
+                ACCOMMODATION
+              </NameText>
             </TouchableOpacity>
             <Divider />
             <TouchableOpacity>
@@ -193,6 +248,7 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
             <Divider />
             <TouchableOpacity
               onPress={() => {
+                dispatch(clearUser());
                 auth().signOut();
                 navigation.reset({
                   index: 0,

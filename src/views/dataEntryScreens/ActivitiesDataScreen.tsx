@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { ThemeManager } from "../../classes/ThemeManager";
 import { Button76 } from "../../components/button/Button76";
 import TopBar from "../../components/topBars/TopBar";
+import { getReduxStoreUser } from "../../redux/getReduxStore";
 import { useAppDispatch } from "../../redux/customDispatch";
-import { getReduxStore } from "../../redux/getReduxStore";
-import { setUserStyleData } from "../../redux/userSlice";
+import { setActivitiesData } from "../../redux/propmtDataSlice";
 
 import {
   SafeAreaView,
@@ -24,37 +24,12 @@ type CustomProps = {
   route: any;
 };
 
-export const StyleDataScreen = (props: CustomProps): React.JSX.Element => {
-  const theme = new ThemeManager();
-  const store = getReduxStore();
+export const ActivitiesDataScreen = (props: CustomProps): React.JSX.Element => {
   const { navigation, route } = props;
-  const btnText = route.params?.from ? "Save" : "next";
+  const store = getReduxStoreUser();
   const dispatch = useAppDispatch();
-  const [userStyle, setUserStyle] = useState<string>(store.style || "");
-  const [userBrands, setUserBrands] = useState<string>(store.brands || "");
-
-  function dispatchUser() {
-    //Below is the real evaluation
-    // if (!store.userId || !store.email) {
-    //   throw new Error("Faltan datos obligatorios del usuario.");
-    // }
-
-    const objectDataStyle = {
-      style: userStyle,
-      brands: userBrands,
-    };
-    dispatch(setUserStyleData(objectDataStyle));
-  }
-
-  function performButtonAction() {
-    dispatchUser();
-    if (route.params?.from) {
-      navigation.goBack();
-      return;
-    }
-    navigation.navigate("MainTabs");
-  }
-
+  const theme = new ThemeManager();
+  const [userActivities, setUserActivities] = useState<string>("");
   const style = StyleSheet.create({
     container: {
       flex: 1,
@@ -66,12 +41,25 @@ export const StyleDataScreen = (props: CustomProps): React.JSX.Element => {
       alignItems: "flex-start",
       gap: 15,
     },
-
+    container3: {
+      flex: 1,
+      alignItems: "flex-start",
+      gap: 5,
+      // backgroundColor: "pink",
+      marginTop: 20,
+      // position: "absolute",
+      // bottom: "30%",
+    },
     stripeContainer: theme.stripStyleContainer as ViewStyle,
     stripe1: theme.stripeStyle.stripe1 as ViewStyle,
     stripe2: theme.stripeStyle.stripe2 as ViewStyle,
     stripe3: theme.stripeStyle.stripe3 as ViewStyle,
   });
+
+  function performButtonAction(): void {
+    dispatch(setActivitiesData({ activities: userActivities }));
+    navigation.navigate("PackingLoading");
+  }
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -105,32 +93,17 @@ export const StyleDataScreen = (props: CustomProps): React.JSX.Element => {
             behavior={Platform.OS === "ios" ? "padding" : "height"}
           >
             <CardInputComponent
-              title="brands"
+              title="activities"
               z={Platform.OS === "ios" ? 0 : 10}
               multiline={true}
-              action={(e: string) => setUserBrands(e)}
+              action={(e: string) => setUserActivities(e)}
               placeholder="Not required"
-              value={store.brands}
-            />
-          </KeyboardAvoidingView>
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-          >
-            <CardInputComponent
-              title="Style"
-              z={Platform.OS === "ios" ? 0 : 10}
-              multiline={true}
-              action={(e: string) => setUserStyle(e)}
-              placeholder="Not required"
-              value={store.style}
+              isLargeText={true}
+              value={userActivities}
             />
           </KeyboardAvoidingView>
 
-          <Button76
-            action={performButtonAction}
-            text={btnText}
-            disabled={true}
-          />
+          <Button76 action={performButtonAction} disabled={true} text="next" />
         </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>

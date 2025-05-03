@@ -24,6 +24,8 @@ import { ShowLuggageScreen } from "./src/views/ShowLuggageScreen";
 import { PackingLoadingScreen } from "./src/views/PackingLoadingScreen";
 import { FavouriteScreen } from "./src/views/FavouritesScreen";
 import { LoginScreen } from "./src/views/LoginScreen";
+import { ActivitiesDataScreen } from "./src/views/dataEntryScreens/ActivitiesDataScreen";
+import { AccommodationDataScreen } from "./src/views/dataEntryScreens/AccommodationDataScreen";
 
 import firebase from "@react-native-firebase/app";
 import { initializeApp } from "firebase/app";
@@ -211,6 +213,14 @@ export default function App(): React.JSX.Element {
           <Stack.Screen name="StyleData" component={StyleDataScreen} />
           <Stack.Screen name="TravelData" component={TravelDataScreen} />
           <Stack.Screen name="LuggageData" component={LuggageDataScreen} />
+          <Stack.Screen
+            name="ActivitiesScreen"
+            component={ActivitiesDataScreen}
+          />
+          <Stack.Screen
+            name="AccommodationScreen"
+            component={AccommodationDataScreen}
+          />
           <Stack.Screen name="ShowLuggage" component={ShowLuggageScreen} />
           <Stack.Screen
             name="PackingLoading"

@@ -10,16 +10,22 @@ import {
   Platform,
   ViewStyle,
   Pressable,
+  TouchableOpacity,
+  Modal,
+  Text,
 } from "react-native";
 import { ThemeManager } from "../../classes/ThemeManager";
 import { ContentText } from "../texts/ContentText";
 import { Title } from "../texts/Title";
+import { heightGenerator } from "../../utils/heightGenerators";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 const normalizeFontSize = (size: number) => {
   const scale = PixelRatio.getFontScale(); // Obtiene el factor de escala de la fuente del sistema
   return size / scale;
 };
+
+const heightsGenerated = heightGenerator();
 
 interface customProps {
   title: string;
@@ -28,9 +34,8 @@ interface customProps {
   multiline?: boolean;
   innerPad?: number;
   placeholder?: string;
-  action: (e: string | number) => void;
-  value?: string | null;
-  isDate: boolean;
+  action: (e: string) => void;
+  valueDate: string | null | undefined;
 }
 
 export const CardInputPickerComponent: React.FC<customProps> = ({
@@ -41,15 +46,22 @@ export const CardInputPickerComponent: React.FC<customProps> = ({
   multiline,
   placeholder,
   action,
-  value,
-  isDate,
+  valueDate,
 }) => {
+  // const initialSelectedIndex = valueHeight !== null ? heightsGenerated.findIndex(option => option.value === valueHeight) : 0;
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
-  const [showHeigthPicker, setShowHeigthPicker] = useState<boolean>(false);
-  const [dateOfBirth, setDateOfBirth] = useState<string>();
-  const [userHeight, setUserHeight] = useState<number>();
+  // const [selectedIndex, setSelectedIndex] = useState<number>(
+  //   valueHeigth !== null
+  //     ? heightsGenerated.findIndex((option) => option.value === valueHeigth)
+  //     : 0
+  // );
+  const [dateOfBirth, setDateOfBirth] = useState<string>(
+    (valueDate && new Date(valueDate).toDateString()) || ""
+  );
+  // const [userHeight, setUserHeight] = useState<string>();
   customWidth = customWidth ? customWidth : 0;
   z = z ? z : undefined;
+  const dateToString = valueDate && new Date(valueDate).toDateString();
   const theme = new ThemeManager();
   const styles = StyleSheet.create({
     principalContainer: {
@@ -75,16 +87,47 @@ export const CardInputPickerComponent: React.FC<customProps> = ({
       maxHeight: 150,
       paddingRight: innerPad ? innerPad : 0,
     },
+    modalContainer: {
+      flex: 1,
+      backgroundColor: "rgba(0,0,0,0.4)",
+      justifyContent: "flex-end",
+    },
+    pickerContainer: {
+      backgroundColor: "#fff",
+      paddingBottom: 30,
+      paddingTop: 20,
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
+    },
+    button: {
+      marginTop: 20,
+      alignSelf: "center",
+    },
+    buttonText: {
+      color: "blue",
+      fontSize: 16,
+    },
   });
 
-  function whichValueToShow(): string | undefined {
-    return isDate ? dateOfBirth : userHeight?.toString();
-  }
+  // function whichValueToShow(): string | undefined {
+  //   if (valueDate !== null && isDate) {
+  //     return valueDate;
+  //   }
+  //   // if (valueHeigth !== null && !isDate) {
+  //   //   return heightsGenerated.find((item) => item.value === valueHeigth)!.label;
+  //   // }
+  //   return isDate ? dateOfBirth : userHeight;
+  // }
 
-  const handleActionHeight = (data: number): void => {
-    setUserHeight(data);
-    action(data);
-  };
+  // const handleActionHeight = (data: {
+  //   index: number;
+  //   item: ItemType;
+  // }): void => {
+  //   setShowHeigthPicker(false);
+  //   setSelectedIndex(data.index);
+  //   setUserHeight(data.item.label);
+  //   action(data.item.value);
+  // };
 
   const handleActionDOB = (data: Date): void => {
     setShowDatePicker(false);
@@ -100,11 +143,7 @@ export const CardInputPickerComponent: React.FC<customProps> = ({
     //   <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.principalContainer}>
       <Title>{title}</Title>
-      <Pressable
-        onPress={() =>
-          isDate ? setShowDatePicker(true) : setShowHeigthPicker(true)
-        }
-      >
+      <Pressable onPress={() => setShowDatePicker(true)}>
         <View style={styles.mainCointainer}>
           <TextInput
             // placeholderTextColor={"#2A2A2D"}
@@ -113,7 +152,7 @@ export const CardInputPickerComponent: React.FC<customProps> = ({
             multiline={multiline}
             pointerEvents="none"
             keyboardType="default"
-            value={value ? value : whichValueToShow()}
+            value={dateOfBirth}
             editable={false}
           />
         </View>
@@ -126,8 +165,26 @@ export const CardInputPickerComponent: React.FC<customProps> = ({
         onConfirm={handleActionDOB}
         onCancel={() => setShowDatePicker(false)}
       />
+
+      {/* <Modal visible={showHeigthPicker} transparent animationType="slide">
+        <View style={styles.modalContainer}>
+          <View style={styles.pickerContainer}> */}
+      {/* <WheelPickerExpo
+        height={300}
+        width={150}
+        initialSelectedIndex={selectedIndex}
+        items={heightsGenerated}
+        onChange={(item) => handleActionHeight(item)}
+      /> */}
+      {/* <TouchableOpacity
+              onPress={() => setShowHeigthPicker(false)}
+              style={styles.button}
+            >
+              <Text style={styles.buttonText}>Cancel</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal> */}
     </View>
-    //   </TouchableWithoutFeedback>
-    // </KeyboardAvoidingView>
   );
 };

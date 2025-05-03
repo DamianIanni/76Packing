@@ -12,10 +12,14 @@ import {
 } from "react-native";
 import { ThemeManager } from "../classes/ThemeManager";
 import { ButtonText } from "../components/texts/ButtonText";
+import { getReduxStorePrompt } from "../redux/getReduxStore";
 
 export const PackingLoadingScreen = () => {
   const theme = new ThemeManager();
   const os = Platform.OS;
+  const storePrompt = getReduxStorePrompt();
+
+  console.log("STORE PROMPT", storePrompt);
 
   const normalizeFontSize = (size: number) => {
     const scale = PixelRatio.getFontScale(); // Obtiene el factor de escala de la fuente del sistema
@@ -46,9 +50,9 @@ export const PackingLoadingScreen = () => {
       fontFamily: "Afacad-BoldItalic",
       color: theme.themeMode ? theme.colors.stripe3 : theme.colors.stripe2,
       textAlign: "center",
-      textShadowColor: "rgba(0, 0, 0, 0.4)", // Color de sombra (semi-transparente)
-      textShadowOffset: { width: 2, height: 3 }, // Desplazamiento de la sombra
-      textShadowRadius: os === "ios" ? 4 : 8, // Difuminado de la sombra
+      // textShadowColor: "rgba(0, 0, 0, 0.4)", // Color de sombra (semi-transparente)
+      // textShadowOffset: { width: 2, height: 3 }, // Desplazamiento de la sombra
+      // textShadowRadius: os === "ios" ? 4 : 8, // Difuminado de la sombra
     },
     logo: {
       height: "40%",
