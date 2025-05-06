@@ -3,7 +3,7 @@ import { ThemeManager } from "../../classes/ThemeManager";
 import { Button76 } from "../../components/button/Button76";
 import TopBar from "../../components/topBars/TopBar";
 import { useAppDispatch } from "../../redux/customDispatch";
-import { getReduxStore } from "../../redux/getReduxStore";
+import { getReduxStoreUser } from "../../redux/getReduxStore";
 import { setUserStyleData } from "../../redux/userSlice";
 
 import {
@@ -26,7 +26,7 @@ type CustomProps = {
 
 export const StyleDataScreen = (props: CustomProps): React.JSX.Element => {
   const theme = new ThemeManager();
-  const store = getReduxStore();
+  const store = getReduxStoreUser();
   const { navigation, route } = props;
   const btnText = route.params?.from ? "Save" : "next";
   const dispatch = useAppDispatch();

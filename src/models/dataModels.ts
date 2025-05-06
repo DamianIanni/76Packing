@@ -9,6 +9,14 @@ export interface PropmtDataInterface {
   accommodation: string | null;
   utilities: string[] | null;
 }
+
+export interface SavedLuggage {
+  userId: string;
+  luggage1: string;
+  luggage2?: string;
+  luggage3?: string;
+  luggage4?: string;
+}
 export interface UserInterface {
   email: string;
   name: string;
@@ -32,12 +40,12 @@ export interface FavClothesInterface {
 
 export interface FavPackingInterface {
   userId: string;
-  name: string;
-  luggage1: string;
-  luggage2: string | null;
-  luggage3: string | null;
-  luggage4: string | null;
-  packingType: PackingType;
+  Name: string;
+  Luggage_1: string;
+  Luggage_2: string | null;
+  Luggage_3: string | null;
+  Luggage_4: string | null;
+  packing_type: PackingType;
 }
 
 export interface UserStateInterface {
