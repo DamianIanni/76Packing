@@ -4,6 +4,8 @@ import {
   GET_FAVPACKING,
   GET_PROPMT_LUGGAGE,
   GET_SAVEDLUGGAGE,
+  GET_USERID,
+  GET_ALL_USER_DATA,
 } from "../queries";
 
 export const getUserFromServer = async (userId: string) => {
@@ -13,8 +15,37 @@ export const getUserFromServer = async (userId: string) => {
       variables: { userId },
       fetchPolicy: "network-only",
     });
-    // const parseData = JSON.parse(data.getUser.data);
     console.log("USER DATA FROM SERVER", data.getUser.data);
+
+    return data;
+  } catch (error) {
+    console.log("EL ERROR", error);
+  }
+};
+
+export const getUserIdFromServer = async (email: string) => {
+  try {
+    const { data } = await client.query({
+      query: GET_USERID,
+      variables: { email },
+      fetchPolicy: "network-only",
+    });
+    console.log("USER DATA FROM SERVER", data);
+
+    return data;
+  } catch (error) {
+    console.log("EL ERROR", error);
+  }
+};
+
+export const getAllUserDataFromServer = async (userId: string) => {
+  try {
+    const { data } = await client.query({
+      query: GET_ALL_USER_DATA,
+      variables: { userId },
+      fetchPolicy: "network-only",
+    });
+    console.log("USER DATA FROM SERVER", data);
 
     return data;
   } catch (error) {
@@ -29,7 +60,6 @@ export const getFavPackingFromServer = async (userId: string) => {
       variables: { userId },
       fetchPolicy: "network-only",
     });
-    // const parseData = JSON.parse(data.getUser.data);
     console.log("DATA FROM SERVER", data);
 
     return data;
@@ -45,7 +75,6 @@ export const getPromptLuggageFromServer = async (userId: string) => {
       variables: { userId },
       fetchPolicy: "network-only",
     });
-    // const parseData = JSON.parse(data.getUser.data);
     console.log("DATA FROM SERVER", data);
 
     return data;
@@ -61,7 +90,6 @@ export const getSavedLuggageFromServer = async (userId: string) => {
       variables: { userId },
       fetchPolicy: "network-only",
     });
-    // const parseData = JSON.parse(data.getUser.data);
     console.log("DATA FROM SERVER", data);
 
     return data;

@@ -18,6 +18,8 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { CardInputComponent } from "../../components/cards/CardInputComponent";
+import { insertUserStyle } from "../../api/apiServices/mutationServices";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type CustomProps = {
   navigation: any;
@@ -33,17 +35,19 @@ export const StyleDataScreen = (props: CustomProps): React.JSX.Element => {
   const [userStyle, setUserStyle] = useState<string>(store.style || "");
   const [userBrands, setUserBrands] = useState<string>(store.brands || "");
 
-  function dispatchUser() {
+  async function dispatchUser() {
     //Below is the real evaluation
     // if (!store.userId || !store.email) {
     //   throw new Error("Faltan datos obligatorios del usuario.");
     // }
-
+    const uuid = await AsyncStorage.getItem("userIdInStorage");
     const objectDataStyle = {
       style: userStyle,
       brands: userBrands,
     };
     dispatch(setUserStyleData(objectDataStyle));
+    if (userStyle === "" || userBrands === "") return;
+    await insertUserStyle({ ...objectDataStyle, userId: uuid! });
   }
 
   function performButtonAction() {

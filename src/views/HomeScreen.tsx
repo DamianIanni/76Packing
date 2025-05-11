@@ -5,6 +5,8 @@ import {
   getFavPackingFromServer,
   getSavedLuggageFromServer,
   getPromptLuggageFromServer,
+  getUserIdFromServer,
+  getAllUserDataFromServer,
 } from "../api/apiServices/queryServices";
 import {
   insertUserToServer,
@@ -49,7 +51,7 @@ const HomeScreen = (props: customProps): React.JSX.Element => {
   });
 
   const myStore = getReduxStoreUser();
-  console.log("LA STORE DE REDUX", myStore);
+  // console.log("LA STORE DE REDUX", myStore);
 
   return (
     <SafeAreaView
@@ -85,6 +87,16 @@ const HomeScreen = (props: customProps): React.JSX.Element => {
           onPress={() =>
             getUserFromServer("ec949b67-c76f-4dbd-8084-f28ce4e61c46")
           }
+        />
+        <Button
+          title="Get user all data"
+          onPress={() =>
+            getAllUserDataFromServer("ae28c49b-d57a-4081-a802-ae7f2aed5c7a")
+          }
+        />
+        <Button
+          title="Get user ID"
+          onPress={() => getUserIdFromServer("monetizacion@gmail.com")}
         />
         <Button
           title="Get Packing"
@@ -152,7 +164,7 @@ const HomeScreen = (props: customProps): React.JSX.Element => {
               Name: "Thor",
               Surname: "Odinson",
               Email: "monetizacion@gmail.com",
-              DateOfBirth: "1998-01-01",
+              DateOfBirth: new Date("1998-01-01"),
               userId: "ec949b67-c76f-4dbd-8084-f28ce4e61c46",
               // height: 180,
               Gender: "male",

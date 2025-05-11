@@ -25,12 +25,19 @@ const userSlice = createSlice({
   reducers: {
     setUserAfterLogin: (
       state,
-      action: PayloadAction<{ email: string; photoUrl: string | null }>
+      action: PayloadAction<{
+        email: string;
+        photoUrl: string | null;
+        givenName: string | null;
+        familyName: string | null;
+      }>
     ) => {
       state.email = action.payload.email;
       state.photoUrl = action.payload.photoUrl;
+      state.name = action.payload.givenName;
+      state.surname = action.payload.familyName;
     },
-    setUserProfileData: (state, action: PayloadAction<UserInterface>) => {
+    setAllData: (state, action: PayloadAction<UserStateInterface>) => {
       state.email = action.payload.email;
       state.name = action.payload.name;
       state.surname = action.payload.surname;
@@ -38,6 +45,30 @@ const userSlice = createSlice({
       state.gender = action.payload.gender;
       state.height = action.payload.height;
       state.userId = action.payload.userId;
+      state.style = action.payload.style;
+      state.brands = action.payload.brands;
+      state.savedLuggage = action.payload.savedLuggage;
+      state.favClothes = action.payload.favClothes;
+      state.favPacking = action.payload.favPacking;
+    },
+    setUserProfileData: (
+      state,
+      action: PayloadAction<{
+        email: string;
+        name: string;
+        surname: string;
+        dateOfBirth?: string | null;
+        gender?: string | null;
+        height?: number | null;
+      }>
+    ) => {
+      state.email = action.payload.email;
+      state.name = action.payload.name;
+      state.surname = action.payload.surname;
+      state.dateOfBirth = action.payload.dateOfBirth ?? null;
+      state.gender = action.payload.gender ?? null;
+      state.height = action.payload.height ?? null;
+      // state.userId = action.payload.userId;
     },
     setUserStyleData: (
       state,
@@ -82,6 +113,7 @@ export const {
   setUserProfileData,
   setUserStyleData,
   setSavedLuggageData,
+  setAllData,
   clearUser,
 } = userSlice.actions;
 

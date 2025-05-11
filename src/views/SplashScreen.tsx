@@ -10,16 +10,24 @@ import {
 import auth from "@react-native-firebase/auth";
 import { ThemeManager } from "../classes/ThemeManager";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getReduxStoreUser } from "../redux/getReduxStore";
+import { useAppDispatch } from "../redux/customDispatch";
+import { setAllData } from "../redux/userSlice";
+import {
+  getAllUserDataFromServer,
+  getUserIdFromServer,
+} from "../api/apiServices/queryServices";
+import { checkUUID } from "../utils/checkUUID";
 
 interface CustomProps {
   navigation: any;
 }
 
 const SplashScreen = (props: CustomProps): React.JSX.Element => {
+  const dispatch = useAppDispatch();
   const theme = new ThemeManager();
   const opacity = useRef(new Animated.Value(1)).current;
   const { navigation } = props;
-  const mockedBoolean = null;
 
   const styles = StyleSheet.create({
     mainView: {
@@ -49,6 +57,17 @@ const SplashScreen = (props: CustomProps): React.JSX.Element => {
     stripe3: theme.tallStripeStyle.stripe3 as ViewStyle,
   });
 
+  async function getItemFromAsyncStorage(): Promise<string | null> {
+    return await AsyncStorage.getItem("userIdInStorage");
+  }
+
+  async function saveAllDataInReduStore(email: string | null) {
+    if (!email) return;
+    const userId = await getUserIdFromServer(email);
+    const allData = await getAllUserDataFromServer(userId.getUserId.data);
+    dispatch(setAllData(allData));
+  }
+
   useEffect(() => {
     setTimeout(() => {
       Animated.timing(opacity, {
@@ -60,28 +79,24 @@ const SplashScreen = (props: CustomProps): React.JSX.Element => {
   }, []);
 
   useEffect(() => {
-    const unsubscribe = auth().onAuthStateChanged((user) => {
+    const unsubscribe = auth().onAuthStateChanged(async (user) => {
+      const userIdInStorage = await getItemFromAsyncStorage();
       console.log("USER DESDE AUTH", user);
+      let initialRoute: string;
 
-      if (user) {
-        // Usuario autenticado
-        // !mockedBoolean || null
-        //   ? navigation.reset({
-        //       index: 0,
-        //       routes: [{ name: "PersonalData" }],
-        //     })
-        //   :
-        navigation.reset({
-          index: 0,
-          routes: [{ name: "MainTabs" }],
-        });
+      if (!user) {
+        initialRoute = "LoginScreen";
+      } else if (checkUUID(userIdInStorage!)) {
+        initialRoute = "PersonalData";
       } else {
-        // No autenticado
-        navigation.reset({
-          index: 0,
-          routes: [{ name: "LoginScreen" }],
-        });
+        initialRoute = "MainTabs";
+        saveAllDataInReduStore(user.email);
       }
+
+      navigation.reset({
+        index: 0,
+        routes: [{ name: initialRoute }],
+      });
     });
 
     return unsubscribe; // Limpiamos el listener al salir

@@ -21,8 +21,8 @@ export interface UserInterface {
   email: string;
   name: string;
   surname: string;
-  userId: string;
-  dateOfBirth: string | null;
+  // userId: string;
+  dateOfBirth: Date | null;
   height: number | null;
   gender: string | null;
 }

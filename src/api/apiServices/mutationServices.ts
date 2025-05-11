@@ -12,6 +12,7 @@ import {
   UPDATE_SAVEDLUGGAGE,
   UPDATE_USER,
   DELETE_USER,
+  INSERT_USER_STYLE,
 } from "../mutations";
 
 //// USER
@@ -41,8 +42,8 @@ export const updateUserToServer = async (user: {
   Surname: string;
   userId: string;
   Email: string;
-  DateOfBirth: string;
-  Gender: string;
+  DateOfBirth: string | null;
+  Gender: string | null;
 }) => {
   try {
     const { data } = await client.mutate({
@@ -69,6 +70,25 @@ export const deleteUserToServer = async (userId: string) => {
     // const parseData = JSON.parse(data.getUser.data);
     console.log("DATA FROM SERVER", data);
 
+    return data;
+  } catch (error) {
+    console.log("EL ERROR", error);
+  }
+};
+
+export const insertUserStyle = async (userStyle: {
+  userId: string;
+  style: string;
+  brands: string;
+}) => {
+  try {
+    const { data } = await client.mutate({
+      mutation: INSERT_USER_STYLE,
+      variables: {
+        userStyle,
+      },
+      fetchPolicy: "network-only",
+    });
     return data;
   } catch (error) {
     console.log("EL ERROR", error);
