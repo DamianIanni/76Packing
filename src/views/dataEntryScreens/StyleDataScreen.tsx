@@ -3,7 +3,7 @@ import { ThemeManager } from "../../classes/ThemeManager";
 import { Button76 } from "../../components/button/Button76";
 import TopBar from "../../components/topBars/TopBar";
 import { useAppDispatch } from "../../redux/customDispatch";
-import { getReduxStore } from "../../redux/getReduxStore";
+import { getReduxStoreUser } from "../../redux/getReduxStore";
 import { setUserStyleData } from "../../redux/userSlice";
 
 import {
@@ -18,6 +18,8 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { CardInputComponent } from "../../components/cards/CardInputComponent";
+import { insertUserStyle } from "../../api/apiServices/mutationServices";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type CustomProps = {
   navigation: any;
@@ -26,24 +28,26 @@ type CustomProps = {
 
 export const StyleDataScreen = (props: CustomProps): React.JSX.Element => {
   const theme = new ThemeManager();
-  const store = getReduxStore();
+  const store = getReduxStoreUser();
   const { navigation, route } = props;
   const btnText = route.params?.from ? "Save" : "next";
   const dispatch = useAppDispatch();
   const [userStyle, setUserStyle] = useState<string>(store.style || "");
   const [userBrands, setUserBrands] = useState<string>(store.brands || "");
 
-  function dispatchUser() {
+  async function dispatchUser() {
     //Below is the real evaluation
     // if (!store.userId || !store.email) {
     //   throw new Error("Faltan datos obligatorios del usuario.");
     // }
-
+    const uuid = await AsyncStorage.getItem("userIdInStorage");
     const objectDataStyle = {
       style: userStyle,
       brands: userBrands,
     };
     dispatch(setUserStyleData(objectDataStyle));
+    if (userStyle === "" || userBrands === "") return;
+    await insertUserStyle({ ...objectDataStyle, userId: uuid! });
   }
 
   function performButtonAction() {

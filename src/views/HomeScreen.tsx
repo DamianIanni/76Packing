@@ -1,28 +1,32 @@
 import React from "react";
 import { ThemeManager } from "../classes/ThemeManager";
-// import { Title } from "../components/texts/Title";
-// import { ContentText } from "../components/texts/ContentText";
-// import { BigTitle } from "../components/texts/BigTitle";
-// import { Button76 } from "../components/button/Button76";
-// import { AddButton } from "../components/button/AddButton";
-// import { CardComponent } from "../components/cards/CardComponent";
-// import TopBar from "../components/topBars/TopBar";
+import {
+  getUserFromServer,
+  getFavPackingFromServer,
+  getSavedLuggageFromServer,
+  getPromptLuggageFromServer,
+  getUserIdFromServer,
+  getAllUserDataFromServer,
+} from "../api/apiServices/queryServices";
+import {
+  insertUserToServer,
+  insertFavPackingToServer,
+  insertSavedLuggageToServer,
+  updateFavPackingToServer,
+  updateSavedLuggageToServer,
+  updateUserToServer,
+  deleteUserToServer,
+} from "../api/apiServices/mutationServices";
 
 import {
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
-  // Text,
-  // useColorScheme,
-  // View,
   Platform,
   Button,
 } from "react-native";
 import TopProfileBar from "../components/topBars/TopProfileBar";
-// import { CardListComponent } from "../components/cards/CardListComponent";
-// import { CardInputComponent } from "../components/cards/CardInputComponent";
-// import auth from "@react-native-firebase/auth";
 
 import { useDispatch } from "react-redux";
 import { getReduxStoreUser } from "../redux/getReduxStore";
@@ -47,7 +51,7 @@ const HomeScreen = (props: customProps): React.JSX.Element => {
   });
 
   const myStore = getReduxStoreUser();
-  console.log("LA STORE DE REDUX", myStore);
+  // console.log("LA STORE DE REDUX", myStore);
 
   return (
     <SafeAreaView
@@ -79,41 +83,127 @@ const HomeScreen = (props: customProps): React.JSX.Element => {
         }}
       >
         <Button
-          title="Personal Data"
-          onPress={() => navigation.navigate("PersonalData")}
+          title="Get user"
+          onPress={() =>
+            getUserFromServer("ec949b67-c76f-4dbd-8084-f28ce4e61c46")
+          }
         />
         <Button
-          title="Style Data"
-          onPress={() => navigation.navigate("StyleData")}
-        />
-        {/* <Button
-          title="Travel Data"
-          onPress={() => navigation.navigate("TravelData")}
+          title="Get user all data"
+          onPress={() =>
+            getAllUserDataFromServer("ae28c49b-d57a-4081-a802-ae7f2aed5c7a")
+          }
         />
         <Button
-          title="Luggage Data"
-          onPress={() => navigation.navigate("LuggageData")}
+          title="Get user ID"
+          onPress={() => getUserIdFromServer("monetizacion@gmail.com")}
         />
         <Button
-          title="Show luggage Data"
-          onPress={() => navigation.navigate("ShowLuggage")}
-        /> */}
-        {/* <Button title="iniciar sesion X" onPress={() => signInWithGoogle(dispatch)} /> */}
-        {/* {Platform.OS === "ios" && (
-          <Button
-            title="iniciar sesion Apple"
-            onPress={() => signInWithGoogle(dispatch)}
-          />
-        )} */}
-        {/* <Title>where to?</Title>
-        <ContentText>Place, city or country</ContentText>
-        <BigTitle>SPAIN</BigTitle>
-        <Button76 text="next" />
-        <AddButton text="+" />
-        <CardComponent />
-        <TopBar text="malaga" />
-        <CardListComponent title="carry on" />
-        <CardInputComponent title="55l backpack" /> */}
+          title="Get Packing"
+          onPress={() =>
+            getFavPackingFromServer("ec949b67-c76f-4dbd-8084-f28ce4e61c46")
+          }
+        />
+        <Button
+          title="Get savedLuggage"
+          onPress={() =>
+            getSavedLuggageFromServer("ec949b67-c76f-4dbd-8084-f28ce4e61c46")
+          }
+        />
+        <Button
+          title="propmt Luggage"
+          onPress={() =>
+            getPromptLuggageFromServer("123123123123123123123123123123123123")
+          }
+        />
+        <Button
+          color={"red"}
+          title="insert user"
+          onPress={() =>
+            insertUserToServer({
+              Email: "monetizacion@gmail.com",
+              Surname: "Monte",
+              Name: "Mont",
+              //  097fc05c-586e-44db-b796-b0db2da30485
+            })
+          }
+        />
+        <Button
+          color={"red"}
+          title="insert favPacking"
+          onPress={() =>
+            insertFavPackingToServer({
+              Name: "SPAIN",
+              userId: "ec949b67-c76f-4dbd-8084-f28ce4e61c46",
+              Luggage_1: "bla bla bla",
+              Luggage_2: "",
+              Luggage_3: "",
+              Luggage_4: "",
+              packing_type: 1,
+            })
+          }
+        />
+        <Button
+          color={"red"}
+          title="insert savedLuggage"
+          onPress={() =>
+            insertSavedLuggageToServer({
+              luggage1: "carry on",
+              luggage2: "",
+              luggage3: "Backpack",
+              luggage4: "",
+              userId: "ec949b67-c76f-4dbd-8084-f28ce4e61c46",
+            })
+          }
+        />
+        <Button
+          color={"green"}
+          title="update user"
+          onPress={() =>
+            updateUserToServer({
+              Name: "Thor",
+              Surname: "Odinson",
+              Email: "monetizacion@gmail.com",
+              DateOfBirth: new Date("1998-01-01"),
+              userId: "ec949b67-c76f-4dbd-8084-f28ce4e61c46",
+              // height: 180,
+              Gender: "male",
+              // email: "monetizacion@gmail.com",
+            })
+          }
+        />
+        <Button
+          color={"green"}
+          title="update favPacking"
+          onPress={() =>
+            updateFavPackingToServer({
+              packing_type: 1,
+              userId: "ec949b67-c76f-4dbd-8084-f28ce4e61c46",
+              id: 21,
+            })
+          }
+        />
+        <Button
+          color={"green"}
+          title="update savedLuggage"
+          onPress={() =>
+            updateSavedLuggageToServer({
+              luggage1: "Big suitcase",
+              luggage2: "",
+              luggage3: "Backpack",
+              luggage4: "",
+              userId: "ec949b67-c76f-4dbd-8084-f28ce4e61c46",
+            })
+          }
+        />
+
+        <Button
+          color={"blue"}
+          title="delete user"
+          onPress={() =>
+            deleteUserToServer("aecef0f6-726b-4fdb-b21f-b3252ad97db9")
+          }
+        />
       </ScrollView>
     </SafeAreaView>
   );

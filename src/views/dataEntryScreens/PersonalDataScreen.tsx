@@ -20,6 +20,8 @@ import { useAppDispatch } from "../../redux/customDispatch";
 import { setUserProfileData } from "../../redux/userSlice";
 import { UserInterface } from "../../models/dataModels";
 import { getReduxStoreUser } from "../../redux/getReduxStore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { updateUserToServer } from "../../api/apiServices/mutationServices";
 
 type CustomProps = {
   navigation: any;
@@ -38,31 +40,39 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
   const [userName, setUserName] = useState<string>(store.name || "");
   const [userSurname, setUserSurname] = useState<string>(store.surname || "");
   const [userGender, setUserGender] = useState<string | null>("");
-  const [userDayOfBrith, setUserDayOfBirth] = useState<string | null>(
-    store.dateOfBirth
+  const [userDayOfBrith, setUserDayOfBirth] = useState<Date | null>(
+    store.dateOfBirth !== null ? new Date(store.dateOfBirth) : null
   );
   //I'll this here in case I need it in the future
   const [userHeight, setUserHeight] = useState<number | null>(store.height);
   //
   const isDisabled: boolean = !!(userName && userSurname && userDayOfBrith);
   const { navigation } = props;
+  const formattedDate =
+    userDayOfBrith instanceof Date
+      ? userDayOfBrith.toISOString().split("T")[0]
+      : null;
+  const objectDataPrfile = {
+    email: store.email!,
+    name: userName,
+    surname: userSurname,
+    gender: userGender,
+    dateOfBirth: userDayOfBrith?.toISOString(),
+    height: userHeight,
+  };
 
-  function dispatchUser() {
-    //Below is the real evaluation
-    // if (!store.userId || !store.email) {
-    //   throw new Error("Faltan datos obligatorios del usuario.");
-    // }
-
-    const objectDataPrfile: UserInterface = {
-      userId: "123123123123123123123123123123123123",
-      email: "damiangussi@gmail.com",
-      name: userName,
-      surname: userSurname,
-      gender: userGender,
-      dateOfBirth: userDayOfBrith,
-      height: userHeight,
-    };
+  async function dispatchUser() {
+    const uuid = await AsyncStorage.getItem("userIdInStorage");
     dispatch(setUserProfileData(objectDataPrfile));
+    await updateUserToServer({
+      Email: store.email!,
+      userId: uuid!,
+      Name: userName,
+      Surname: userSurname,
+      DateOfBirth: formattedDate,
+      // Height: userHeight,
+      Gender: userGender,
+    });
   }
 
   function performButtonAction() {
@@ -152,7 +162,7 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
               // customWidth={150}
               z={Platform.OS === "ios" ? 0 : 8}
               multiline={false}
-              action={(date: string) => setUserDayOfBirth(date)}
+              action={(date: Date) => setUserDayOfBirth(date)}
               valueDate={dateStringified}
             />
           </KeyboardAvoidingView>

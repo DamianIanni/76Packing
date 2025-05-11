@@ -17,38 +17,59 @@ import { BigTitle } from "../components/texts/BigTitle";
 import { useAppDispatch } from "../redux/customDispatch";
 import { setUserAfterLogin } from "../redux/userSlice";
 import { signInWithGoogle } from "../utils/signIn";
+import { insertUserToServer } from "../api/apiServices/mutationServices";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { checkUUID } from "../utils/checkUUID";
+
+import { getReduxStoreUser } from "../redux/getReduxStore";
+import {
+  getUserFromServer,
+  getUserIdFromServer,
+} from "../api/apiServices/queryServices";
 
 interface customProps {
   navigation: any;
 }
 
 export const LoginScreen = (props: customProps): React.JSX.Element => {
-  // const [userAccountInfo, setUserAccountInfo] = useState<>()
-
   const dispatch = useAppDispatch();
   const theme = new ThemeManager();
   const { navigation } = props;
-  const mockedBoolean = null; // is gonna be a request to the DB to see if the user has completed they profile
 
   async function handleGoogleSignIn() {
     const res = await signInWithGoogle();
-    if (!res)
+    if (!res || res === true || typeof res !== "object" || !("email" in res)) {
       return Alert.alert("Error", "No se pudo iniciar sesión con Google");
-
-    typeof res === "object" && dispatch(setUserAfterLogin(res));
-    // dispatch(setUserAfterLogin(res));
-
-    if (!mockedBoolean || null) {
-      navigation.reset({
-        index: 0,
-        routes: [{ name: "PersonalData" }],
-      });
-    } else {
-      navigation.reset({
-        index: 0,
-        routes: [{ name: "MainTabs" }],
-      });
     }
+    // const uuid = await AsyncStorage.getItem("userIdInStorage");
+    const userId = await getUserIdFromServer(res.email);
+    // const isUUID = uuidRegex.test(userId.getUserId.data);
+    const isUUID = userId !== null && checkUUID(userId.getUserId.data);
+    let route: string;
+
+    if (isUUID) {
+      const user = await getUserFromServer(userId.getUserId.data);
+      route =
+        user.getUser.data.date_of_birth !== null ? "MainTabs" : "PersonalData";
+    } else {
+      // Usuario nuevo
+      route = "PersonalData";
+      const userToInsert = {
+        Email: res.email,
+        Surname: res.familyName || "",
+        Name: res.givenName || "",
+      };
+      dispatch(setUserAfterLogin(res));
+      const data = await insertUserToServer(userToInsert);
+      console.log("UUID", data.insertUser.data.uuid);
+
+      await AsyncStorage.setItem("userIdInStorage", data.insertUser.data.uuid);
+    }
+
+    navigation.reset({
+      index: 0,
+      routes: [{ name: route }],
+    });
   }
 
   async function handleFacebookSignIn() {}

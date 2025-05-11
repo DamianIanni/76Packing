@@ -34,7 +34,7 @@ interface customProps {
   multiline?: boolean;
   innerPad?: number;
   placeholder?: string;
-  action: (e: string) => void;
+  action: (e: Date) => void;
   valueDate: string | null | undefined;
 }
 
@@ -132,7 +132,7 @@ export const CardInputPickerComponent: React.FC<customProps> = ({
   const handleActionDOB = (data: Date): void => {
     setShowDatePicker(false);
     setDateOfBirth(data.toDateString());
-    action(data.toISOString());
+    action(data);
   };
 
   return (

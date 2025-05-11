@@ -16,6 +16,8 @@ GoogleSignin.configure({
 interface ResponseData {
   email: string;
   photoUrl: string | null;
+  givenName: string | null;
+  familyName: string | null;
 }
 
 export const signInWithGoogle = async (): Promise<
@@ -27,7 +29,7 @@ export const signInWithGoogle = async (): Promise<
     Platform.OS === "android" && (await GoogleSignin.signOut());
     // Iniciar sesión con Google
     const userInfo = await GoogleSignin.signIn();
-    console.log("USER INFO", userInfo.data?.idToken);
+    // console.log("USER INFO", userInfo.data?.idToken);
 
     if (userInfo.type === "cancelled") return;
 
@@ -49,13 +51,18 @@ export const signInWithGoogle = async (): Promise<
     // Iniciar sesión con Firebase usando la credencial de Google
     await signInWithCredential(auth, googleCredential);
 
-    // auth.currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
-    //   console.log("Token:", idToken); // <- este es el que funciona con tu backend
-    // });
+    auth.currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
+      console.log("Token:", idToken); // <- este es el que funciona con tu backend
+    });
+
+    // console.log("USER FROM GOOGLE", userInfo);
+
     const userData = {
       // googleIdToken: userInfo.data.user.id,
       email: userInfo.data.user.email,
       photoUrl: userInfo.data.user.photo,
+      givenName: userInfo.data.user.givenName,
+      familyName: userInfo.data.user.familyName,
     };
 
     // Guardar los datos en Redux

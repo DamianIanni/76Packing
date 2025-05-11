@@ -72,7 +72,7 @@ const TopProfileBar: React.FC<CustomProps> = ({ text }) => {
     },
   });
 
-  console.log("USER EN TOP PROFILE BAR", user);
+  // console.log("USER EN TOP PROFILE BAR", user);
 
   return (
     <View style={styles.container}>
