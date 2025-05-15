@@ -67,7 +67,7 @@ const HomeScreen = (props: customProps): React.JSX.Element => {
         barStyle={theme.themeMode ? "light-content" : "dark-content"}
         backgroundColor={theme.colors.background}
       />
-      <TopProfileBar text="Damian" />
+      <TopProfileBar />
 
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
@@ -107,7 +107,7 @@ const HomeScreen = (props: customProps): React.JSX.Element => {
         <Button
           title="Get savedLuggage"
           onPress={() =>
-            getSavedLuggageFromServer("ec949b67-c76f-4dbd-8084-f28ce4e61c46")
+            getSavedLuggageFromServer("9840cca1-d935-4082-b71a-4a3f0fc8a751")
           }
         />
         <Button
@@ -156,7 +156,7 @@ const HomeScreen = (props: customProps): React.JSX.Element => {
             })
           }
         />
-        <Button
+        {/* <Button
           color={"green"}
           title="update user"
           onPress={() =>
@@ -171,7 +171,7 @@ const HomeScreen = (props: customProps): React.JSX.Element => {
               // email: "monetizacion@gmail.com",
             })
           }
-        />
+        /> */}
         <Button
           color={"green"}
           title="update favPacking"

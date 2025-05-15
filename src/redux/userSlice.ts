@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { UserStateInterface } from "../models/dataModels";
-import { UserInterface } from "../models/dataModels";
+import { UserInterface, SavedLuggage } from "../models/dataModels";
+import { FavPackingInterface } from "../models/dataModels";
 
 const initialState: UserStateInterface = {
   googleIdToken: null,
@@ -15,7 +16,7 @@ const initialState: UserStateInterface = {
   style: null,
   brands: null,
   savedLuggage: null,
-  favClothes: null,
+  // favClothes: null,
   favPacking: null,
 };
 
@@ -37,19 +38,42 @@ const userSlice = createSlice({
       state.name = action.payload.givenName;
       state.surname = action.payload.familyName;
     },
-    setAllData: (state, action: PayloadAction<UserStateInterface>) => {
-      state.email = action.payload.email;
-      state.name = action.payload.name;
-      state.surname = action.payload.surname;
-      state.dateOfBirth = action.payload.dateOfBirth;
-      state.gender = action.payload.gender;
-      state.height = action.payload.height;
-      state.userId = action.payload.userId;
-      state.style = action.payload.style;
-      state.brands = action.payload.brands;
-      state.savedLuggage = action.payload.savedLuggage;
-      state.favClothes = action.payload.favClothes;
+    setAllData: (
+      state,
+      action: PayloadAction<{
+        user: {
+          Email: string;
+          Name: string;
+          Surname: string;
+          DateOfBirth: string;
+          Gender: string;
+          userId: string;
+        };
+        savedLuggage: SavedLuggage;
+        favPacking: FavPackingInterface;
+        userStyle: {
+          brands: string | null;
+          style: string | null;
+        };
+        userBrands?: string;
+        photoUrl: string;
+      }>
+    ) => {
+      console.log("ACTION PAYLOAD", action.payload);
+
+      state.email = action.payload.user.Email;
+      state.name = action.payload.user.Name;
+      state.surname = action.payload.user.Surname;
+      state.dateOfBirth = action.payload.user.DateOfBirth;
+      state.gender = action.payload.user.Gender;
+      // state.height = action.payload.height;
+      state.userId = action.payload.user.userId;
+      state.style = action.payload.userStyle?.style ?? null;
+      state.brands = action.payload.userStyle?.brands ?? null;
+      state.savedLuggage = action.payload.savedLuggage ?? null;
+      // state.favClothes = action.payload.favClothes;
       state.favPacking = action.payload.favPacking;
+      state.photoUrl = action.payload.photoUrl;
     },
     setUserProfileData: (
       state,
@@ -86,9 +110,19 @@ const userSlice = createSlice({
     // },
     setSavedLuggageData: (
       state,
-      action: PayloadAction<{ savedLuggage: string[] }>
+      action: PayloadAction<{
+        savedLuggage: {
+          luggage1: string;
+          luggage2: string;
+          luggage3: string;
+          luggage4: string;
+        };
+      }>
     ) => {
       state.savedLuggage = action.payload.savedLuggage;
+    },
+    setUserProfilePhotoUrl: (state, action: PayloadAction<string>) => {
+      state.photoUrl = action.payload;
     },
     clearUser: (state) => {
       state.userId = null;
@@ -101,7 +135,7 @@ const userSlice = createSlice({
       state.height = null;
       state.style = null;
       state.brands = null;
-      state.favClothes = null;
+      // state.favClothes = null;
       state.savedLuggage = null;
       state.favPacking = null;
     },
@@ -114,6 +148,7 @@ export const {
   setUserStyleData,
   setSavedLuggageData,
   setAllData,
+  setUserProfilePhotoUrl,
   clearUser,
 } = userSlice.actions;
 

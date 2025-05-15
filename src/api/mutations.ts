@@ -22,6 +22,17 @@ export const INSERT_USER_STYLE = gql`
   }
 `;
 
+export const UPDATE_USER_STYLE = gql`
+  mutation UpdateUserStyle($userStyle: UserStyle!) {
+    updateUserStyle(userStyle: $userStyle) {
+      success
+      message
+      code
+      data
+    }
+  }
+`;
+
 export const INSERT_USER = gql`
   mutation InsertUser($user: User!) {
     insertUser(user: $user) {

@@ -11,7 +11,7 @@ export interface PropmtDataInterface {
 }
 
 export interface SavedLuggage {
-  userId: string;
+  userId?: string;
   luggage1: string;
   luggage2?: string;
   luggage3?: string;
@@ -60,7 +60,7 @@ export interface UserStateInterface {
   height: number | null;
   style: string | null;
   brands: string | null;
-  savedLuggage: string[] | null;
-  favClothes: FavClothesInterface | null;
+  savedLuggage: SavedLuggage | null;
+  // favClothes: FavClothesInterface | null;
   favPacking: FavPackingInterface | null;
 }

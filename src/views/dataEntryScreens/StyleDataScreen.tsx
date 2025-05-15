@@ -18,7 +18,10 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { CardInputComponent } from "../../components/cards/CardInputComponent";
-import { insertUserStyle } from "../../api/apiServices/mutationServices";
+import {
+  insertUserStyle,
+  updateUserStyle,
+} from "../../api/apiServices/mutationServices";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type CustomProps = {
@@ -34,29 +37,47 @@ export const StyleDataScreen = (props: CustomProps): React.JSX.Element => {
   const dispatch = useAppDispatch();
   const [userStyle, setUserStyle] = useState<string>(store.style || "");
   const [userBrands, setUserBrands] = useState<string>(store.brands || "");
+  const uuid = store.userId;
+  const objectDataStyle = {
+    style: userStyle,
+    brands: userBrands,
+  };
 
-  async function dispatchUser() {
-    //Below is the real evaluation
-    // if (!store.userId || !store.email) {
-    //   throw new Error("Faltan datos obligatorios del usuario.");
-    // }
-    const uuid = await AsyncStorage.getItem("userIdInStorage");
-    const objectDataStyle = {
-      style: userStyle,
-      brands: userBrands,
-    };
+  // async function dispatchUser() {
+  //   //Below is the real evaluation
+  //   // if (!store.userId || !store.email) {
+  //   //   throw new Error("Faltan datos obligatorios del usuario.");
+  //   // }
+
+  //   dispatch(setUserStyleData(objectDataStyle));
+  //   if (userStyle === "" || userBrands === "") {
+  //     await updateUserStyle({ ...objectDataStyle, userId: uuid! });
+  //   } else {
+  //     await insertUserStyle({ ...objectDataStyle, userId: uuid! });
+  //   }
+  // }
+
+  async function performButtonAction() {
+    if (route.params?.from) {
+      await updateUserStyle({ ...objectDataStyle, userId: uuid! });
+      // dispatch(setUserStyleData(objectDataStyle));
+      navigation.goBack();
+      console.log("UPDATTE");
+
+      // return;
+    } else {
+      await insertUserStyle({ ...objectDataStyle, userId: uuid! });
+      // dispatchUser();
+      console.log("INSERT");
+
+      navigation.navigate("MainTabs");
+    }
     dispatch(setUserStyleData(objectDataStyle));
-    if (userStyle === "" || userBrands === "") return;
-    await insertUserStyle({ ...objectDataStyle, userId: uuid! });
   }
 
-  function performButtonAction() {
-    dispatchUser();
-    if (route.params?.from) {
-      navigation.goBack();
-      return;
-    }
-    navigation.navigate("MainTabs");
+  function disableButton(): boolean {
+    if (userBrands === store.brands && userStyle === store.style) return false;
+    return true;
   }
 
   const style = StyleSheet.create({
@@ -133,7 +154,7 @@ export const StyleDataScreen = (props: CustomProps): React.JSX.Element => {
           <Button76
             action={performButtonAction}
             text={btnText}
-            disabled={true}
+            disabled={disableButton()}
           />
         </View>
       </SafeAreaView>

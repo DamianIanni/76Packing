@@ -13,6 +13,7 @@ import {
   UPDATE_USER,
   DELETE_USER,
   INSERT_USER_STYLE,
+  UPDATE_USER_STYLE,
 } from "../mutations";
 
 //// USER
@@ -89,6 +90,27 @@ export const insertUserStyle = async (userStyle: {
       },
       fetchPolicy: "network-only",
     });
+    console.log("DATA FROM SERVER", data);
+    return data;
+  } catch (error) {
+    console.log("EL ERROR", error);
+  }
+};
+
+export const updateUserStyle = async (userStyle: {
+  userId: string;
+  style: string;
+  brands: string;
+}) => {
+  try {
+    const { data } = await client.mutate({
+      mutation: UPDATE_USER_STYLE,
+      variables: {
+        userStyle,
+      },
+      fetchPolicy: "network-only",
+    });
+    console.log("DATA FROM SERVER UPDATE STYLE", data);
     return data;
   } catch (error) {
     console.log("EL ERROR", error);

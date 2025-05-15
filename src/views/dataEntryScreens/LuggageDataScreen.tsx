@@ -8,6 +8,11 @@ import { setSavedLuggageData } from "../../redux/userSlice";
 import { Switch } from "react-native";
 import { ContentText } from "../../components/texts/ContentText";
 import { setLuggagePropmtData } from "../../redux/propmtDataSlice";
+import {
+  insertSavedLuggageToServer,
+  updateSavedLuggageToServer,
+} from "../../api/apiServices/mutationServices";
+import { getSavedLuggageFromServer } from "../../api/apiServices/queryServices";
 
 import {
   SafeAreaView,
@@ -32,11 +37,23 @@ export const LuggageDataScreen = (props: CustomProps): React.JSX.Element => {
   const store = getReduxStoreUser();
   const dispatch = useAppDispatch();
   const theme = new ThemeManager();
-  const [luggage1, setLuggage1] = useState<string>("");
-  const [luggage2, setLuggage2] = useState<string>("");
-  const [luggage3, setLuggage3] = useState<string>("");
-  const [luggage4, setLuggage4] = useState<string>("");
+  const luggage_1 = store.savedLuggage?.luggage1;
+  const luggage_2 = store.savedLuggage?.luggage2;
+  const luggage_3 = store.savedLuggage?.luggage3;
+  const luggage_4 = store.savedLuggage?.luggage4;
+  const [luggage1, setLuggage1] = useState<string>(luggage_1 ? luggage_1 : "");
+  const [luggage2, setLuggage2] = useState<string>(luggage_2 ? luggage_2 : "");
+  const [luggage3, setLuggage3] = useState<string>(luggage_3 ? luggage_3 : "");
+  const [luggage4, setLuggage4] = useState<string>(luggage_4 ? luggage_4 : "");
   const [useSavedLuggage, setUseSavedLuggage] = useState<boolean>(false);
+
+  const arrLuggage = [luggage1, luggage2, luggage3, luggage4];
+  const objLuggage = {
+    luggage1: luggage1,
+    luggage2: luggage2,
+    luggage3: luggage3,
+    luggage4: luggage4,
+  };
 
   const style = StyleSheet.create({
     container: {
@@ -70,21 +87,23 @@ export const LuggageDataScreen = (props: CustomProps): React.JSX.Element => {
     stripe3: theme.stripeStyle.stripe3 as ViewStyle,
   });
 
+  console.log("STORE IN LUGGAGE", store.savedLuggage);
+
   useEffect(() => {
     if (route.params?.from && store.savedLuggage) {
-      setLuggage1(store.savedLuggage[0] || "");
-      setLuggage2(store.savedLuggage[1] || "");
-      setLuggage3(store.savedLuggage[2] || "");
-      setLuggage4(store.savedLuggage[3] || "");
+      setLuggage1(luggage_1 || "");
+      setLuggage2(luggage_2 || "");
+      setLuggage3(luggage_3 || "");
+      setLuggage4(luggage_4 || "");
     }
   }, []);
 
   useEffect(() => {
     if (useSavedLuggage && store.savedLuggage) {
-      setLuggage1(store.savedLuggage[0] || "");
-      setLuggage2(store.savedLuggage[1] || "");
-      setLuggage3(store.savedLuggage[2] || "");
-      setLuggage4(store.savedLuggage[3] || "");
+      setLuggage1(luggage_1 || "");
+      setLuggage2(luggage_2 || "");
+      setLuggage3(luggage_3 || "");
+      setLuggage4(luggage_4 || "");
     }
   }, [useSavedLuggage, store.savedLuggage]);
   // console.log("LUGGAGE", luggage1, luggage2, luggage3, luggage4);
@@ -96,10 +115,27 @@ export const LuggageDataScreen = (props: CustomProps): React.JSX.Element => {
     return !!luggage1;
   }
 
-  function performButtonAction(): void {
-    const arrLuggage = [luggage1, luggage2, luggage3, luggage4];
+  async function performButtonAction() {
     if (route.params?.from) {
-      dispatch(setSavedLuggageData({ savedLuggage: arrLuggage }));
+      dispatch(setSavedLuggageData({ savedLuggage: objLuggage }));
+      // const isThereSavedLuggage = await getSavedLuggageFromServer(
+      //   store.userId!
+      // );
+      store.savedLuggage === null
+        ? await insertSavedLuggageToServer({
+            luggage1: luggage1,
+            luggage2: luggage2,
+            luggage3: luggage3,
+            luggage4: luggage4,
+            userId: store.userId!,
+          })
+        : await updateSavedLuggageToServer({
+            luggage1: luggage1,
+            luggage2: luggage2,
+            luggage3: luggage3,
+            luggage4: luggage4,
+            userId: store.userId!,
+          });
       navigation.goBack();
       return;
     }
@@ -183,23 +219,23 @@ export const LuggageDataScreen = (props: CustomProps): React.JSX.Element => {
               value={luggage4}
             />
           </KeyboardAvoidingView>
-          {/* {!route.params?.from && store.savedLuggage && ( */}
-          <View style={style.container3}>
-            <ContentText>Use saved luggage</ContentText>
-            <Switch
-              trackColor={{ false: "#767577", true: theme.colors.stripe3 }}
-              thumbColor={"#ffff"}
-              onValueChange={() => setUseSavedLuggage(!useSavedLuggage)}
-              value={useSavedLuggage}
-              style={{
-                transform: [
-                  { scaleX: Platform.OS === "android" ? 1.3 : 1 },
-                  { scaleY: Platform.OS === "android" ? 1.3 : 1 },
-                ],
-              }}
-            />
-          </View>
-          {/* )} */}
+          {!route.params?.from && store.savedLuggage && (
+            <View style={style.container3}>
+              <ContentText>Use saved luggage</ContentText>
+              <Switch
+                trackColor={{ false: "#767577", true: theme.colors.stripe3 }}
+                thumbColor={"#ffff"}
+                onValueChange={() => setUseSavedLuggage(!useSavedLuggage)}
+                value={useSavedLuggage}
+                style={{
+                  transform: [
+                    { scaleX: Platform.OS === "android" ? 1.3 : 1 },
+                    { scaleY: Platform.OS === "android" ? 1.3 : 1 },
+                  ],
+                }}
+              />
+            </View>
+          )}
           <Button76
             action={performButtonAction}
             disabled={isDisabled()}
