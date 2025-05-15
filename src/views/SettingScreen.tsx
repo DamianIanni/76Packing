@@ -12,6 +12,7 @@ import {
   Platform,
   TouchableOpacity,
   Image,
+  Alert,
 } from "react-native";
 
 import { Colors } from "react-native/Libraries/NewAppScreen";
@@ -146,7 +147,7 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
             // backgroundColor: "red",
           }}
         >
-          DAMIAN
+          {store.name?.toUpperCase()}
         </NameText>
         <NameText
           style={{
@@ -155,7 +156,7 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
             // backgroundColor: "red",
           }}
         >
-          IANNI
+          {store.surname?.toUpperCase()}
         </NameText>
       </View>
       <ScrollView
@@ -248,12 +249,35 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
             <Divider />
             <TouchableOpacity
               onPress={() => {
-                dispatch(clearUser());
-                auth().signOut();
-                navigation.reset({
-                  index: 0,
-                  routes: [{ name: "LoginScreen" }],
-                });
+                Alert.alert(
+                  "Are you sure you want to log out?",
+                  "",
+                  [
+                    {
+                      text: "Cancelar",
+                      onPress: () => console.log("Cancelado"),
+                      style: "cancel",
+                    },
+                    {
+                      text: "Aceptar",
+                      onPress: () => {
+                        dispatch(clearUser());
+                        auth().signOut();
+                        navigation.reset({
+                          index: 0,
+                          routes: [{ name: "LoginScreen" }],
+                        });
+                      },
+                    },
+                  ],
+                  { cancelable: true }
+                );
+                // dispatch(clearUser());
+                // auth().signOut();
+                // navigation.reset({
+                //   index: 0,
+                //   routes: [{ name: "LoginScreen" }],
+                // });
               }}
             >
               <NameText style={{ fontFamily: "Afacad-Bold", color: "red" }}>

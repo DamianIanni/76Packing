@@ -12,7 +12,11 @@ import { ThemeManager } from "../classes/ThemeManager";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getReduxStoreUser } from "../redux/getReduxStore";
 import { useAppDispatch } from "../redux/customDispatch";
-import { setAllData } from "../redux/userSlice";
+import {
+  setAllData,
+  setUserProfileData,
+  setUserProfilePhotoUrl,
+} from "../redux/userSlice";
 import {
   getAllUserDataFromServer,
   getUserIdFromServer,
@@ -61,38 +65,40 @@ const SplashScreen = (props: CustomProps): React.JSX.Element => {
     return await AsyncStorage.getItem("userIdInStorage");
   }
 
-  async function saveAllDataInReduStore(email: string | null) {
+  async function saveAllDataInReduxStore(email: string | null, photo: string) {
     if (!email) return;
     const userId = await getUserIdFromServer(email);
     const allData = await getAllUserDataFromServer(userId.getUserId.data);
-    dispatch(setAllData(allData));
+    dispatch(setAllData({ ...allData.getAllUserData.data, photoUrl: photo }));
   }
 
-  useEffect(() => {
-    setTimeout(() => {
-      Animated.timing(opacity, {
-        toValue: 0,
-        duration: 1000,
-        useNativeDriver: true,
-      }).start();
-    }, 2000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     Animated.timing(opacity, {
+  //       toValue: 0,
+  //       duration: 1000,
+  //       useNativeDriver: true,
+  //     }).start();
+  //   }, 2000);
+  // }, []);
 
   useEffect(() => {
     const unsubscribe = auth().onAuthStateChanged(async (user) => {
       const userIdInStorage = await getItemFromAsyncStorage();
+      console.log("USER ID IN ASYCN", userIdInStorage);
+
       console.log("USER DESDE AUTH", user);
       let initialRoute: string;
 
       if (!user) {
         initialRoute = "LoginScreen";
-      } else if (checkUUID(userIdInStorage!)) {
+      } else if (!checkUUID(userIdInStorage!)) {
         initialRoute = "PersonalData";
       } else {
         initialRoute = "MainTabs";
-        saveAllDataInReduStore(user.email);
+        saveAllDataInReduxStore(user.email, user.photoURL ?? "");
       }
-
+      // setUserProfilePhotoUrl(user?.photoURL ?? "");
       navigation.reset({
         index: 0,
         routes: [{ name: initialRoute }],

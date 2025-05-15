@@ -10,7 +10,7 @@ import { ThemeManager } from "../../classes/ThemeManager";
 
 // Define the props interface
 interface CustomTextProps {
-  children: string;
+  children: React.ReactNode;
   style?: TextStyle;
 }
 

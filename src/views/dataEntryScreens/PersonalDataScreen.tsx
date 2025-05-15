@@ -13,15 +13,22 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   KeyboardAvoidingView,
+  Modal,
+  Pressable,
+  TouchableOpacity,
+  TextInput,
+  PixelRatio,
 } from "react-native";
 import { CardInputComponent } from "../../components/cards/CardInputComponent";
 import { CardInputPickerComponent } from "../../components/cards/CardInputPickerComponent";
 import { useAppDispatch } from "../../redux/customDispatch";
 import { setUserProfileData } from "../../redux/userSlice";
-import { UserInterface } from "../../models/dataModels";
+// import { UserInterface } from "../../models/dataModels";
 import { getReduxStoreUser } from "../../redux/getReduxStore";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 import { updateUserToServer } from "../../api/apiServices/mutationServices";
+import { Title } from "../../components/texts/Title";
+import { ContentText } from "../../components/texts/ContentText";
 
 type CustomProps = {
   navigation: any;
@@ -36,15 +43,27 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
   const dateStringified = store.dateOfBirth?.toString();
   // const height = store.height;
   const btnText = route.params?.from ? "Save" : "next";
+  const arrGender = ["Male", "Famale", "Non binary"];
+  console.log("LA STORE EN EL PERSONAL DATA", store);
+
+  const normalizeFontSize = (size: number) => {
+    const scale = PixelRatio.getFontScale(); // Obtiene el factor de escala de la fuente del sistema
+    return size / scale;
+  };
 
   const [userName, setUserName] = useState<string>(store.name || "");
   const [userSurname, setUserSurname] = useState<string>(store.surname || "");
-  const [userGender, setUserGender] = useState<string | null>("");
-  const [userDayOfBrith, setUserDayOfBirth] = useState<Date | null>(
-    store.dateOfBirth !== null ? new Date(store.dateOfBirth) : null
-  );
+  const [userGender, setUserGender] = useState<string>(store.gender || "");
+  const [userDayOfBrith, setUserDayOfBirth] = useState<Date | null>(() => {
+    const dob = store.dateOfBirth;
+    if (!dob) return null;
+
+    const parsed = new Date(dob);
+    return isNaN(parsed.getTime()) ? null : parsed;
+  });
   //I'll this here in case I need it in the future
   const [userHeight, setUserHeight] = useState<number | null>(store.height);
+  const [showGenderPickerModal, setShowGenderPickerModal] = useState(false);
   //
   const isDisabled: boolean = !!(userName && userSurname && userDayOfBrith);
   const { navigation } = props;
@@ -62,7 +81,7 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
   };
 
   async function dispatchUser() {
-    const uuid = await AsyncStorage.getItem("userIdInStorage");
+    const uuid = store.userId;
     dispatch(setUserProfileData(objectDataPrfile));
     await updateUserToServer({
       Email: store.email!,
@@ -84,6 +103,11 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
     navigation.navigate("StyleData");
   }
 
+  function toggleGender(gender: string) {
+    setUserGender(gender);
+    setShowGenderPickerModal(false);
+  }
+
   const style = StyleSheet.create({
     container: {
       flex: 1,
@@ -103,6 +127,69 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
     stripe1: theme.stripeStyle.stripe1 as ViewStyle,
     stripe2: theme.stripeStyle.stripe2 as ViewStyle,
     stripe3: theme.stripeStyle.stripe3 as ViewStyle,
+    overlay: {
+      flex: 1,
+      backgroundColor: "rgba(0,0,0,0.7)",
+      justifyContent: "flex-end",
+    },
+    modal: {
+      backgroundColor: theme.colors.background,
+      padding: 30,
+      borderTopRightRadius: 20,
+      borderTopLeftRadius: 20,
+      paddingBottom: "10%",
+    },
+    option: {
+      padding: 12,
+      borderRadius: 8,
+      backgroundColor: theme.colors.backgroundCard,
+      // borderWidth: 1,
+      marginVertical: 6,
+    },
+    selectedOption: {
+      backgroundColor: theme.colors.stripe3,
+      borderColor: theme.colors.stripe3,
+    },
+    optionText: {
+      color: theme.colors.text,
+    },
+    selectedText: {
+      color: "#fff",
+    },
+    confirmButton: {
+      marginTop: 16,
+      backgroundColor: theme.colors.stripe3,
+      padding: 12,
+      borderRadius: 8,
+      alignItems: "center",
+    },
+    confirmText: {
+      color: "#fff",
+      fontWeight: "600",
+    },
+    cancelText: {
+      textAlign: "center",
+      marginTop: 12,
+      color: "#666",
+    },
+    mainCointainer: {
+      borderRadius: 10,
+      backgroundColor: theme.colors.backgroundCard,
+      width: theme.standarWidth,
+      justifyContent: "center",
+      alignItems: "flex-start",
+      flexDirection: "column",
+      padding: Platform.OS === "ios" ? 10 : 2,
+    },
+    input: {
+      width: "100%",
+      fontFamily: "Afacad-Medium",
+      fontSize: normalizeFontSize(20),
+      color: theme.colors.text,
+      letterSpacing: 3,
+      maxHeight: 150,
+      paddingRight: 0,
+    },
   });
 
   return (
@@ -166,7 +253,7 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
               valueDate={dateStringified}
             />
           </KeyboardAvoidingView>
-          <KeyboardAvoidingView>
+          {/* <KeyboardAvoidingView>
             <CardInputComponent
               placeholder="Not required"
               // isEditable={true}
@@ -177,12 +264,67 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
               action={(e: string) => setUserGender(e)}
               value={store.gender}
             />
-          </KeyboardAvoidingView>
+          </KeyboardAvoidingView> */}
+          <Pressable
+            onPress={() => {
+              setShowGenderPickerModal(true);
+            }}
+          >
+            <Title>Gender</Title>
+            <View style={style.mainCointainer}>
+              <TextInput
+                style={style.input}
+                placeholder="Not required"
+                editable={false}
+                pointerEvents="none"
+                multiline={true}
+                value={userGender}
+              />
+            </View>
+          </Pressable>
           <Button76
             action={performButtonAction}
             text={btnText}
             disabled={isDisabled}
           />
+          <Modal
+            visible={showGenderPickerModal}
+            transparent
+            animationType="fade"
+          >
+            <Pressable
+              style={[StyleSheet.absoluteFill, style.overlay]}
+              onPress={() => setShowGenderPickerModal(false)}
+            >
+              <TouchableWithoutFeedback>
+                <View style={style.modal}>
+                  <Title>Select Gender</Title>
+
+                  {arrGender.map((gender) => {
+                    const isSelected = userGender === gender;
+                    return (
+                      <TouchableOpacity
+                        key={gender}
+                        style={[
+                          style.option,
+                          isSelected && style.selectedOption,
+                        ]}
+                        onPress={() => toggleGender(gender)}
+                      >
+                        <ContentText
+                          style={
+                            isSelected ? style.selectedText : style.optionText
+                          }
+                        >
+                          {gender}
+                        </ContentText>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </View>
+              </TouchableWithoutFeedback>
+            </Pressable>
+          </Modal>
         </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>

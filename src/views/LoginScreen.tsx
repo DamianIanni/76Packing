@@ -15,7 +15,7 @@ import { ContentText } from "../components/texts/ContentText";
 import { BigTitle } from "../components/texts/BigTitle";
 
 import { useAppDispatch } from "../redux/customDispatch";
-import { setUserAfterLogin } from "../redux/userSlice";
+import { setAllData, setUserAfterLogin } from "../redux/userSlice";
 import { signInWithGoogle } from "../utils/signIn";
 import { insertUserToServer } from "../api/apiServices/mutationServices";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -25,6 +25,7 @@ import { getReduxStoreUser } from "../redux/getReduxStore";
 import {
   getUserFromServer,
   getUserIdFromServer,
+  getAllUserDataFromServer,
 } from "../api/apiServices/queryServices";
 
 interface customProps {
@@ -41,16 +42,22 @@ export const LoginScreen = (props: customProps): React.JSX.Element => {
     if (!res || res === true || typeof res !== "object" || !("email" in res)) {
       return Alert.alert("Error", "No se pudo iniciar sesión con Google");
     }
-    // const uuid = await AsyncStorage.getItem("userIdInStorage");
     const userId = await getUserIdFromServer(res.email);
-    // const isUUID = uuidRegex.test(userId.getUserId.data);
     const isUUID = userId !== null && checkUUID(userId.getUserId.data);
     let route: string;
 
+    console.log("EL UUID", isUUID);
+
     if (isUUID) {
-      const user = await getUserFromServer(userId.getUserId.data);
+      await AsyncStorage.setItem("userIdInStorage", userId.getUserId.data);
+      const user = await getAllUserDataFromServer(userId.getUserId.data);
+      dispatch(
+        setAllData({ ...user.getAllUserData.data, photoUrl: res.photoUrl })
+      );
       route =
-        user.getUser.data.date_of_birth !== null ? "MainTabs" : "PersonalData";
+        user.getAllUserData.data.user.DateOfBirth !== null
+          ? "MainTabs"
+          : "PersonalData";
     } else {
       // Usuario nuevo
       route = "PersonalData";

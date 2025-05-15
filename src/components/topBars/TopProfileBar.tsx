@@ -1,26 +1,24 @@
 import React from "react";
 import {
   View,
-  Text,
+  // Text,
   StyleSheet,
-  TouchableOpacity,
+  // TouchableOpacity,
   Image,
-  useWindowDimensions,
+  // useWindowDimensions,
 } from "react-native";
 import { ThemeManager } from "../../classes/ThemeManager";
-import { BigTitle } from "../texts/BigTitle";
+// import { BigTitle } from "../texts/BigTitle";
 import { AddButton } from "../button/AddButton";
 import { NameText } from "../texts/NameText";
+import { getReduxStoreUser } from "../../redux/getReduxStore";
 
-import { useSelector } from "react-redux";
+interface CustomProps {}
 
-interface CustomProps {
-  text: string;
-}
-
-const TopProfileBar: React.FC<CustomProps> = ({ text }) => {
+const TopProfileBar: React.FC<CustomProps> = () => {
   const theme = new ThemeManager();
-  const user = useSelector((state: any) => state.user);
+  // const user = useSelector((state: any) => state.user);
+  const store = getReduxStoreUser();
   const styles = StyleSheet.create({
     container: {
       flexDirection: "row",
@@ -72,7 +70,7 @@ const TopProfileBar: React.FC<CustomProps> = ({ text }) => {
     },
   });
 
-  // console.log("USER EN TOP PROFILE BAR", user);
+  console.log("USER EN TOP PROFILE BAR", store);
 
   return (
     <View style={styles.container}>
@@ -81,9 +79,12 @@ const TopProfileBar: React.FC<CustomProps> = ({ text }) => {
           source={require("../../assets/logos/ME.jpg")}
           style={styles.icon}
         /> */}
-        <Image source={{ uri: user.photoUrl }} style={styles.icon} />
+        <Image
+          source={{ uri: store.photoUrl ? store.photoUrl : "" }}
+          style={styles.icon}
+        />
       </View>
-      <NameText style={styles.title}>{text}</NameText>
+      <NameText style={styles.title}>{store.name}</NameText>
       <View style={styles.addButtoncontainer}>
         <AddButton text="+" />
       </View>
