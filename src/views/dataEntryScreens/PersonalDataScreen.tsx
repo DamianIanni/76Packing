@@ -29,6 +29,7 @@ import { getReduxStoreUser } from "../../redux/getReduxStore";
 import { updateUserToServer } from "../../api/apiServices/mutationServices";
 import { Title } from "../../components/texts/Title";
 import { ContentText } from "../../components/texts/ContentText";
+import { useLocale } from "../../i18n/TranslationContext";
 
 type CustomProps = {
   navigation: any;
@@ -36,14 +37,21 @@ type CustomProps = {
 };
 
 export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
+  const { t } = useLocale();
   const route = props.route;
   const dispatch = useAppDispatch();
   const theme = new ThemeManager();
   const store = getReduxStoreUser();
   const dateStringified = store.dateOfBirth?.toString();
   // const height = store.height;
-  const btnText = route.params?.from ? "Save" : "next";
-  const arrGender = ["Male", "Famale", "Non binary"];
+  const btnText = route.params?.from
+    ? t("button.saveBtn")
+    : t("button.nextBtn");
+  const arrGender = [
+    t("profileScreen.genderOptions.male"),
+    t("profileScreen.genderOptions.famale"),
+    t("profileScreen.genderOptions.noToSay"),
+  ];
   console.log("LA STORE EN EL PERSONAL DATA", store);
 
   const normalizeFontSize = (size: number) => {
@@ -224,19 +232,19 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
         <View style={style.container2}>
           <KeyboardAvoidingView>
             <CardInputComponent
-              title="name"
+              title={t("profileScreen.name")}
               z={Platform.OS === "ios" ? 0 : 10}
               multiline={false}
               action={(e: string) => setUserName(e)}
-              placeholder="Required"
+              placeholder={t("requiredPlaceholder")}
               value={store.name}
             />
           </KeyboardAvoidingView>
           <KeyboardAvoidingView>
             <CardInputComponent
-              title="last name"
+              title={t("profileScreen.surname")}
               z={Platform.OS === "ios" ? 0 : 10}
-              placeholder="Required"
+              placeholder={t("requiredPlaceholder")}
               multiline={false}
               action={(e: string) => setUserSurname(e)}
               value={store.surname}
@@ -244,8 +252,8 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
           </KeyboardAvoidingView>
           <KeyboardAvoidingView>
             <CardInputPickerComponent
-              placeholder="Required"
-              title="Date of birth"
+              placeholder={t("requiredPlaceholder")}
+              title={t("profileScreen.dateOfBirth")}
               // customWidth={150}
               z={Platform.OS === "ios" ? 0 : 8}
               multiline={false}
@@ -270,11 +278,11 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
               setShowGenderPickerModal(true);
             }}
           >
-            <Title>Gender</Title>
+            <Title>{t("profileScreen.gender")}</Title>
             <View style={style.mainCointainer}>
               <TextInput
                 style={style.input}
-                placeholder="Not required"
+                placeholder={t("notRequiredPlaceholder")}
                 editable={false}
                 pointerEvents="none"
                 multiline={true}
@@ -298,7 +306,7 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
             >
               <TouchableWithoutFeedback>
                 <View style={style.modal}>
-                  <Title>Select Gender</Title>
+                  <Title>{t("profileScreen.selectGender")}</Title>
 
                   {arrGender.map((gender) => {
                     const isSelected = userGender === gender;

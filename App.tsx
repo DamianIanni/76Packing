@@ -26,6 +26,7 @@ import { FavouriteScreen } from "./src/views/FavouritesScreen";
 import { LoginScreen } from "./src/views/LoginScreen";
 import { ActivitiesDataScreen } from "./src/views/dataEntryScreens/ActivitiesDataScreen";
 import { AccommodationDataScreen } from "./src/views/dataEntryScreens/AccommodationDataScreen";
+import { TranslationProvider } from "./src/i18n/TranslationContext";
 
 import firebase from "@react-native-firebase/app";
 import { initializeApp } from "firebase/app";
@@ -38,6 +39,7 @@ import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
 
 import store from "./src/redux/store";
 import { Provider } from "react-redux";
+import { useLocale } from "./src/i18n/TranslationContext";
 
 const os = Platform.OS;
 const firebaseConfig = {
@@ -76,6 +78,7 @@ const ComponentIcon = ({ tintColor, icon }) => {
 };
 
 export default function App(): React.JSX.Element {
+  const { t } = useLocale();
   const [isSplashVisible, setIsSplashVisible] = useState(true);
   const theme = new ThemeManager();
   useEffect(() => {
@@ -137,7 +140,7 @@ export default function App(): React.JSX.Element {
                   color,
                 }}
               >
-                Favourites
+                {t("favScreen")}
               </Text>
             ),
             tabBarIcon: ({ color }) => (
@@ -159,7 +162,7 @@ export default function App(): React.JSX.Element {
                   color,
                 }}
               >
-                Home
+                {t("homeScreen")}
               </Text>
             ),
             tabBarIcon: ({ color }) => (
@@ -181,7 +184,7 @@ export default function App(): React.JSX.Element {
                   color,
                 }}
               >
-                Settings
+                {t("settings")}
               </Text>
             ),
             tabBarIcon: ({ color }) => (
@@ -194,50 +197,36 @@ export default function App(): React.JSX.Element {
   }
 
   return (
-    <Provider store={store}>
-      {/* {isSplashVisible ? (
-        <SplashScreen />
-      ) : ( */}
-      <NavigationContainer>
-        {/* <SafeAreaView
-          style={{ flex: 1, backgroundColor: theme.colors.background }}
-        > */}
-        <Stack.Navigator
-          initialRouteName="SplashScreen"
-          screenOptions={{ headerShown: false }}
-        >
-          <Stack.Screen name="SplashScreen" component={SplashScreen} />
-          <Stack.Screen name="LoginScreen" component={LoginScreen} />
-          <Stack.Screen name="MainTabs" component={MyTabs} />
-          <Stack.Screen name="PersonalData" component={PersonalDataScreen} />
-          <Stack.Screen name="StyleData" component={StyleDataScreen} />
-          <Stack.Screen name="TravelData" component={TravelDataScreen} />
-          <Stack.Screen name="LuggageData" component={LuggageDataScreen} />
-          <Stack.Screen
-            name="ActivitiesScreen"
-            component={ActivitiesDataScreen}
-          />
-          <Stack.Screen
-            name="AccommodationScreen"
-            component={AccommodationDataScreen}
-          />
-          <Stack.Screen name="ShowLuggage" component={ShowLuggageScreen} />
-          <Stack.Screen
-            name="PackingLoading"
-            component={PackingLoadingScreen}
-          />
-        </Stack.Navigator>
-        {/* </SafeAreaView> */}
-      </NavigationContainer>
-      {/* )} */}
-      {/* <PersonalDataScreen /> */}
-      {/* <StyleDataScreen /> */}
-      {/* <TravelDataScreen /> */}
-      {/* <LuggageDataScreen /> */}
-      {/* <HomeScreen /> */}
-      {/* <ShowLuggageScreen /> */}
-      {/* <PackingLoadingScreen /> */}
-      {/* <SplashScreen /> */}
-    </Provider>
+    <TranslationProvider>
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="SplashScreen"
+            screenOptions={{ headerShown: false }}
+          >
+            <Stack.Screen name="SplashScreen" component={SplashScreen} />
+            <Stack.Screen name="LoginScreen" component={LoginScreen} />
+            <Stack.Screen name="MainTabs" component={MyTabs} />
+            <Stack.Screen name="PersonalData" component={PersonalDataScreen} />
+            <Stack.Screen name="StyleData" component={StyleDataScreen} />
+            <Stack.Screen name="TravelData" component={TravelDataScreen} />
+            <Stack.Screen name="LuggageData" component={LuggageDataScreen} />
+            <Stack.Screen
+              name="ActivitiesScreen"
+              component={ActivitiesDataScreen}
+            />
+            <Stack.Screen
+              name="AccommodationScreen"
+              component={AccommodationDataScreen}
+            />
+            <Stack.Screen name="ShowLuggage" component={ShowLuggageScreen} />
+            <Stack.Screen
+              name="PackingLoading"
+              component={PackingLoadingScreen}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
+    </TranslationProvider>
   );
 }

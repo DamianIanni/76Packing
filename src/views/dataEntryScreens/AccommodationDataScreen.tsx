@@ -25,6 +25,7 @@ import {
   PixelRatio,
 } from "react-native";
 import { CardInputComponent } from "../../components/cards/CardInputComponent";
+import { useLocale } from "../../i18n/TranslationContext";
 
 type CustomProps = {
   navigation: any;
@@ -39,11 +40,15 @@ const normalizeFontSize = (size: number) => {
 export const AccommodationDataScreen = (
   props: CustomProps
 ): React.JSX.Element => {
+  const { t } = useLocale();
   const { navigation, route } = props;
   const store = getReduxStoreUser();
   const dispatch = useAppDispatch();
   const theme = new ThemeManager();
-  const utilitiesList = ["Washing machine", "Dryer"];
+  const utilitiesList = [
+    t("accomodationScreen.utilitiesOptions.washingMachine"),
+    t("accomodationScreen.utilitiesOptions.dryer"),
+  ];
   const [userAccommodation, setUserAccommodation] = useState<string>("");
   const [utilities, setUtilities] = useState<string[]>([]);
   const [showUtilitiesPicker, setShowUtilitiesPicker] =
@@ -187,11 +192,11 @@ export const AccommodationDataScreen = (
             behavior={Platform.OS === "ios" ? "padding" : "height"}
           >
             <CardInputComponent
-              title="Accommodation"
+              title={t("accomodationScreen.accomodation")}
               z={Platform.OS === "ios" ? 0 : 10}
               multiline={true}
               action={(e: string) => setUserAccommodation(e)}
-              placeholder="Not required"
+              placeholder={t("notRequiredPlaceholder")}
               value={userAccommodation}
               isLargeText={true}
             />
@@ -202,11 +207,11 @@ export const AccommodationDataScreen = (
               setShowUtilitiesPicker(true);
             }}
           >
-            <Title>Utilities</Title>
+            <Title>{t("accomodationScreen.utilities")}</Title>
             <View style={style.mainCointainer}>
               <TextInput
                 style={style.input}
-                placeholder="Not required"
+                placeholder={t("notRequiredPlaceholder")}
                 editable={false}
                 pointerEvents="none"
                 multiline={true}
@@ -226,7 +231,7 @@ export const AccommodationDataScreen = (
             >
               <TouchableWithoutFeedback>
                 <View style={style.modal}>
-                  <Title>Select utilities</Title>
+                  <Title>{t("accomodationScreen.selectOptions")}</Title>
 
                   {utilitiesList.map((utilitie) => {
                     const isSelected = utilities.includes(utilitie);
@@ -253,7 +258,11 @@ export const AccommodationDataScreen = (
               </TouchableWithoutFeedback>
             </Pressable>
           </Modal>
-          <Button76 action={performButtonAction} disabled={true} text="next" />
+          <Button76
+            action={performButtonAction}
+            disabled={true}
+            text={t("button.nextBtn")}
+          />
         </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>

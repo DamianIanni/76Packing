@@ -67,6 +67,8 @@ const TopProfileBar: React.FC<CustomProps> = () => {
       fontFamily: "Afacad-Medium",
       letterSpacing: 6,
       marginLeft: 55,
+      maxWidth: "75%",
+      // backgroundColor: "red",
     },
   });
 
@@ -75,10 +77,6 @@ const TopProfileBar: React.FC<CustomProps> = () => {
   return (
     <View style={styles.container}>
       <View style={styles.iconContainer}>
-        {/* <Image
-          source={require("../../assets/logos/ME.jpg")}
-          style={styles.icon}
-        /> */}
         <Image
           source={{ uri: store.photoUrl ? store.photoUrl : "" }}
           style={styles.icon}

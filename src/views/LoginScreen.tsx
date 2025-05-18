@@ -20,6 +20,7 @@ import { signInWithGoogle } from "../utils/signIn";
 import { insertUserToServer } from "../api/apiServices/mutationServices";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { checkUUID } from "../utils/checkUUID";
+import { useLocale } from "../i18n/TranslationContext";
 
 import { getReduxStoreUser } from "../redux/getReduxStore";
 import {
@@ -36,11 +37,12 @@ export const LoginScreen = (props: customProps): React.JSX.Element => {
   const dispatch = useAppDispatch();
   const theme = new ThemeManager();
   const { navigation } = props;
+  const { t } = useLocale();
 
   async function handleGoogleSignIn() {
     const res = await signInWithGoogle();
     if (!res || res === true || typeof res !== "object" || !("email" in res)) {
-      return Alert.alert("Error", "No se pudo iniciar sesión con Google");
+      return Alert.alert("Error", t("messages.errorLogin"));
     }
     const userId = await getUserIdFromServer(res.email);
     const isUUID = userId !== null && checkUUID(userId.getUserId.data);
@@ -146,25 +148,25 @@ export const LoginScreen = (props: customProps): React.JSX.Element => {
         style={styles.itemContainer}
         onPress={() => handleGoogleSignIn()}
       >
-        <ContentText>Sing in with Google</ContentText>
+        <ContentText>{t("loginScreen.google")}</ContentText>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.itemContainer}
         onPress={() => handleAppleSignIn()}
       >
-        <ContentText>Sing in with Apple</ContentText>
+        <ContentText>{t("loginScreen.apple")}</ContentText>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.itemContainer}
         onPress={() => handleFacebookSignIn()}
       >
-        <ContentText>Sing in with Facebook</ContentText>
+        <ContentText>{t("loginScreen.facebook")}</ContentText>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.itemContainer}
         onPress={() => handleXSignIn()}
       >
-        <ContentText>Sing in with X</ContentText>
+        <ContentText>{t("loginScreen.formerTwiteer")}</ContentText>
       </TouchableOpacity>
     </SafeAreaView>
   );

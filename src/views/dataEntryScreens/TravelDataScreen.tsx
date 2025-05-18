@@ -10,6 +10,7 @@ import TopBar from "../../components/topBars/TopBar";
 import { Title } from "../../components/texts/Title";
 import { ContentText } from "../../components/texts/ContentText";
 import { useAppDispatch } from "../../redux/customDispatch";
+import { useLocale } from "../../i18n/TranslationContext";
 
 import { setTravelData } from "../../redux/propmtDataSlice";
 
@@ -46,10 +47,16 @@ const normalizeFontSize = (size: number) => {
 };
 
 export const TravelDataScreen = (props: CustomProps): React.JSX.Element => {
+  const { t } = useLocale();
   const theme = new ThemeManager();
   const dispatch = useAppDispatch();
   const { navigation } = props;
-  const arrSeason = ["Spring", "Summer", "Autumn", "Winter"];
+  const arrSeason = [
+    t("travelScreen.seasonsOptions.spring"),
+    t("travelScreen.seasonsOptions.summer"),
+    t("travelScreen.seasonsOptions.autumn"),
+    t("travelScreen.seasonsOptions.winter"),
+  ];
   const [durationDays, setDurationDays] = useState<number>(0);
   const [place, setPlace] = useState<string>("");
   const [seasons, SetSeasons] = useState<string[]>([]);
@@ -201,22 +208,22 @@ export const TravelDataScreen = (props: CustomProps): React.JSX.Element => {
             style={{ flex: 1, gap: 15 }}
           >
             <CardInputComponent
-              title="days"
+              title={t("travelScreen.days")}
               z={Platform.OS === "ios" ? 0 : 10}
               multiline={false}
               action={(e: string) =>
                 setDurationDays(Number(e.replace(/[.,]/g, "")))
               }
-              placeholder="Required"
+              placeholder={t("requiredPlaceholder")}
               keyboardType="numeric"
               // value={store.name}
             />
             <CardInputComponent
-              title="where to?"
+              title={t("travelScreen.destination")}
               z={Platform.OS === "ios" ? 0 : 10}
               multiline={false}
               action={(e: string) => setPlace(e)}
-              placeholder="Required"
+              placeholder={t("requiredPlaceholder")}
             />
 
             <View style={style.principalContainer}>
@@ -225,11 +232,11 @@ export const TravelDataScreen = (props: CustomProps): React.JSX.Element => {
                   setShowSeasonPickerModal(true);
                 }}
               >
-                <Title>season</Title>
+                <Title>{t("travelScreen.seasons")}</Title>
                 <View style={style.mainCointainer}>
                   <TextInput
                     style={style.input}
-                    placeholder="Not required"
+                    placeholder={t("notRequiredPlaceholder")}
                     editable={false}
                     pointerEvents="none"
                     multiline={true}
@@ -246,7 +253,7 @@ export const TravelDataScreen = (props: CustomProps): React.JSX.Element => {
           <Button76
             action={performButtonAction}
             disabled={isDisabled}
-            text="next"
+            text={t("button.nextBtn")}
           />
 
           <Modal
@@ -260,7 +267,7 @@ export const TravelDataScreen = (props: CustomProps): React.JSX.Element => {
             >
               <TouchableWithoutFeedback>
                 <View style={style.modal}>
-                  <Title>Select Seasons</Title>
+                  <Title>{t("travelScreen.selectOptions")}</Title>
 
                   {arrSeason.map((season) => {
                     const isSelected = seasons.includes(season);

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { ThemeManager } from "../classes/ThemeManager";
 import { ContentText } from "../components/texts/ContentText";
+import { LngSelectorComponent } from "../components/lng/LangSelectorComponent";
 
 import {
   SafeAreaView,
@@ -25,16 +26,21 @@ import { getReduxStoreUser } from "../redux/getReduxStore";
 import { useAppDispatch } from "../redux/customDispatch";
 import { clearUser } from "../redux/userSlice";
 
+import { useLocale } from "../i18n/TranslationContext";
+
 type CustomProps = {
   navigation: any;
 };
 
 const SettingScreen = (props: CustomProps): React.JSX.Element => {
+  const { t } = useLocale();
   const theme = new ThemeManager();
   const { navigation } = props;
   const store = getReduxStoreUser();
   const dispatch = useAppDispatch();
   // console.log("Navigation prop:", navigation);
+
+  const [showModal, setShowModal] = useState(false);
 
   const styles = StyleSheet.create({
     text: {
@@ -65,12 +71,14 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
       backgroundColor: theme.colors.backgroundCard,
       width: theme.standarWidth,
       justifyContent: "center",
-      alignItems: "flex-start",
-      flexDirection: "column",
+      alignItems: "center",
+      flexDirection: "row",
       height: 130,
       //   gap: 40,
       padding: 10,
       marginTop: 10,
+      gap: 10,
+      // maxWidth: "75%",
     },
     divider: {
       borderColor: theme.colors.divider,
@@ -116,6 +124,15 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
     },
   });
 
+  function onLogOut() {
+    dispatch(clearUser());
+    auth().signOut();
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "LoginScreen" }],
+    });
+  }
+
   const Divider = () => <View style={styles.divider}></View>;
 
   return (
@@ -134,30 +151,28 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
         backgroundColor={theme.colors.background}
       />
       <View style={styles.mainPhotoCointainer}>
-        <TouchableOpacity style={styles.iconContainer}>
-          <Image
-            source={{ uri: store.photoUrl || undefined }}
-            style={styles.icon}
-          />
-        </TouchableOpacity>
-        <NameText
+        <Image source={{ uri: store.photoUrl || "" }} style={styles.icon} />
+        <View
           style={{
-            fontFamily: "Afacad-Bold",
-            left: theme.standarWidth / 3,
-            // backgroundColor: "red",
+            maxWidth: "65%",
           }}
         >
-          {store.name?.toUpperCase()}
-        </NameText>
-        <NameText
-          style={{
-            fontFamily: "Afacad-Bold",
-            left: theme.standarWidth / 3,
-            // backgroundColor: "red",
-          }}
-        >
-          {store.surname?.toUpperCase()}
-        </NameText>
+          <NameText
+            style={{
+              fontFamily: "Afacad-Bold",
+            }}
+          >
+            {store.name?.toUpperCase()}
+          </NameText>
+
+          <NameText
+            style={{
+              fontFamily: "Afacad-Bold",
+            }}
+          >
+            {store.surname?.toUpperCase()}
+          </NameText>
+        </View>
       </View>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
@@ -173,8 +188,6 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
           width: "100%",
         }}
       >
-        {/* <View style={styles.principalContainer}> */}
-
         <View style={styles.mainCointainer}>
           <View style={styles.elementListContainer}>
             <TouchableOpacity
@@ -184,7 +197,9 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
                 })
               }
             >
-              <NameText style={{ fontFamily: "Afacad-Bold" }}>PROFILE</NameText>
+              <NameText style={{ fontFamily: "Afacad-Bold" }}>
+                {t("settingsScreen.profile")}
+              </NameText>
             </TouchableOpacity>
             <Divider />
             <TouchableOpacity
@@ -194,7 +209,9 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
                 })
               }
             >
-              <NameText style={{ fontFamily: "Afacad-Bold" }}>STYLE</NameText>
+              <NameText style={{ fontFamily: "Afacad-Bold" }}>
+                {t("settingsScreen.style")}
+              </NameText>
             </TouchableOpacity>
             <Divider />
             <TouchableOpacity
@@ -204,7 +221,9 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
                 })
               }
             >
-              <NameText style={{ fontFamily: "Afacad-Bold" }}>LUGGAGE</NameText>
+              <NameText style={{ fontFamily: "Afacad-Bold" }}>
+                {t("settingsScreen.luggage")}
+              </NameText>
             </TouchableOpacity>
             <Divider />
             <TouchableOpacity
@@ -241,53 +260,67 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
               </NameText>
             </TouchableOpacity>
             <Divider />
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("PackingLoading", {
+                  from: "SettingScreen",
+                })
+              }
+            >
               <NameText style={{ fontFamily: "Afacad-Bold" }}>
-                LANGUAGE
+                LOADING SCREEN
+              </NameText>
+            </TouchableOpacity>
+            <Divider />
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("ShowLuggage", {
+                  from: "SettingScreen",
+                })
+              }
+            >
+              <NameText style={{ fontFamily: "Afacad-Bold" }}>
+                SHOW LUGGAGE
+              </NameText>
+            </TouchableOpacity>
+            <Divider />
+            <TouchableOpacity onPress={() => setShowModal(true)}>
+              <NameText style={{ fontFamily: "Afacad-Bold" }}>
+                {t("settingsScreen.lang")}
               </NameText>
             </TouchableOpacity>
             <Divider />
             <TouchableOpacity
               onPress={() => {
                 Alert.alert(
-                  "Are you sure you want to log out?",
+                  t("messages.logOut.title"),
                   "",
                   [
                     {
-                      text: "Cancelar",
+                      text: t("messages.cancel"),
                       onPress: () => console.log("Cancelado"),
                       style: "cancel",
                     },
                     {
-                      text: "Aceptar",
-                      onPress: () => {
-                        dispatch(clearUser());
-                        auth().signOut();
-                        navigation.reset({
-                          index: 0,
-                          routes: [{ name: "LoginScreen" }],
-                        });
-                      },
+                      text: t("messages.accept"),
+                      onPress: () => onLogOut(),
                     },
                   ],
                   { cancelable: true }
                 );
-                // dispatch(clearUser());
-                // auth().signOut();
-                // navigation.reset({
-                //   index: 0,
-                //   routes: [{ name: "LoginScreen" }],
-                // });
               }}
             >
               <NameText style={{ fontFamily: "Afacad-Bold", color: "red" }}>
-                LOG OUT
+                {t("settingsScreen.logOut")}
               </NameText>
             </TouchableOpacity>
           </View>
         </View>
-        {/* </View> */}
       </ScrollView>
+      <LngSelectorComponent
+        showModal={showModal}
+        onClose={() => setShowModal(false)}
+      />
     </SafeAreaView>
   );
 };

@@ -5,6 +5,7 @@ import TopBar from "../../components/topBars/TopBar";
 import { getReduxStoreUser } from "../../redux/getReduxStore";
 import { useAppDispatch } from "../../redux/customDispatch";
 import { setActivitiesData } from "../../redux/propmtDataSlice";
+import { useLocale } from "../../i18n/TranslationContext";
 
 import {
   SafeAreaView,
@@ -25,6 +26,7 @@ type CustomProps = {
 };
 
 export const ActivitiesDataScreen = (props: CustomProps): React.JSX.Element => {
+  const { t } = useLocale();
   const { navigation, route } = props;
   const store = getReduxStoreUser();
   const dispatch = useAppDispatch();
@@ -93,17 +95,21 @@ export const ActivitiesDataScreen = (props: CustomProps): React.JSX.Element => {
             behavior={Platform.OS === "ios" ? "padding" : "height"}
           >
             <CardInputComponent
-              title="activities"
+              title={t("activitiesScreen.activities")}
               z={Platform.OS === "ios" ? 0 : 10}
               multiline={true}
               action={(e: string) => setUserActivities(e)}
-              placeholder="Not required"
+              placeholder={t("notRequiredPlaceholder")}
               isLargeText={true}
               value={userActivities}
             />
           </KeyboardAvoidingView>
 
-          <Button76 action={performButtonAction} disabled={true} text="next" />
+          <Button76
+            action={performButtonAction}
+            disabled={true}
+            text={t("button.nextBtn")}
+          />
         </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>
