@@ -1,7 +1,7 @@
 export const de = {
   translation: {
     loadingScreen: {
-      packForYou: "Packen für Sie",
+      packForYou: "Packen für dich",
     },
     messages: {
       errorLogin: "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
