@@ -169,4 +169,4 @@ ios/*.xcuserstate
 ios/project.xcworkspace/xcuserdata/
 .DS_Store
 *.xcuserstate
-*.xcuserdata/
+*.xcuserdata/ios/*xcuserdata/
