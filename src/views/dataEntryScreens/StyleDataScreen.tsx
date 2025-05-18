@@ -23,6 +23,7 @@ import {
   updateUserStyle,
 } from "../../api/apiServices/mutationServices";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useLocale } from "../../i18n/TranslationContext";
 
 type CustomProps = {
   navigation: any;
@@ -30,10 +31,13 @@ type CustomProps = {
 };
 
 export const StyleDataScreen = (props: CustomProps): React.JSX.Element => {
+  const { t } = useLocale();
   const theme = new ThemeManager();
   const store = getReduxStoreUser();
   const { navigation, route } = props;
-  const btnText = route.params?.from ? "Save" : "next";
+  const btnText = route.params?.from
+    ? t("button.saveBtn")
+    : t("button.nextBtn");
   const dispatch = useAppDispatch();
   const [userStyle, setUserStyle] = useState<string>(store.style || "");
   const [userBrands, setUserBrands] = useState<string>(store.brands || "");
@@ -130,11 +134,11 @@ export const StyleDataScreen = (props: CustomProps): React.JSX.Element => {
             behavior={Platform.OS === "ios" ? "padding" : "height"}
           >
             <CardInputComponent
-              title="brands"
+              title={t("styleScreen.brands")}
               z={Platform.OS === "ios" ? 0 : 10}
               multiline={true}
               action={(e: string) => setUserBrands(e)}
-              placeholder="Not required"
+              placeholder={t("notRequiredPlaceholder")}
               value={store.brands}
             />
           </KeyboardAvoidingView>
@@ -142,11 +146,11 @@ export const StyleDataScreen = (props: CustomProps): React.JSX.Element => {
             behavior={Platform.OS === "ios" ? "padding" : "height"}
           >
             <CardInputComponent
-              title="Style"
+              title={t("styleScreen.style")}
               z={Platform.OS === "ios" ? 0 : 10}
               multiline={true}
               action={(e: string) => setUserStyle(e)}
-              placeholder="Not required"
+              placeholder={t("notRequiredPlaceholder")}
               value={store.style}
             />
           </KeyboardAvoidingView>

@@ -41,6 +41,8 @@ export const NameText: React.FC<CustomTextProps> = ({
       ]}
       // numberOfLines={numberOfLines}
       // {...restProps}
+      numberOfLines={1}
+      ellipsizeMode="tail"
     >
       {children}
     </Text>

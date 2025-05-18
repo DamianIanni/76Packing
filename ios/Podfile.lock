@@ -3108,6 +3108,27 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - RNLocalize (3.4.1):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.11.18.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - RNScreens (4.6.0):
     - DoubleConversion
     - glog
@@ -3237,6 +3258,7 @@ DEPENDENCIES:
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
   - "RNGoogleSignin (from `../node_modules/@react-native-google-signin/google-signin`)"
+  - RNLocalize (from `../node_modules/react-native-localize`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -3426,6 +3448,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/auth"
   RNGoogleSignin:
     :path: "../node_modules/@react-native-google-signin/google-signin"
+  RNLocalize:
+    :path: "../node_modules/react-native-localize"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   Yoga:
@@ -3538,6 +3562,7 @@ SPEC CHECKSUMS:
   RNFBApp: f9c347f09f0c87e1d49ff8a216c7475763bf28a7
   RNFBAuth: acba776a0930fc6e910dc63c1f11a11390d4aee9
   RNGoogleSignin: e548e9a67bb94980df514f71e107a13d6ebe40d3
+  RNLocalize: 530c85d94ac53e0ce316f6fdf5d47545a687fca9
   RNScreens: 6a595af73186eb6b85dfd82ded47d67989ae14b5
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   Yoga: c34725819ab0a5962e85455b9e56679b306910ee

@@ -12,9 +12,11 @@ import {
 } from "react-native";
 import { ThemeManager } from "../classes/ThemeManager";
 import { ButtonText } from "../components/texts/ButtonText";
+import { useLocale } from "../i18n/TranslationContext";
 import { getReduxStorePrompt } from "../redux/getReduxStore";
 
 export const PackingLoadingScreen = () => {
+  const { t } = useLocale();
   const theme = new ThemeManager();
   const os = Platform.OS;
   const storePrompt = getReduxStorePrompt();
@@ -91,7 +93,9 @@ export const PackingLoadingScreen = () => {
       />
       <View style={styles.mainView}>
         <Image source={whichLogo()} style={styles.logo} />
-        <Text style={styles.text}>PACKING FOR YOU</Text>
+        <Text style={styles.text}>
+          {t("loadingScreen.packForYou").toUpperCase()}
+        </Text>
         <ActivityIndicator
           size="large"
           color={theme.themeMode ? theme.colors.stripe3 : theme.colors.stripe2}

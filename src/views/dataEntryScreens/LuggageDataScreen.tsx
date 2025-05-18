@@ -13,6 +13,7 @@ import {
   updateSavedLuggageToServer,
 } from "../../api/apiServices/mutationServices";
 import { getSavedLuggageFromServer } from "../../api/apiServices/queryServices";
+import { useLocale } from "../../i18n/TranslationContext";
 
 import {
   SafeAreaView,
@@ -33,6 +34,7 @@ type CustomProps = {
 };
 
 export const LuggageDataScreen = (props: CustomProps): React.JSX.Element => {
+  const { t } = useLocale();
   const { navigation, route } = props;
   const store = getReduxStoreUser();
   const dispatch = useAppDispatch();
@@ -175,11 +177,11 @@ export const LuggageDataScreen = (props: CustomProps): React.JSX.Element => {
             behavior={Platform.OS === "ios" ? "padding" : "height"}
           >
             <CardInputComponent
-              title="luggage 1"
+              title={t("luggageScreen.luggage1")}
               z={Platform.OS === "ios" ? 0 : 10}
               multiline={false}
               action={(e: string) => setLuggage1(e)}
-              placeholder="Required"
+              placeholder={t("requiredPlaceholder")}
               value={luggage1}
             />
           </KeyboardAvoidingView>
@@ -187,11 +189,11 @@ export const LuggageDataScreen = (props: CustomProps): React.JSX.Element => {
             behavior={Platform.OS === "ios" ? "padding" : "height"}
           >
             <CardInputComponent
-              title="luggage 2"
+              title={t("luggageScreen.luggage2")}
               z={Platform.OS === "ios" ? 0 : 10}
               multiline={false}
               action={(e: string) => setLuggage2(e)}
-              placeholder="Not required"
+              placeholder={t("notRequiredPlaceholder")}
               value={luggage2}
             />
           </KeyboardAvoidingView>
@@ -199,11 +201,11 @@ export const LuggageDataScreen = (props: CustomProps): React.JSX.Element => {
             behavior={Platform.OS === "ios" ? "padding" : "height"}
           >
             <CardInputComponent
-              title="luggage 3"
+              title={t("luggageScreen.luggage3")}
               z={Platform.OS === "ios" ? 0 : 10}
               multiline={false}
               action={(e: string) => setLuggage3(e)}
-              placeholder="Not required"
+              placeholder={t("notRequiredPlaceholder")}
               value={luggage3}
             />
           </KeyboardAvoidingView>
@@ -211,17 +213,17 @@ export const LuggageDataScreen = (props: CustomProps): React.JSX.Element => {
             behavior={Platform.OS === "ios" ? "padding" : "height"}
           >
             <CardInputComponent
-              title="luggage 4"
+              title={t("luggageScreen.luggage4")}
               z={Platform.OS === "ios" ? 0 : 10}
               multiline={false}
               action={(e: string) => setLuggage4(e)}
-              placeholder="Not required"
+              placeholder={t("notRequiredPlaceholder")}
               value={luggage4}
             />
           </KeyboardAvoidingView>
           {!route.params?.from && store.savedLuggage && (
             <View style={style.container3}>
-              <ContentText>Use saved luggage</ContentText>
+              <ContentText>{t("luggageScreen.useSavedLugg")}</ContentText>
               <Switch
                 trackColor={{ false: "#767577", true: theme.colors.stripe3 }}
                 thumbColor={"#ffff"}
@@ -239,7 +241,9 @@ export const LuggageDataScreen = (props: CustomProps): React.JSX.Element => {
           <Button76
             action={performButtonAction}
             disabled={isDisabled()}
-            text={route.params?.from ? "save" : "next"}
+            text={
+              route.params?.from ? t("button.saveBtn") : t("button.nextBtn")
+            }
           />
         </View>
       </SafeAreaView>
