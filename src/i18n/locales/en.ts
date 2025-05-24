@@ -4,6 +4,9 @@ export const en = {
       packForYou: "packing for you",
     },
     messages: {
+      attention: "Attention",
+      deleteItem: "Are you sure you want to delete this item?",
+      eliminate: "Eliminate",
       errorLogin: "Something went wrong. Please try again.",
       logOut: {
         title: "Are you sure you want to log out?",

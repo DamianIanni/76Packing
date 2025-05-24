@@ -112,9 +112,27 @@ const HomeScreen = (props: customProps): React.JSX.Element => {
         />
         <Button
           title="propmt Luggage"
-          onPress={() =>
-            getPromptLuggageFromServer("123123123123123123123123123123123123")
-          }
+          onPress={() => {
+            try {
+              getPromptLuggageFromServer({
+                destination: "Hamburg",
+                duration: 7,
+                activities: "walk around the city",
+                luggageItems: ["small backpack"],
+                // weatherSensitivity: null,
+                // favoriteClothing: null,
+                accommodationType: "A friend house",
+                utilities: ["washing machine", "dryer"],
+                gender: "male",
+                // height: null,
+                // nationality: null,
+                // age: null,
+                dressStyle: "Sporty",
+              });
+            } catch (error) {
+              console.log("ERROR CON EL PROMPT", error);
+            }
+          }}
         />
         <Button
           color={"red"}

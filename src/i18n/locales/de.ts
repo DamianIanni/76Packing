@@ -4,6 +4,9 @@ export const de = {
       packForYou: "Packen für dich",
     },
     messages: {
+      attention: "Achtung",
+      deleteItem: "Möchten Sie diesen Artikel wirklich löschen?",
+      eliminate: "Beseitigen",
       errorLogin: "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
       logOut: {
         title: "Möchten Sie sich wirklich abmelden?",

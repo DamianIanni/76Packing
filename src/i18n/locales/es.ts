@@ -4,6 +4,9 @@ export const es = {
       packForYou: "packing for you",
     },
     messages: {
+      attention: "Atención",
+      deleteItem: "¿Estás seguro de que quieres eliminar este ítem?",
+      eliminate: "Eliminar",
       errorLogin: "Algo salio mal, intentalo de nuevo mas tarde",
       logOut: {
         title: "¿Estás seguro que deseas cerrar sesión?",

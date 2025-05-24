@@ -57,7 +57,7 @@ export const GET_SAVEDLUGGAGE = gql`
 
 export const GET_PROPMT_LUGGAGE = gql`
   query PromptLuggage($prompt: PackingPromptInput!) {
-    promptLuggage {
+    promptLuggage(prompt: $prompt) {
       success
       message
       code

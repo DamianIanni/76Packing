@@ -1,34 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { ThemeManager } from "../classes/ThemeManager";
-import { Title } from "../components/texts/Title";
-import { ContentText } from "../components/texts/ContentText";
-import { BigTitle } from "../components/texts/BigTitle";
-import { Button76 } from "../components/button/Button76";
-import { AddButton } from "../components/button/AddButton";
-import { CardComponent } from "../components/cards/CardComponent";
 import TopBar from "../components/topBars/TopBar";
 
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  Platform,
-} from "react-native";
-import TopProfileBar from "../components/topBars/TopProfileBar";
+import { SafeAreaView, StatusBar, StyleSheet, Platform } from "react-native";
 import { CardListComponent } from "../components/cards/CardListComponent";
-import { CardInputComponent } from "../components/cards/CardInputComponent";
+import { useLocale } from "../i18n/TranslationContext";
 
 type CustomProps = {
   navigation: any;
 };
 
 export const ShowLuggageScreen = (props: CustomProps): React.JSX.Element => {
+  const { t } = useLocale();
   const { navigation } = props;
   const theme = new ThemeManager();
+  const [dataReceived, setDataReceived] = useState();
   const style = StyleSheet.create({
     text: {
       fontFamily: "Afacad-BoldItalic",
@@ -40,6 +26,14 @@ export const ShowLuggageScreen = (props: CustomProps): React.JSX.Element => {
       backgroundColor: theme.colors.background,
     },
   });
+
+  function onSaving() {
+    // console.log("DATA RECIBIDIA DEL HIJO", dataReceived);
+  }
+
+  function saving(data: any) {
+    console.log("DATA RECIBIDIA DEL HIJO", data);
+  }
 
   return (
     <SafeAreaView
@@ -55,23 +49,8 @@ export const ShowLuggageScreen = (props: CustomProps): React.JSX.Element => {
         barStyle={theme.themeMode ? "light-content" : "dark-content"}
         backgroundColor={theme.colors.background}
       />
-      <TopBar navigation={navigation} text="spain" />
-
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        // bounces
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          backgroundColor: theme.colors.background,
-          alignItems: "center",
-          paddingBottom: Platform.OS === "android" ? 80 : 60,
-        }}
-        style={{
-          width: "100%",
-        }}
-      >
-        <CardListComponent title="carry on" />
-      </ScrollView>
+      <TopBar navigation={navigation} text="spain" onSaving={onSaving} />
+      <CardListComponent saving={saving} />
     </SafeAreaView>
   );
 };

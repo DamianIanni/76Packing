@@ -62,5 +62,5 @@ export interface UserStateInterface {
   brands: string | null;
   savedLuggage: SavedLuggage | null;
   // favClothes: FavClothesInterface | null;
-  favPacking: FavPackingInterface | null;
+  favPacking: FavPackingInterface[] | null;
 }

@@ -8,6 +8,22 @@ import {
   GET_ALL_USER_DATA,
 } from "../queries";
 
+export interface PackingPromptInput {
+  destination: string;
+  duration: number;
+  activities?: string;
+  luggageItems: string[];
+  weatherSensitivity?: string;
+  favoriteClothing?: string;
+  accommodationType?: string;
+  utilities?: string[];
+  gender?: string;
+  height?: string;
+  nationality?: string;
+  // age: number;
+  dressStyle?: string;
+}
+
 export const getUserFromServer = async (userId: string) => {
   try {
     const { data } = await client.query({
@@ -68,15 +84,18 @@ export const getFavPackingFromServer = async (userId: string) => {
   }
 };
 
-export const getPromptLuggageFromServer = async (userId: string) => {
+export const getPromptLuggageFromServer = async (
+  prompt: PackingPromptInput
+) => {
+  console.log("PACKING PROMPT", prompt);
   try {
     const { data } = await client.query({
       query: GET_PROPMT_LUGGAGE,
-      variables: { userId },
+      variables: { prompt },
       fetchPolicy: "network-only",
     });
-    console.log("DATA FROM SERVER", data);
 
+    console.log("PACKING PROMPT DAtA RETURN", data);
     return data;
   } catch (error) {
     console.log("EL ERROR", error);

@@ -50,7 +50,7 @@ const userSlice = createSlice({
           userId: string;
         };
         savedLuggage: SavedLuggage;
-        favPacking: FavPackingInterface;
+        favPacking: FavPackingInterface[];
         userStyle: {
           brands: string | null;
           style: string | null;
