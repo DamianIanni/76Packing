@@ -14,6 +14,7 @@ import { ThemeManager } from "../../classes/ThemeManager";
 import { ContentText } from "../texts/ContentText";
 import { Title } from "../texts/Title";
 import { useLocale } from "../../i18n/TranslationContext";
+import { getReduxStoreUser } from "../../redux/getReduxStore";
 
 const mockData = [
   {
@@ -68,6 +69,7 @@ const mockData = [
 
 type customProps = {
   saving: (data: Luggage[]) => void;
+  recentPacking?: string;
 };
 type ContentItem = {
   quantity: number;
@@ -79,10 +81,20 @@ type Luggage = {
   content: ContentItem[];
 };
 
-export const CardListComponent: React.FC<customProps> = ({ saving }) => {
-  const [data, setData] = useState(mockData); // copiamos el mock para trabajar con estado
+export const CardListComponent: React.FC<customProps> = ({
+  saving,
+  recentPacking,
+}) => {
   const { t } = useLocale();
+  const userStore = getReduxStoreUser();
   const theme = new ThemeManager();
+  const dataToUseBefore =
+    recentPacking === "LoadingScreen"
+      ? userStore.favPacking![userStore.favPacking!.length - 1]
+      : userStore.favPacking![0];
+  const parsed = parseLuggageData(dataToUseBefore);
+  const [data, setData] = useState(parsed); // copiamos el mock para trabajar con estado
+
   const styles = StyleSheet.create({
     principalContainer: {
       alignItems: "flex-start",
@@ -145,6 +157,24 @@ export const CardListComponent: React.FC<customProps> = ({ saving }) => {
       tintColor: theme.colors.nonCheckIcon,
     },
   });
+
+  function parseLuggageData(data: any): Luggage[] {
+    const parsedLuggage: Luggage[] = [];
+
+    for (let i = 1; i <= 4; i++) {
+      const key = `Luggage_${i}`;
+      if (data[key]) {
+        try {
+          const parsed = JSON.parse(data[key]);
+          parsedLuggage.push(parsed);
+        } catch (error) {
+          console.warn(`Error parsing ${key}:`, error);
+        }
+      }
+    }
+
+    return parsedLuggage;
+  }
 
   function handleItemModified(modifiedLuggages: Luggage[], index: number) {
     saving(modifiedLuggages);

@@ -47,7 +47,7 @@ export const LuggageDataScreen = (props: CustomProps): React.JSX.Element => {
   const [luggage2, setLuggage2] = useState<string>(luggage_2 ? luggage_2 : "");
   const [luggage3, setLuggage3] = useState<string>(luggage_3 ? luggage_3 : "");
   const [luggage4, setLuggage4] = useState<string>(luggage_4 ? luggage_4 : "");
-  const [useSavedLuggage, setUseSavedLuggage] = useState<boolean>(false);
+  const [useSavedLuggage, setUseSavedLuggage] = useState<boolean>(true);
 
   const arrLuggage = [luggage1, luggage2, luggage3, luggage4];
   const objLuggage = {

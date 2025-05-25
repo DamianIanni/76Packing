@@ -24,6 +24,10 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    setFavPacking: (state, action: PayloadAction<FavPackingInterface>) => {
+      // console.log("QuALUMPUR", action.payload);
+      state.favPacking = [...(state.favPacking ?? []), action.payload];
+    },
     setUserAfterLogin: (
       state,
       action: PayloadAction<{
@@ -149,6 +153,7 @@ export const {
   setSavedLuggageData,
   setAllData,
   setUserProfilePhotoUrl,
+  setFavPacking,
   clearUser,
 } = userSlice.actions;
 

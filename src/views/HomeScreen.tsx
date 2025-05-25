@@ -67,7 +67,7 @@ const HomeScreen = (props: customProps): React.JSX.Element => {
         barStyle={theme.themeMode ? "light-content" : "dark-content"}
         backgroundColor={theme.colors.background}
       />
-      <TopProfileBar />
+      <TopProfileBar navigation={navigation} />
 
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
@@ -91,7 +91,7 @@ const HomeScreen = (props: customProps): React.JSX.Element => {
         <Button
           title="Get user all data"
           onPress={() =>
-            getAllUserDataFromServer("ae28c49b-d57a-4081-a802-ae7f2aed5c7a")
+            getAllUserDataFromServer("ec949b67-c76f-4dbd-8084-f28ce4e61c46")
           }
         />
         <Button
@@ -152,7 +152,7 @@ const HomeScreen = (props: customProps): React.JSX.Element => {
           onPress={() =>
             insertFavPackingToServer({
               Name: "SPAIN",
-              userId: "ec949b67-c76f-4dbd-8084-f28ce4e61c46",
+              userId: "9840cca1-d935-4082-b71a-4a3f0fc8a751",
               Luggage_1: "bla bla bla",
               Luggage_2: "",
               Luggage_3: "",

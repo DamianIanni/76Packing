@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, TouchableOpacity, Image, View } from "react-native";
 import { ThemeManager } from "../../classes/ThemeManager";
 
 interface CustomProps {
@@ -22,7 +22,7 @@ export const AddButton: React.FC<CustomProps> = ({ text }) => {
   });
 
   return (
-    <TouchableOpacity style={styles.componentStyle}>
+    <View style={styles.componentStyle}>
       <Image
         source={require("../../assets/icons/add_icon.png")}
         style={{
@@ -31,6 +31,6 @@ export const AddButton: React.FC<CustomProps> = ({ text }) => {
           width: "100%",
         }}
       />
-    </TouchableOpacity>
+    </View>
   );
 };

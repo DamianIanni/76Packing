@@ -121,6 +121,8 @@ export const updateUserStyle = async (userStyle: {
 export const insertFavPackingToServer = async (
   favPacking: FavPackingInterface
 ) => {
+  // console.log("A VER QUE LLEGA", favPacking);
+
   try {
     const { data } = await client.mutate({
       mutation: INSERT_FAVPACKING,

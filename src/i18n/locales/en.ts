@@ -73,7 +73,7 @@ export const en = {
     },
     button: {
       saveBtn: "save",
-      nextBtn: "save",
+      nextBtn: "next",
     },
     notRequiredPlaceholder: "Not required",
     requiredPlaceholder: "Required",

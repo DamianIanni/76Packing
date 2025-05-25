@@ -8,11 +8,12 @@ import { useLocale } from "../i18n/TranslationContext";
 
 type CustomProps = {
   navigation: any;
+  route: any;
 };
 
 export const ShowLuggageScreen = (props: CustomProps): React.JSX.Element => {
   const { t } = useLocale();
-  const { navigation } = props;
+  const { navigation, route } = props;
   const theme = new ThemeManager();
   const [dataReceived, setDataReceived] = useState();
   const style = StyleSheet.create({
@@ -50,7 +51,7 @@ export const ShowLuggageScreen = (props: CustomProps): React.JSX.Element => {
         backgroundColor={theme.colors.background}
       />
       <TopBar navigation={navigation} text="spain" onSaving={onSaving} />
-      <CardListComponent saving={saving} />
+      <CardListComponent recentPacking={route.params?.from} saving={saving} />
     </SafeAreaView>
   );
 };
