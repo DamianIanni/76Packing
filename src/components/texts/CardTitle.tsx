@@ -29,6 +29,8 @@ export const CardTitle: React.FC<CustomTextProps> = ({
 
   return (
     <Text
+      numberOfLines={1}
+      ellipsizeMode="tail"
       style={[
         {
           fontSize: normalizeFontSize(28),

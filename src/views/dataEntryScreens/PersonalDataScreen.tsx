@@ -47,10 +47,18 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
   const btnText = route.params?.from
     ? t("button.saveBtn")
     : t("button.nextBtn");
+  // const arrGender = [
+  //   {gender: t("profileScreen.genderOptions.male"), genderNumber: 1},
+  //   {gender: t("profileScreen.genderOptions.famale"),genderNumber: 2 },
+  //   {gender: t("profileScreen.genderOptions.noToSay"), genderNumber: 3},
+  // ];
   const arrGender = [
-    t("profileScreen.genderOptions.male"),
-    t("profileScreen.genderOptions.famale"),
-    t("profileScreen.genderOptions.noToSay"),
+    { label: t("profileScreen.genderOptions.male"), value: "male" },
+    { label: t("profileScreen.genderOptions.famale"), value: "female" },
+    {
+      label: t("profileScreen.genderOptions.noToSay"),
+      value: "prefer_not_to_say",
+    },
   ];
   console.log("LA STORE EN EL PERSONAL DATA", store);
 
@@ -62,6 +70,7 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
   const [userName, setUserName] = useState<string>(store.name || "");
   const [userSurname, setUserSurname] = useState<string>(store.surname || "");
   const [userGender, setUserGender] = useState<string>(store.gender || "");
+  // const [userGender, setUserGender] = useState<string>(store.gender || "");
   const [userDayOfBrith, setUserDayOfBirth] = useState<Date | null>(() => {
     const dob = store.dateOfBirth;
     if (!dob) return null;
@@ -87,6 +96,8 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
     dateOfBirth: userDayOfBrith?.toISOString(),
     height: userHeight,
   };
+
+  function showGender() {}
 
   async function dispatchUser() {
     const uuid = store.userId;
@@ -286,7 +297,9 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
                 editable={false}
                 pointerEvents="none"
                 multiline={true}
-                value={userGender}
+                value={
+                  arrGender.find((g) => g.value === userGender)?.label || ""
+                }
               />
             </View>
           </Pressable>
@@ -309,22 +322,22 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
                   <Title>{t("profileScreen.selectGender")}</Title>
 
                   {arrGender.map((gender) => {
-                    const isSelected = userGender === gender;
+                    const isSelected = userGender === gender.value;
                     return (
                       <TouchableOpacity
-                        key={gender}
+                        key={gender.value}
                         style={[
                           style.option,
                           isSelected && style.selectedOption,
                         ]}
-                        onPress={() => toggleGender(gender)}
+                        onPress={() => toggleGender(gender.value)}
                       >
                         <ContentText
                           style={
                             isSelected ? style.selectedText : style.optionText
                           }
                         >
-                          {gender}
+                          {gender.label}
                         </ContentText>
                       </TouchableOpacity>
                     );

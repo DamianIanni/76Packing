@@ -1,9 +1,11 @@
 import React from "react";
-import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Image, TouchableOpacity, Alert } from "react-native";
 // import { ThemeManager } from "../../classes/ThemeManager";
 import { AddButton } from "../button/AddButton";
 import { NameText } from "../texts/NameText";
 import { getReduxStoreUser } from "../../redux/getReduxStore";
+import { checkTooManyPackings } from "../../utils/filteringFavArrays";
+import { useLocale } from "../../i18n/TranslationContext";
 
 interface CustomProps {
   navigation: any;
@@ -12,8 +14,25 @@ interface CustomProps {
 const TopProfileBar: React.FC<CustomProps> = ({ navigation }) => {
   // const theme = new ThemeManager();
   const store = getReduxStoreUser();
+  const { t } = useLocale();
 
   function startProccess() {
+    if (store.favPacking && store.favPacking.length > 0) {
+      const howManyPackings = checkTooManyPackings(store.favPacking, 0);
+      if (howManyPackings >= 20) {
+        Alert.alert(
+          t("messages.attention"),
+          `${t("messages.toManyPackings")}, ${howManyPackings}`,
+          [
+            {
+              text: "OK",
+              onPress: () => console.log("OK Pressed"),
+            },
+          ]
+        );
+        return;
+      }
+    }
     console.log("USER EN TOP PROFILE BAR", store);
     navigation.navigate("TravelData");
   }

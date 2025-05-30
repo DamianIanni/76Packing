@@ -13,10 +13,10 @@ import { BigTitle } from "../texts/BigTitle";
 interface CustomProps {
   text: string;
   navigation?: any;
-  onSaving?: () => void;
+  onGoingBack?: () => void;
 }
 
-const TopBar: React.FC<CustomProps> = ({ text, navigation, onSaving }) => {
+const TopBar: React.FC<CustomProps> = ({ text, navigation, onGoingBack }) => {
   const theme = new ThemeManager();
 
   const styles = StyleSheet.create({
@@ -42,7 +42,10 @@ const TopBar: React.FC<CustomProps> = ({ text, navigation, onSaving }) => {
   });
 
   function goingBack() {
-    onSaving && onSaving();
+    if (onGoingBack) {
+      onGoingBack();
+      return;
+    }
     navigation.goBack();
   }
 

@@ -139,8 +139,12 @@ export const insertFavPackingToServer = async (
 };
 
 export const updateFavPackingToServer = async (favPacking: {
-  userId: string;
   packing_type: number;
+  userId: string;
+  Luggage_1: string;
+  Luggage_2?: string | null;
+  Luggage_3?: string | null;
+  Luggage_4?: string | null;
   id: number;
 }) => {
   try {

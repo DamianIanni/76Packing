@@ -1,10 +1,20 @@
 export const de = {
   translation: {
+    emptyScreen: {
+      nothingToShow: "Hier gibt es nichts zu zeigen",
+    },
+    cards: {
+      luggageDone: "Lagerung abgeschlossen",
+      luggageNotDone: "Gepäck unvollständig",
+      itemsPacked: "Artikel eingepackt",
+    },
     loadingScreen: {
       packForYou: "Packen für dich",
     },
     messages: {
       attention: "Achtung",
+      toManyPackings: "Du hast zu viel Gepäck",
+      toManyFavPackings: "Du hast zu viel favorisiertes Gepäck",
       deleteItem: "Möchten Sie diesen Artikel wirklich löschen?",
       eliminate: "Beseitigen",
       errorLogin: "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",

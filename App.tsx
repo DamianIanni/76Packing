@@ -36,6 +36,12 @@ import {
   getReactNativePersistence,
 } from "firebase/auth";
 import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
+
+GoogleSignin.configure({
+  webClientId: "TU_WEB_CLIENT_ID_DE_FIREBASE",
+  offlineAccess: true,
+});
 
 import store from "./src/redux/store";
 import { Provider } from "react-redux";
@@ -77,124 +83,126 @@ const ComponentIcon = ({ tintColor, icon }) => {
   );
 };
 
+function MyTabs() {
+  const theme = new ThemeManager();
+  const { t } = useLocale();
+  return (
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        tabBarStyle: {
+          position: "absolute",
+          backgroundColor:
+            Platform.OS === "ios" ? "transparent" : theme.colors.background, // Transparente
+          borderTopWidth: 0,
+          elevation: 8,
+          bottom: Platform.OS === "android" ? 5 : 0,
+        },
+        // tabBarLabelStyle: {
+        //   fontFamily: "Afacad-bold",
+        //   fontSize: Platform.OS === "android" ? 12 : 16,
+        // },
+        tabBarActiveTintColor: "#1AA6B7",
+        headerShown: false,
+        tabBarBackground: () =>
+          Platform.OS === "ios" ? (
+            <BlurView
+              blurAmount={15}
+              blurType={theme.themeMode ? "dark" : "light"}
+              style={{
+                width: "100%",
+                height: 90,
+              }}
+            />
+          ) : (
+            <View
+              style={{
+                width: "100%",
+                height: 90,
+                backgroundColor: theme.colors.background,
+              }}
+            />
+          ),
+      }}
+    >
+      <Tab.Screen
+        name="Favourites"
+        component={FavouriteScreen}
+        options={{
+          title: "Favourites",
+          tabBarLabel: ({ color }) => (
+            <Text
+              style={{
+                letterSpacing: 2,
+                fontFamily: "Afacad-SemiBold",
+                fontSize: Platform.OS === "android" ? 14 : 16,
+                color,
+              }}
+            >
+              {t("favScreen")}
+            </Text>
+          ),
+          tabBarIcon: ({ color }) => (
+            <ComponentIcon tintColor={color} icon={"fav"} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          title: "Home",
+          tabBarLabel: ({ color }) => (
+            <Text
+              style={{
+                letterSpacing: 2,
+                fontFamily: "Afacad-SemiBold",
+                fontSize: Platform.OS === "android" ? 14 : 16,
+                color,
+              }}
+            >
+              {t("homeScreen")}
+            </Text>
+          ),
+          tabBarIcon: ({ color }) => (
+            <ComponentIcon tintColor={color} icon={""} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={SettingScreen}
+        options={{
+          title: "Settings",
+          tabBarLabel: ({ color }) => (
+            <Text
+              style={{
+                letterSpacing: 2,
+                fontFamily: "Afacad-SemiBold",
+                fontSize: Platform.OS === "android" ? 14 : 16,
+                color,
+              }}
+            >
+              {t("settings")}
+            </Text>
+          ),
+          tabBarIcon: ({ color }) => (
+            <ComponentIcon tintColor={color} icon={"sett"} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
+
 export default function App(): React.JSX.Element {
   const { t } = useLocale();
   const [isSplashVisible, setIsSplashVisible] = useState(true);
-  const theme = new ThemeManager();
+
   useEffect(() => {
     const timer = setTimeout(() => setIsSplashVisible(false), 3000);
     return () => clearTimeout(timer);
   }, []);
-
-  function MyTabs() {
-    return (
-      <Tab.Navigator
-        initialRouteName="Home"
-        screenOptions={{
-          tabBarStyle: {
-            position: "absolute",
-            backgroundColor:
-              Platform.OS === "ios" ? "transparent" : theme.colors.background, // Transparente
-            borderTopWidth: 0,
-            elevation: 8,
-            bottom: Platform.OS === "android" ? 5 : 0,
-          },
-          // tabBarLabelStyle: {
-          //   fontFamily: "Afacad-bold",
-          //   fontSize: Platform.OS === "android" ? 12 : 16,
-          // },
-          tabBarActiveTintColor: "#1AA6B7",
-          headerShown: false,
-          tabBarBackground: () =>
-            Platform.OS === "ios" ? (
-              <BlurView
-                blurAmount={15}
-                blurType={theme.themeMode ? "dark" : "light"}
-                style={{
-                  width: "100%",
-                  height: 90,
-                }}
-              />
-            ) : (
-              <View
-                style={{
-                  width: "100%",
-                  height: 90,
-                  backgroundColor: theme.colors.background,
-                }}
-              />
-            ),
-        }}
-      >
-        <Tab.Screen
-          name="Favourites"
-          component={FavouriteScreen}
-          options={{
-            title: "Favourites",
-            tabBarLabel: ({ color }) => (
-              <Text
-                style={{
-                  letterSpacing: 2,
-                  fontFamily: "Afacad-SemiBold",
-                  fontSize: Platform.OS === "android" ? 14 : 16,
-                  color,
-                }}
-              >
-                {t("favScreen")}
-              </Text>
-            ),
-            tabBarIcon: ({ color }) => (
-              <ComponentIcon tintColor={color} icon={"fav"} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            title: "Home",
-            tabBarLabel: ({ color }) => (
-              <Text
-                style={{
-                  letterSpacing: 2,
-                  fontFamily: "Afacad-SemiBold",
-                  fontSize: Platform.OS === "android" ? 14 : 16,
-                  color,
-                }}
-              >
-                {t("homeScreen")}
-              </Text>
-            ),
-            tabBarIcon: ({ color }) => (
-              <ComponentIcon tintColor={color} icon={""} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Settings"
-          component={SettingScreen}
-          options={{
-            title: "Settings",
-            tabBarLabel: ({ color }) => (
-              <Text
-                style={{
-                  letterSpacing: 2,
-                  fontFamily: "Afacad-SemiBold",
-                  fontSize: Platform.OS === "android" ? 14 : 16,
-                  color,
-                }}
-              >
-                {t("settings")}
-              </Text>
-            ),
-            tabBarIcon: ({ color }) => (
-              <ComponentIcon tintColor={color} icon={"sett"} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    );
-  }
 
   return (
     <TranslationProvider>
@@ -223,6 +231,9 @@ export default function App(): React.JSX.Element {
             <Stack.Screen
               name="PackingLoading"
               component={PackingLoadingScreen}
+              options={{
+                gestureEnabled: false,
+              }}
             />
           </Stack.Navigator>
         </NavigationContainer>

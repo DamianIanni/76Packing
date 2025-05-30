@@ -151,19 +151,22 @@ export const LoginScreen = (props: customProps): React.JSX.Element => {
         <ContentText>{t("loginScreen.google")}</ContentText>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.itemContainer}
+        disabled={true}
+        style={[styles.itemContainer, { backgroundColor: "grey" }]}
         onPress={() => handleAppleSignIn()}
       >
         <ContentText>{t("loginScreen.apple")}</ContentText>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.itemContainer}
+        disabled={true}
+        style={[styles.itemContainer, { backgroundColor: "grey" }]}
         onPress={() => handleFacebookSignIn()}
       >
         <ContentText>{t("loginScreen.facebook")}</ContentText>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.itemContainer}
+        disabled={true}
+        style={[styles.itemContainer, { backgroundColor: "grey" }]}
         onPress={() => handleXSignIn()}
       >
         <ContentText>{t("loginScreen.formerTwiteer")}</ContentText>

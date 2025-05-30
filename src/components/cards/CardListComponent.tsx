@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   StyleSheet,
   View,
@@ -8,68 +8,18 @@ import {
   Animated,
   Easing,
   FlatList,
-  Platform,
 } from "react-native";
 import { ThemeManager } from "../../classes/ThemeManager";
 import { ContentText } from "../texts/ContentText";
 import { Title } from "../texts/Title";
 import { useLocale } from "../../i18n/TranslationContext";
-import { getReduxStoreUser } from "../../redux/getReduxStore";
-
-const mockData = [
-  {
-    luggage: "small backpack",
-    content: [
-      { quantity: 2, item: "t-shirt", status: false },
-      { quantity: 2, item: "shorts", status: true },
-      { quantity: 1, item: "jacket", status: false },
-      { quantity: 1, item: "hiking shoes", status: false },
-      { quantity: 1, item: "swimwear", status: false },
-      { quantity: 2, item: "socks", status: false },
-      { quantity: 3, item: "underwear", status: false },
-    ],
-  },
-  {
-    luggage: "carry on",
-    content: [
-      { quantity: 1, item: "jeans", status: false },
-      { quantity: 1, item: "long sleeve t-shirt", status: false },
-      { quantity: 1, item: "waterproof jacket", status: false },
-      { quantity: 1, item: "dress shoes", status: false },
-      { quantity: 1, item: "sneakers", status: false },
-      { quantity: 3, item: "socks", status: false },
-      { quantity: 3, item: "underwear", status: false },
-    ],
-  },
-  {
-    luggage: "small backpack",
-    content: [
-      { quantity: 2, item: "t-shirt", status: false },
-      { quantity: 2, item: "shorts", status: true },
-      { quantity: 1, item: "jacket", status: false },
-      { quantity: 1, item: "hiking shoes", status: false },
-      { quantity: 1, item: "swimwear", status: false },
-      { quantity: 2, item: "socks", status: false },
-      { quantity: 3, item: "underwear", status: false },
-    ],
-  },
-  {
-    luggage: "small backpack",
-    content: [
-      { quantity: 2, item: "t-shirt", status: false },
-      { quantity: 2, item: "shorts", status: true },
-      { quantity: 1, item: "jacket", status: false },
-      { quantity: 1, item: "hiking shoes", status: false },
-      { quantity: 1, item: "swimwear", status: false },
-      { quantity: 2, item: "socks", status: false },
-      { quantity: 3, item: "underwear", status: false },
-    ],
-  },
-];
+import { useFocusEffect } from "@react-navigation/native";
 
 type customProps = {
-  saving: (data: Luggage[]) => void;
-  recentPacking?: string;
+  item: any;
+  index: number;
+  saving: (data: Luggage | null, index: number) => void;
+  previusScreen: string | number;
 };
 type ContentItem = {
   quantity: number;
@@ -82,18 +32,30 @@ type Luggage = {
 };
 
 export const CardListComponent: React.FC<customProps> = ({
+  item,
+  index,
   saving,
-  recentPacking,
+  previusScreen,
 }) => {
   const { t } = useLocale();
-  const userStore = getReduxStoreUser();
   const theme = new ThemeManager();
-  const dataToUseBefore =
-    recentPacking === "LoadingScreen"
-      ? userStore.favPacking![userStore.favPacking!.length - 1]
-      : userStore.favPacking![0];
-  const parsed = parseLuggageData(dataToUseBefore);
-  const [data, setData] = useState(parsed); // copiamos el mock para trabajar con estado
+  const [refresh, setRefresh] = useState(false);
+  const [modifiedLuggage] = useState<Luggage>(item);
+  console.log("POPULAR", previusScreen);
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        // Al salir de foco
+        console.log("Modified:", modifiedLuggage);
+        if (modifiedLuggage.content.length === 0) {
+          saving(null, index);
+        } else {
+          saving(modifiedLuggage, index);
+        }
+      };
+    }, [])
+  );
 
   const styles = StyleSheet.create({
     principalContainer: {
@@ -158,71 +120,35 @@ export const CardListComponent: React.FC<customProps> = ({
     },
   });
 
-  function parseLuggageData(data: any): Luggage[] {
-    const parsedLuggage: Luggage[] = [];
-
-    for (let i = 1; i <= 4; i++) {
-      const key = `Luggage_${i}`;
-      if (data[key]) {
-        try {
-          const parsed = JSON.parse(data[key]);
-          parsedLuggage.push(parsed);
-        } catch (error) {
-          console.warn(`Error parsing ${key}:`, error);
-        }
-      }
-    }
-
-    return parsedLuggage;
-  }
-
-  function handleItemModified(modifiedLuggages: Luggage[], index: number) {
-    saving(modifiedLuggages);
-  }
-
   // const Divider = () => <View style={styles.divider}></View>;
 
   const ItemRow = ({
-    item,
-    luggageIndex,
+    itemChildren,
     itemIndex,
-    onItemModified,
+    forceRefresh,
   }: {
-    item: { quantity: number; item: string; status: boolean };
-    luggageIndex: number;
+    itemChildren: { quantity: number; item: string; status: boolean };
     itemIndex: number;
-    onItemModified: (luggage: Luggage[], index: number) => void;
+    forceRefresh: () => void;
   }) => {
     const [fadeAnim] = useState(new Animated.Value(1)); // opacidad
     const [scaleAnim] = useState(new Animated.Value(1)); // escala
     const [isDeleted, setIsDeleted] = useState(false); // para ocultar al final
-    const [statusChecked, setStatusChecked] = useState<boolean>(item.status);
-
-    // 🔄 Único estado de referencia para las modificaciones
-    // Es cada luggage, no la data entera
-    const [modifiedData, setModifiedData] = useState<Luggage[]>([]);
-
-    // ✅ Toggle de status sobre modifiedData
-
-    function onCallItemModified(data: Luggage[]) {
-      onItemModified(data, luggageIndex);
-    }
+    const [statusChecked, setStatusChecked] = useState<boolean>(
+      itemChildren.status
+    );
 
     function toggleStatus() {
-      const dataCopy = [...data];
-      const newContent = [...dataCopy[luggageIndex].content];
-
-      newContent[itemIndex] = {
-        ...newContent[itemIndex],
-        status: !newContent[itemIndex].status,
-      };
-
-      dataCopy[luggageIndex] = {
-        ...dataCopy[luggageIndex],
-        content: newContent,
-      };
-      setModifiedData(dataCopy);
-      onCallItemModified(dataCopy);
+      const index = modifiedLuggage.content.findIndex(
+        (el) =>
+          el.item === itemChildren.item && el.quantity === itemChildren.quantity
+      );
+      if (index !== -1) {
+        modifiedLuggage.content[index] = {
+          ...modifiedLuggage.content[index],
+          status: !modifiedLuggage.content[index].status,
+        };
+      }
     }
 
     function onChangeStatus() {
@@ -233,19 +159,15 @@ export const CardListComponent: React.FC<customProps> = ({
     // ✅ Borrado sobre modifiedData
     function onDelete() {
       setIsDeleted(true);
-
-      const updatedData = [...data];
-      updatedData[luggageIndex].content.splice(itemIndex, 1);
-
-      setModifiedData(updatedData);
-      onCallItemModified(updatedData);
+      modifiedLuggage.content.splice(itemIndex, 1);
+      setRefresh((prev) => !prev);
     }
 
     const deleteItem = () => {
       Alert.alert(
         t("messages.attention"),
         `${t("messages.deleteItem")}\n
-${data[luggageIndex].content[itemIndex].item.toUpperCase()}`,
+${itemChildren.item.toUpperCase()}`,
         [
           { text: t("messages.cancel"), style: "cancel" },
           {
@@ -267,12 +189,7 @@ ${data[luggageIndex].content[itemIndex].item.toUpperCase()}`,
                 }),
               ]).start(() => {
                 onDelete();
-                // setIsDeleted(true); // lo oculta visualmente
-                // const updatedData = [...data];
-                // updatedData[luggageIndex].content.splice(itemIndex, 1);
-                // setModiData(updatedData); // o lo que sea necesario
               });
-              // modifiedChange(true);
             },
           },
         ]
@@ -289,77 +206,74 @@ ${data[luggageIndex].content[itemIndex].item.toUpperCase()}`,
           transform: [{ scale: scaleAnim }],
         }}
       >
-        <TouchableOpacity
-          style={styles.checkIconContainer}
-          onPress={() => onChangeStatus()}
-        >
-          <Image
-            source={
-              statusChecked
-                ? require("../../assets/icons/checked.png")
-                : require("../../assets/icons/check_blank.png")
-            }
-            defaultSource={
-              statusChecked
-                ? require("../../assets/icons/checked.png")
-                : require("../../assets/icons/check_blank.png")
-            }
-            style={statusChecked ? styles.iconChecked : styles.iconNonChecked}
-          />
-        </TouchableOpacity>
+        {
+          <TouchableOpacity
+            style={styles.checkIconContainer}
+            onPress={() => onChangeStatus()}
+          >
+            <Image
+              source={
+                previusScreen.packingType === 1
+                  ? require("../../assets/icons/checked.png")
+                  : statusChecked
+                  ? require("../../assets/icons/checked.png")
+                  : require("../../assets/icons/check_blank.png")
+              }
+              style={
+                previusScreen.packingType === 1
+                  ? styles.iconChecked
+                  : statusChecked
+                  ? styles.iconChecked
+                  : styles.iconNonChecked
+              }
+            />
+          </TouchableOpacity>
+        }
         <View style={styles.txtContainer}>
           <ContentText>
-            {item.quantity} × {item.item}
+            {modifiedLuggage.content[itemIndex].quantity} ×{" "}
+            {modifiedLuggage.content[itemIndex].item}
           </ContentText>
         </View>
-        <TouchableOpacity
-          style={styles.deleteIconContainer}
-          onPress={deleteItem}
-        >
-          <Image
-            source={require("../../assets/icons/delete.png")}
-            defaultSource={require("../../assets/icons/delete.png")}
-            style={styles.iconNonChecked}
-          />
-        </TouchableOpacity>
-        {/* {showDivider && <View style={styles.divider} />} */}
+        {previusScreen.packingType === 0 && (
+          <TouchableOpacity
+            style={styles.deleteIconContainer}
+            onPress={deleteItem}
+          >
+            <Image
+              source={require("../../assets/icons/delete.png")}
+              style={styles.iconNonChecked}
+            />
+          </TouchableOpacity>
+        )}
       </Animated.View>
     );
   };
 
   return (
     <View style={styles.principalContainer}>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={data}
-        maxToRenderPerBatch={4}
-        contentContainerStyle={{
-          paddingBottom: Platform.OS === "android" ? 80 : 60, // Espacio debajo de todo
-          width: "100%",
-        }}
-        keyExtractor={(_, i) => `luggage-${i}`}
-        renderItem={({ item: luggageEntry, index: luggageIndex }) => (
-          <View>
-            <Title style={{ alignSelf: "flex-start", marginTop: 10 }}>
-              {luggageEntry.luggage}
-            </Title>
-            <View style={styles.mainCointainer}>
-              <FlatList
-                data={luggageEntry.content}
-                keyExtractor={(_, i) => `${_.item}-${_.quantity}`}
-                renderItem={({ item, index }) => (
-                  <ItemRow
-                    item={item}
-                    luggageIndex={luggageIndex}
-                    itemIndex={index}
-                    onItemModified={handleItemModified}
-                  />
-                )}
-              />
-            </View>
+      {!modifiedLuggage.content ||
+      modifiedLuggage.content.length === 0 ? null : (
+        <View>
+          <Title style={{ alignSelf: "flex-start", marginTop: 10 }}>
+            {item.luggage}
+          </Title>
+          <View style={styles.mainCointainer}>
+            <FlatList
+              data={modifiedLuggage.content}
+              // data={item.content}
+              keyExtractor={(_, i) => `${_.item}-${_.quantity}`}
+              renderItem={({ item, index }) => (
+                <ItemRow
+                  itemChildren={item}
+                  itemIndex={index}
+                  forceRefresh={() => setRefresh(!refresh)}
+                />
+              )}
+            />
           </View>
-        )}
-      />
+        </View>
+      )}
     </View>
   );
 };

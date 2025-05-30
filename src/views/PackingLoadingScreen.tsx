@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import {
   View,
   StatusBar,
@@ -8,6 +8,7 @@ import {
   ViewStyle,
   Text,
   PixelRatio,
+  BackHandler,
   Platform,
 } from "react-native";
 import { ThemeManager } from "../classes/ThemeManager";
@@ -17,6 +18,7 @@ import { getPromptLuggageFromServer } from "../api/apiServices/queryServices";
 import { PackingPromptInput } from "../api/apiServices/queryServices";
 import { insertFavPackingToServer } from "../api/apiServices/mutationServices";
 import { useAppDispatch } from "../redux/customDispatch";
+import { useFocusEffect } from "@react-navigation/native";
 
 import { setFavPacking } from "../redux/userSlice";
 
@@ -88,6 +90,22 @@ export const PackingLoadingScreen: React.FC<customProps> = ({ navigation }) => {
   // console.log("STORE PROMPT", storePrompt);
   // console.log("STORE User", userStore);
 
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        // Bloquea el botón atrás
+        return true;
+      };
+
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        onBackPress
+      );
+
+      return () => backHandler.remove(); // ✅ esta es la forma correcta ahora
+    }, [])
+  );
+
   const normalizeFontSize = (size: number) => {
     const scale = PixelRatio.getFontScale(); // Obtiene el factor de escala de la fuente del sistema
     return size / scale;
@@ -139,10 +157,13 @@ export const PackingLoadingScreen: React.FC<customProps> = ({ navigation }) => {
     return stringyfied;
   }
 
-  function sendToPlaces(response: any) {
+  async function sendToPlaces(response: any) {
     const obj = settingFavPacking(response);
-    dispatch(setFavPacking(obj));
-    insertFavPackingToServer(obj);
+    const res = await insertFavPackingToServer(obj);
+    console.log("RESIS", res.insertFavPacking.data);
+    // dispatch(setFavPacking(obj));
+
+    dispatch(setFavPacking({ ...obj, id: res.insertFavPacking.data }));
     goToShowLuggage();
   }
 
@@ -150,7 +171,7 @@ export const PackingLoadingScreen: React.FC<customProps> = ({ navigation }) => {
     const result: any = {
       userId: userStore.userId,
       Name: storePrompt.destination,
-      packing_type: 2,
+      packing_type: 0,
       Luggage_1: stringnifyingObj(data[0]),
       Luggage_2: data[1] ? stringnifyingObj(data[1]) : null,
       Luggage_3: data[2] ? stringnifyingObj(data[2]) : null,
@@ -197,13 +218,13 @@ export const PackingLoadingScreen: React.FC<customProps> = ({ navigation }) => {
     const fetchData = async () => {
       try {
         const obj = setupObjectForPrompt();
-        // const data = await getPromptLuggageFromServer(obj); // 👈 Espera la respuesta
+        const data = await getPromptLuggageFromServer(obj); // 👈 Espera la respuesta
         // console.log("LA DATA DESPUES DE LA PROMPT", data);
 
-        // if (data.promptLuggage.code === 200) {
-        sendToPlaces(mockData);
-        // sendToPlaces(data.promptLuggage.data); // ✅ Se ejecuta sólo si hay data
-        // }
+        if (data.promptLuggage.code === 200) {
+          // sendToPlaces(mockData);
+          sendToPlaces(data.promptLuggage.data); // ✅ Se ejecuta sólo si hay data
+        }
       } catch (error) {
         console.log("ERROR CON EL PROMPT", error);
       }

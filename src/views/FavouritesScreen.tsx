@@ -1,30 +1,36 @@
-import React from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { ThemeManager } from "../classes/ThemeManager";
-import { Title } from "../components/texts/Title";
-import { ContentText } from "../components/texts/ContentText";
-import { BigTitle } from "../components/texts/BigTitle";
-import { Button76 } from "../components/button/Button76";
-import { AddButton } from "../components/button/AddButton";
 import { CardComponent } from "../components/cards/CardComponent";
-import TopBar from "../components/topBars/TopBar";
+import { getReduxStoreUser } from "../redux/getReduxStore";
+import { filterPackingTypeOne } from "../utils/filteringFavArrays";
+import { BigTitle } from "../components/texts/BigTitle";
+import { useLocale } from "../i18n/TranslationContext";
+import { useFocusEffect } from "@react-navigation/native";
 
 import {
   SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
-  useColorScheme,
   View,
   FlatList,
   Platform,
+  Animated,
 } from "react-native";
-import TopProfileBar from "../components/topBars/TopProfileBar";
-import { CardListComponent } from "../components/cards/CardListComponent";
-import { CardInputComponent } from "../components/cards/CardInputComponent";
 
-export const FavouriteScreen = (): React.JSX.Element => {
+type customProps = {
+  navigation: any;
+};
+
+export const FavouriteScreen = (props: customProps): React.JSX.Element => {
+  const { t } = useLocale();
+  const [updateContentState, setUpdateContentState] = useState(false);
+  const opacity = useRef(new Animated.Value(0)).current;
+  const userStore = getReduxStoreUser();
+  const { navigation } = props;
   const theme = new ThemeManager();
+  const favPacking1 = Array.isArray(userStore?.favPacking)
+    ? filterPackingTypeOne(userStore.favPacking)
+    : [];
   const style = StyleSheet.create({
     container: {
       flex: 1,
@@ -46,34 +52,61 @@ export const FavouriteScreen = (): React.JSX.Element => {
     },
   });
 
-  const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+  useFocusEffect(
+    useCallback(() => {
+      opacity.setValue(0); // Reiniciás antes de animar
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    }, [])
+  );
+
+  useEffect(() => {}, [updateContentState]);
 
   return (
-    <SafeAreaView
-      style={[
-        style.container,
-        {
-          paddingTop:
-            Platform.OS === "android" ? StatusBar.currentHeight ?? 0 : 0,
-        },
-      ]}
-    >
-      <StatusBar
-        barStyle={theme.themeMode ? "light-content" : "dark-content"}
-        backgroundColor={"transparent"}
-      />
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
+      <Animated.View style={[style.container, { opacity }]}>
+        <StatusBar
+          barStyle={theme.themeMode ? "light-content" : "dark-content"}
+          backgroundColor={"transparent"}
+        />
 
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={data}
-        style={{ width: "100%" }}
-        contentContainerStyle={style.listContainer}
-        renderItem={({ item }) => (
-          <View style={style.itemContainer}>
-            <CardComponent key={item} />
+        {favPacking1.length > 0 ? (
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={favPacking1}
+            style={{ width: "100%" }}
+            contentContainerStyle={style.listContainer}
+            renderItem={({ item, index }) => (
+              <View style={style.itemContainer}>
+                <CardComponent
+                  key={index}
+                  item={item}
+                  navigation={navigation}
+                  updateContentState={() =>
+                    setUpdateContentState(!updateContentState)
+                  }
+                />
+              </View>
+            )}
+          />
+        ) : (
+          <View
+            style={{
+              width: "100%",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "100%",
+            }}
+          >
+            <BigTitle style={{ textAlign: "center" }}>
+              {t("emptyScreen.nothingToShow")}
+            </BigTitle>
           </View>
         )}
-      />
+      </Animated.View>
     </SafeAreaView>
   );
 };

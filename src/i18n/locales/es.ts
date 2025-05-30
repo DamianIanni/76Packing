@@ -1,10 +1,20 @@
 export const es = {
   translation: {
+    emptyScreen: {
+      nothingToShow: "Nada para mostrar aqui",
+    },
+    cards: {
+      luggageDone: "Equipaje hecho",
+      luggageNotDone: "Equipaje no hecho",
+      itemsPacked: "Items empacados",
+    },
     loadingScreen: {
       packForYou: "packing for you",
     },
     messages: {
       attention: "Atención",
+      toManyPackings: "Tienes demasiados equipajes",
+      toManyFavPackings: "Tienes demasiados equipajes en favoritos",
       deleteItem: "¿Estás seguro de que quieres eliminar este ítem?",
       eliminate: "Eliminar",
       errorLogin: "Algo salio mal, intentalo de nuevo mas tarde",

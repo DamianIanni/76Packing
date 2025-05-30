@@ -82,12 +82,56 @@ const SplashScreen = (props: CustomProps): React.JSX.Element => {
   //   }, 2000);
   // }, []);
 
+  // useEffect(() => {
+  //   const unsubscribe = auth().onAuthStateChanged(async (user) => {
+  //     const userIdInStorage = await getItemFromAsyncStorage();
+  //     console.log("USER ID IN ASYCN", userIdInStorage);
+
+  //     console.log("USER DESDE AUTH", user);
+  //     let initialRoute: string;
+
+  //     if (!user) {
+  //       initialRoute = "LoginScreen";
+  //     } else if (!checkUUID(userIdInStorage!)) {
+  //       initialRoute = "PersonalData";
+  //     } else {
+  //       initialRoute = "MainTabs";
+  //       saveAllDataInReduxStore(user.email, user.photoURL ?? "");
+  //     }
+  //     // setUserProfilePhotoUrl(user?.photoURL ?? "");
+  //     navigation.reset({
+  //       index: 0,
+  //       routes: [{ name: initialRoute }],
+  //     });
+  //   });
+
+  //   return unsubscribe; // Limpiamos el listener al salir
+  // }, [navigation]);
+
   useEffect(() => {
+    let isMounted = true;
+    let timeoutHandler: NodeJS.Timeout;
+
+    const navigateWithDelay = (route: string) => {
+      // Esperar al menos 2 segundos antes de navegar
+      timeoutHandler = setTimeout(() => {
+        if (!isMounted) return;
+
+        Animated.timing(opacity, {
+          toValue: 0,
+          duration: 500,
+          useNativeDriver: true,
+        }).start(() => {
+          navigation.reset({
+            index: 0,
+            routes: [{ name: route }],
+          });
+        });
+      }, 2000);
+    };
+
     const unsubscribe = auth().onAuthStateChanged(async (user) => {
       const userIdInStorage = await getItemFromAsyncStorage();
-      console.log("USER ID IN ASYCN", userIdInStorage);
-
-      console.log("USER DESDE AUTH", user);
       let initialRoute: string;
 
       if (!user) {
@@ -96,16 +140,28 @@ const SplashScreen = (props: CustomProps): React.JSX.Element => {
         initialRoute = "PersonalData";
       } else {
         initialRoute = "MainTabs";
-        saveAllDataInReduxStore(user.email, user.photoURL ?? "");
+        await saveAllDataInReduxStore(user.email, user.photoURL ?? "");
       }
-      // setUserProfilePhotoUrl(user?.photoURL ?? "");
-      navigation.reset({
-        index: 0,
-        routes: [{ name: initialRoute }],
-      });
+
+      navigateWithDelay(initialRoute);
     });
 
-    return unsubscribe; // Limpiamos el listener al salir
+    // Timeout máximo de seguridad por si algo sale mal (30s)
+    const fallbackTimeout = setTimeout(() => {
+      if (isMounted) {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "LoginScreen" }],
+        });
+      }
+    }, 30000);
+
+    return () => {
+      isMounted = false;
+      unsubscribe();
+      clearTimeout(timeoutHandler);
+      clearTimeout(fallbackTimeout);
+    };
   }, [navigation]);
 
   return (
