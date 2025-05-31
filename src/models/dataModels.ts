@@ -39,8 +39,9 @@ export interface FavClothesInterface {
 }
 
 export interface FavPackingInterface {
+  id?: number;
   userId: string;
-  Name: string;
+  Name?: string;
   Luggage_1: string;
   Luggage_2: string | null;
   Luggage_3: string | null;
@@ -62,5 +63,5 @@ export interface UserStateInterface {
   brands: string | null;
   savedLuggage: SavedLuggage | null;
   // favClothes: FavClothesInterface | null;
-  favPacking: FavPackingInterface | null;
+  favPacking: FavPackingInterface[] | null;
 }

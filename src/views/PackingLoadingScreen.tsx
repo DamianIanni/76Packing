@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useCallback } from "react";
 import {
   View,
   StatusBar,
@@ -8,20 +8,103 @@ import {
   ViewStyle,
   Text,
   PixelRatio,
+  BackHandler,
   Platform,
 } from "react-native";
 import { ThemeManager } from "../classes/ThemeManager";
-import { ButtonText } from "../components/texts/ButtonText";
 import { useLocale } from "../i18n/TranslationContext";
-import { getReduxStorePrompt } from "../redux/getReduxStore";
+import { getReduxStorePrompt, getReduxStoreUser } from "../redux/getReduxStore";
+import { getPromptLuggageFromServer } from "../api/apiServices/queryServices";
+import { PackingPromptInput } from "../api/apiServices/queryServices";
+import { insertFavPackingToServer } from "../api/apiServices/mutationServices";
+import { useAppDispatch } from "../redux/customDispatch";
+import { useFocusEffect } from "@react-navigation/native";
 
-export const PackingLoadingScreen = () => {
+import { setFavPacking } from "../redux/userSlice";
+
+type customProps = {
+  navigation: any;
+};
+
+const mockData = [
+  {
+    luggage: "small backpack",
+    content: [
+      { quantity: 2, item: "t-shirt", status: false },
+      { quantity: 2, item: "shorts", status: true },
+      { quantity: 1, item: "jacket", status: false },
+      { quantity: 1, item: "hiking shoes", status: false },
+      { quantity: 1, item: "swimwear", status: false },
+      { quantity: 2, item: "socks", status: false },
+      { quantity: 3, item: "underwear", status: false },
+    ],
+  },
+  {
+    luggage: "carry on",
+    content: [
+      { quantity: 1, item: "jeans", status: false },
+      { quantity: 1, item: "long sleeve t-shirt", status: false },
+      { quantity: 1, item: "waterproof jacket", status: false },
+      { quantity: 1, item: "dress shoes", status: false },
+      { quantity: 1, item: "sneakers", status: false },
+      { quantity: 3, item: "socks", status: false },
+      { quantity: 3, item: "underwear", status: false },
+    ],
+  },
+  {
+    luggage: "small backpack",
+    content: [
+      { quantity: 2, item: "t-shirt", status: false },
+      { quantity: 2, item: "shorts", status: true },
+      { quantity: 1, item: "jacket", status: false },
+      { quantity: 1, item: "hiking shoes", status: false },
+      { quantity: 1, item: "swimwear", status: false },
+      { quantity: 2, item: "socks", status: false },
+      { quantity: 3, item: "underwear", status: false },
+    ],
+  },
+  {
+    luggage: "small backpack",
+    content: [
+      { quantity: 2, item: "t-shirt", status: false },
+      { quantity: 2, item: "shorts", status: true },
+      { quantity: 1, item: "jacket", status: false },
+      { quantity: 1, item: "hiking shoes", status: false },
+      { quantity: 1, item: "swimwear", status: false },
+      { quantity: 2, item: "socks", status: false },
+      { quantity: 3, item: "underwear", status: false },
+    ],
+  },
+];
+
+export const PackingLoadingScreen: React.FC<customProps> = ({ navigation }) => {
   const { t } = useLocale();
+  const dispatch = useAppDispatch();
   const theme = new ThemeManager();
   const os = Platform.OS;
   const storePrompt = getReduxStorePrompt();
+  const userStore = getReduxStoreUser();
 
-  console.log("STORE PROMPT", storePrompt);
+  // console.log("LOADING PROPS", navigation);
+
+  // console.log("STORE PROMPT", storePrompt);
+  // console.log("STORE User", userStore);
+
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        // Bloquea el botón atrás
+        return true;
+      };
+
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        onBackPress
+      );
+
+      return () => backHandler.remove(); // ✅ esta es la forma correcta ahora
+    }, [])
+  );
 
   const normalizeFontSize = (size: number) => {
     const scale = PixelRatio.getFontScale(); // Obtiene el factor de escala de la fuente del sistema
@@ -69,15 +152,86 @@ export const PackingLoadingScreen = () => {
     stripe3: theme.stripeStyle.stripe3 as ViewStyle,
   });
 
-  //   useEffect(() => {
-  //     setTimeout(() => {
-  //       Animated.timing(opacity, {
-  //         toValue: 0,
-  //         duration: 800,
-  //         useNativeDriver: true,
-  //       }).start();
-  //     }, 2200);
-  //   }, []);
+  function stringnifyingObj(obj: any) {
+    const stringyfied = JSON.stringify(obj);
+    return stringyfied;
+  }
+
+  async function sendToPlaces(response: any) {
+    const obj = settingFavPacking(response);
+    const res = await insertFavPackingToServer(obj);
+    console.log("RESIS", res.insertFavPacking.data);
+    // dispatch(setFavPacking(obj));
+
+    dispatch(setFavPacking({ ...obj, id: res.insertFavPacking.data }));
+    goToShowLuggage();
+  }
+
+  function settingFavPacking(data: any) {
+    const result: any = {
+      userId: userStore.userId,
+      Name: storePrompt.destination,
+      packing_type: 0,
+      Luggage_1: stringnifyingObj(data[0]),
+      Luggage_2: data[1] ? stringnifyingObj(data[1]) : null,
+      Luggage_3: data[2] ? stringnifyingObj(data[2]) : null,
+      Luggage_4: data[3] ? stringnifyingObj(data[3]) : null,
+    };
+
+    return result;
+  }
+
+  function goToShowLuggage() {
+    navigation.navigate("ShowLuggage", {
+      from: "LoadingScreen",
+    });
+  }
+
+  function removeEmptyStrings(arr: string[]): string[] {
+    return arr.filter((str) => str.trim() !== "");
+  }
+
+  function setupObjectForPrompt(): PackingPromptInput {
+    const fields = storePrompt;
+    const fields_1 = userStore;
+    // let arrLuggage: string[]
+
+    const result: any = {
+      destination: fields.destination,
+      duration: fields.duration,
+      luggageItems: removeEmptyStrings(fields.luggage!),
+    };
+
+    if (!result.destination || !result.duration || !result.luggageItems) {
+      throw new Error("destination, duration y luggageItems are mandatory");
+    }
+
+    if (fields.activities) result.activities = fields.activities;
+    if (fields.accommodation) result.accommodationType = fields.accommodation;
+    if (fields.utilities?.length) result.utilities = fields.utilities;
+    if (fields_1.style) result.dressStyle = fields_1.style;
+
+    return result as PackingPromptInput;
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const obj = setupObjectForPrompt();
+        const data = await getPromptLuggageFromServer(obj); // 👈 Espera la respuesta
+        // console.log("LA DATA DESPUES DE LA PROMPT", data);
+
+        if (data.promptLuggage.code === 200) {
+          // sendToPlaces(mockData);
+          sendToPlaces(data.promptLuggage.data); // ✅ Se ejecuta sólo si hay data
+        }
+      } catch (error) {
+        console.log("ERROR CON EL PROMPT", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const whichLogo = () => {
     return theme.themeMode

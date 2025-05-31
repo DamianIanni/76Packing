@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useCallback, useState, useRef } from "react";
 import { ThemeManager } from "../classes/ThemeManager";
-import { ContentText } from "../components/texts/ContentText";
 import { LngSelectorComponent } from "../components/lng/LangSelectorComponent";
+import { useFocusEffect } from "@react-navigation/native";
 
 import {
   SafeAreaView,
@@ -14,19 +14,19 @@ import {
   TouchableOpacity,
   Image,
   Alert,
+  Animated,
 } from "react-native";
 
-import { Colors } from "react-native/Libraries/NewAppScreen";
-import { CardInputComponent } from "../components/cards/CardInputComponent";
+// import { CardInputComponent } from "../components/cards/CardInputComponent";
 import { NameText } from "../components/texts/NameText";
 import auth from "@react-native-firebase/auth";
 
-import { useSelector } from "react-redux";
 import { getReduxStoreUser } from "../redux/getReduxStore";
 import { useAppDispatch } from "../redux/customDispatch";
 import { clearUser } from "../redux/userSlice";
 
 import { useLocale } from "../i18n/TranslationContext";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
 type CustomProps = {
   navigation: any;
@@ -36,6 +36,7 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
   const { t } = useLocale();
   const theme = new ThemeManager();
   const { navigation } = props;
+  const opacity = useRef(new Animated.Value(0)).current;
   const store = getReduxStoreUser();
   const dispatch = useAppDispatch();
   // console.log("Navigation prop:", navigation);
@@ -51,6 +52,7 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
       flex: 1,
       alignItems: "center",
       backgroundColor: theme.colors.background,
+      gap: 15,
     },
     principalContainer: {
       alignItems: "flex-start",
@@ -124,203 +126,235 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
     },
   });
 
-  function onLogOut() {
-    dispatch(clearUser());
-    auth().signOut();
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "LoginScreen" }],
-    });
+  useFocusEffect(
+    useCallback(() => {
+      opacity.setValue(0); // Reiniciás antes de animar
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    }, [])
+  );
+
+  async function onLogOut() {
+    try {
+      // Cerrás sesión solo localmente en Google
+      await GoogleSignin.signOut();
+
+      // Cerrás sesión en Firebase
+      await auth().signOut();
+
+      // Limpiás el store
+      dispatch(clearUser());
+
+      // Redirigís a login
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "LoginScreen" }],
+      });
+    } catch (error) {
+      console.error("Error cerrando sesión:", error);
+    }
+
+    // dispatch(clearUser());
+    // auth().signOut();
+    // navigation.reset({
+    //   index: 0,
+    //   routes: [{ name: "LoginScreen" }],
+    // });
   }
 
   const Divider = () => <View style={styles.divider}></View>;
 
   return (
-    <SafeAreaView
-      style={[
-        styles.container,
-        {
-          paddingTop:
-            Platform.OS === "android" ? StatusBar.currentHeight ?? 0 : 0,
-          gap: 15,
-        },
-      ]}
-    >
-      <StatusBar
-        barStyle={theme.themeMode ? "light-content" : "dark-content"}
-        backgroundColor={theme.colors.background}
-      />
-      <View style={styles.mainPhotoCointainer}>
-        <Image source={{ uri: store.photoUrl || "" }} style={styles.icon} />
-        <View
-          style={{
-            maxWidth: "65%",
-          }}
-        >
-          <NameText
-            style={{
-              fontFamily: "Afacad-Bold",
-            }}
-          >
-            {store.name?.toUpperCase()}
-          </NameText>
-
-          <NameText
-            style={{
-              fontFamily: "Afacad-Bold",
-            }}
-          >
-            {store.surname?.toUpperCase()}
-          </NameText>
-        </View>
-      </View>
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        // bounces
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          backgroundColor: theme.colors.background,
-          alignItems: "center",
-          paddingBottom: Platform.OS === "android" ? 80 : 60,
-          gap: 15,
-        }}
-        style={{
-          width: "100%",
-        }}
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
+      <Animated.View
+        style={[
+          styles.container,
+          {
+            opacity,
+          },
+        ]}
       >
-        <View style={styles.mainCointainer}>
-          <View style={styles.elementListContainer}>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("PersonalData", {
-                  from: "SettingScreen",
-                })
-              }
-            >
-              <NameText style={{ fontFamily: "Afacad-Bold" }}>
-                {t("settingsScreen.profile")}
-              </NameText>
-            </TouchableOpacity>
-            <Divider />
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("StyleData", {
-                  from: "SettingScreen",
-                })
-              }
-            >
-              <NameText style={{ fontFamily: "Afacad-Bold" }}>
-                {t("settingsScreen.style")}
-              </NameText>
-            </TouchableOpacity>
-            <Divider />
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("LuggageData", {
-                  from: "SettingScreen",
-                })
-              }
-            >
-              <NameText style={{ fontFamily: "Afacad-Bold" }}>
-                {t("settingsScreen.luggage")}
-              </NameText>
-            </TouchableOpacity>
-            <Divider />
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("TravelData", {
-                  from: "SettingScreen",
-                })
-              }
-            >
-              <NameText style={{ fontFamily: "Afacad-Bold" }}>TRAVEL</NameText>
-            </TouchableOpacity>
-            <Divider />
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("ActivitiesScreen", {
-                  from: "SettingScreen",
-                })
-              }
-            >
-              <NameText style={{ fontFamily: "Afacad-Bold" }}>
-                ACTIVITIES
-              </NameText>
-            </TouchableOpacity>
-            <Divider />
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("AccommodationScreen", {
-                  from: "SettingScreen",
-                })
-              }
-            >
-              <NameText style={{ fontFamily: "Afacad-Bold" }}>
-                ACCOMMODATION
-              </NameText>
-            </TouchableOpacity>
-            <Divider />
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("PackingLoading", {
-                  from: "SettingScreen",
-                })
-              }
-            >
-              <NameText style={{ fontFamily: "Afacad-Bold" }}>
-                LOADING SCREEN
-              </NameText>
-            </TouchableOpacity>
-            <Divider />
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("ShowLuggage", {
-                  from: "SettingScreen",
-                })
-              }
-            >
-              <NameText style={{ fontFamily: "Afacad-Bold" }}>
-                SHOW LUGGAGE
-              </NameText>
-            </TouchableOpacity>
-            <Divider />
-            <TouchableOpacity onPress={() => setShowModal(true)}>
-              <NameText style={{ fontFamily: "Afacad-Bold" }}>
-                {t("settingsScreen.lang")}
-              </NameText>
-            </TouchableOpacity>
-            <Divider />
-            <TouchableOpacity
-              onPress={() => {
-                Alert.alert(
-                  t("messages.logOut.title"),
-                  "",
-                  [
-                    {
-                      text: t("messages.cancel"),
-                      onPress: () => console.log("Cancelado"),
-                      style: "cancel",
-                    },
-                    {
-                      text: t("messages.accept"),
-                      onPress: () => onLogOut(),
-                    },
-                  ],
-                  { cancelable: true }
-                );
+        <StatusBar
+          barStyle={theme.themeMode ? "light-content" : "dark-content"}
+          backgroundColor={theme.colors.background}
+        />
+        <View style={styles.mainPhotoCointainer}>
+          <Image source={{ uri: store.photoUrl || "" }} style={styles.icon} />
+          <View
+            style={{
+              maxWidth: "65%",
+            }}
+          >
+            <NameText
+              style={{
+                fontFamily: "Afacad-Bold",
               }}
             >
-              <NameText style={{ fontFamily: "Afacad-Bold", color: "red" }}>
-                {t("settingsScreen.logOut")}
-              </NameText>
-            </TouchableOpacity>
+              {store.name?.toUpperCase()}
+            </NameText>
+
+            <NameText
+              style={{
+                fontFamily: "Afacad-Bold",
+              }}
+            >
+              {store.surname?.toUpperCase()}
+            </NameText>
           </View>
         </View>
-      </ScrollView>
-      <LngSelectorComponent
-        showModal={showModal}
-        onClose={() => setShowModal(false)}
-      />
+        <ScrollView
+          contentInsetAdjustmentBehavior="automatic"
+          // bounces
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            backgroundColor: theme.colors.background,
+            alignItems: "center",
+            paddingBottom: Platform.OS === "android" ? 80 : 60,
+            gap: 15,
+          }}
+          style={{
+            width: "100%",
+          }}
+        >
+          <View style={styles.mainCointainer}>
+            <View style={styles.elementListContainer}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("PersonalData", {
+                    from: "SettingScreen",
+                  })
+                }
+              >
+                <NameText style={{ fontFamily: "Afacad-Bold" }}>
+                  {t("settingsScreen.profile")}
+                </NameText>
+              </TouchableOpacity>
+              <Divider />
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("StyleData", {
+                    from: "SettingScreen",
+                  })
+                }
+              >
+                <NameText style={{ fontFamily: "Afacad-Bold" }}>
+                  {t("settingsScreen.style")}
+                </NameText>
+              </TouchableOpacity>
+              <Divider />
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("LuggageData", {
+                    from: "SettingScreen",
+                  })
+                }
+              >
+                <NameText style={{ fontFamily: "Afacad-Bold" }}>
+                  {t("settingsScreen.luggage")}
+                </NameText>
+              </TouchableOpacity>
+              <Divider />
+              {/* <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("TravelData", {
+                    from: "SettingScreen",
+                  })
+                }
+              >
+                <NameText style={{ fontFamily: "Afacad-Bold" }}>
+                  TRAVEL
+                </NameText>
+              </TouchableOpacity>
+              <Divider />
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("ActivitiesScreen", {
+                    from: "SettingScreen",
+                  })
+                }
+              >
+                <NameText style={{ fontFamily: "Afacad-Bold" }}>
+                  ACTIVITIES
+                </NameText>
+              </TouchableOpacity>
+              <Divider />
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("AccommodationScreen", {
+                    from: "SettingScreen",
+                  })
+                }
+              >
+                <NameText style={{ fontFamily: "Afacad-Bold" }}>
+                  ACCOMMODATION
+                </NameText>
+              </TouchableOpacity>
+              <Divider />
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("PackingLoading", {
+                    from: "SettingScreen",
+                  })
+                }
+              >
+                <NameText style={{ fontFamily: "Afacad-Bold" }}>
+                  LOADING SCREEN
+                </NameText>
+              </TouchableOpacity>
+              <Divider />
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("ShowLuggage", {
+                    from: "SettingScreen",
+                  })
+                }
+              >
+                <NameText style={{ fontFamily: "Afacad-Bold" }}>
+                  SHOW LUGGAGE
+                </NameText>
+              </TouchableOpacity>
+              <Divider /> */}
+              <TouchableOpacity onPress={() => setShowModal(true)}>
+                <NameText style={{ fontFamily: "Afacad-Bold" }}>
+                  {t("settingsScreen.lang")}
+                </NameText>
+              </TouchableOpacity>
+              <Divider />
+              <TouchableOpacity
+                onPress={() => {
+                  Alert.alert(
+                    t("messages.logOut.title"),
+                    "",
+                    [
+                      {
+                        text: t("messages.cancel"),
+                        onPress: () => console.log("Cancelado"),
+                        style: "cancel",
+                      },
+                      {
+                        text: t("messages.accept"),
+                        onPress: () => onLogOut(),
+                      },
+                    ],
+                    { cancelable: true }
+                  );
+                }}
+              >
+                <NameText style={{ fontFamily: "Afacad-Bold", color: "red" }}>
+                  {t("settingsScreen.logOut")}
+                </NameText>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </ScrollView>
+        <LngSelectorComponent
+          showModal={showModal}
+          onClose={() => setShowModal(false)}
+        />
+      </Animated.View>
     </SafeAreaView>
   );
 };

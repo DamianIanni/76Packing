@@ -24,6 +24,28 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    setFavPacking: (state, action: PayloadAction<FavPackingInterface>) => {
+      // console.log("QuALUMPUR", action.payload);
+      // state.favPacking = [...(state.favPacking ?? []), action.payload];
+      const updatedPacking = action.payload;
+
+      if (!state.favPacking) {
+        state.favPacking = [updatedPacking];
+        return;
+      }
+
+      const index = state.favPacking.findIndex(
+        (p) => p.id === updatedPacking.id
+      );
+
+      if (index !== -1) {
+        // Reemplaza el existente
+        state.favPacking[index] = updatedPacking;
+      } else {
+        // Agrega uno nuevo
+        state.favPacking.push(updatedPacking);
+      }
+    },
     setUserAfterLogin: (
       state,
       action: PayloadAction<{
@@ -50,7 +72,7 @@ const userSlice = createSlice({
           userId: string;
         };
         savedLuggage: SavedLuggage;
-        favPacking: FavPackingInterface;
+        favPacking: FavPackingInterface[];
         userStyle: {
           brands: string | null;
           style: string | null;
@@ -149,6 +171,7 @@ export const {
   setSavedLuggageData,
   setAllData,
   setUserProfilePhotoUrl,
+  setFavPacking,
   clearUser,
 } = userSlice.actions;
 

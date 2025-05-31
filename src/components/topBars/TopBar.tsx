@@ -13,9 +13,10 @@ import { BigTitle } from "../texts/BigTitle";
 interface CustomProps {
   text: string;
   navigation?: any;
+  onGoingBack?: () => void;
 }
 
-const TopBar: React.FC<CustomProps> = ({ text, navigation }) => {
+const TopBar: React.FC<CustomProps> = ({ text, navigation, onGoingBack }) => {
   const theme = new ThemeManager();
 
   const styles = StyleSheet.create({
@@ -40,10 +41,18 @@ const TopBar: React.FC<CustomProps> = ({ text, navigation }) => {
     },
   });
 
+  function goingBack() {
+    if (onGoingBack) {
+      onGoingBack();
+      return;
+    }
+    navigation.goBack();
+  }
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        onPress={() => navigation.goBack()}
+        onPress={() => goingBack()}
         style={styles.iconContainer}
       >
         <Image

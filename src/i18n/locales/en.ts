@@ -1,9 +1,22 @@
 export const en = {
   translation: {
+    emptyScreen: {
+      nothingToShow: "Nothing here to show",
+    },
+    cards: {
+      luggageDone: "Luggage done",
+      luggageNotDone: "Luggage not finished",
+      itemsPacked: "Items packed",
+    },
     loadingScreen: {
       packForYou: "packing for you",
     },
     messages: {
+      attention: "Attention",
+      toManyPackings: "You have too much luggages",
+      toManyFavPackings: "You have too much favourites luggages",
+      deleteItem: "Are you sure you want to delete this item?",
+      eliminate: "Eliminate",
       errorLogin: "Something went wrong. Please try again.",
       logOut: {
         title: "Are you sure you want to log out?",
@@ -70,7 +83,7 @@ export const en = {
     },
     button: {
       saveBtn: "save",
-      nextBtn: "save",
+      nextBtn: "next",
     },
     notRequiredPlaceholder: "Not required",
     requiredPlaceholder: "Required",
