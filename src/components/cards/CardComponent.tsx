@@ -37,7 +37,6 @@ export const CardComponent: React.FC<CustomProps> = ({
   const deepCopy = JSON.parse(JSON.stringify(item));
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const opacityAnim = useRef(new Animated.Value(1)).current;
-  // console.log("ITEM", deepCopy);
 
   const animatePulse = (onFinish?: () => void) => {
     Animated.sequence([
@@ -204,7 +203,6 @@ export const CardComponent: React.FC<CustomProps> = ({
           [
             {
               text: "OK",
-              onPress: () => console.log("OK Pressed"),
             },
           ]
         );

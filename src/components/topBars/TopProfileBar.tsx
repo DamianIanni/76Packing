@@ -33,7 +33,6 @@ const TopProfileBar: React.FC<CustomProps> = ({ navigation }) => {
         return;
       }
     }
-    console.log("USER EN TOP PROFILE BAR", store);
     navigation.navigate("TravelData");
   }
 

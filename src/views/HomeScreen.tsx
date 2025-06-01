@@ -80,9 +80,7 @@ const HomeScreen = (props: customProps): React.JSX.Element => {
     },
   });
 
-  useEffect(() => {
-    console.log("LA STORE DE REDUX", userStore);
-  }, [updateContentState]);
+  useEffect(() => {}, [updateContentState]);
 
   useFocusEffect(
     useCallback(() => {
@@ -106,28 +104,7 @@ const HomeScreen = (props: customProps): React.JSX.Element => {
           backgroundColor={theme.colors.background}
         />
         <TopProfileBar navigation={navigation} />
-        {/* <Button
-        color={"red"}
-        title="insert favPacking"
-        onPress={() =>
-          insertFavPackingToServer({
-            Name: "SPAIN",
-            userId: "9840cca1-d935-4082-b71a-4a3f0fc8a751",
-            Luggage_1: JSON.stringify({
-              luggage: "Mochila 15L",
-              content: [
-                { quantity: 1, item: "t-shirt", status: false },
-                { quantity: 1, item: "shorts", status: false },
-                { quantity: 1, item: "running shoes", status: false },
-              ],
-            }),
-            Luggage_2: "",
-            Luggage_3: "",
-            Luggage_4: "",
-            packing_type: 1,
-          })
-        }
-      /> */}
+
         {favPacking0.length > 0 ? (
           <FlatList
             showsVerticalScrollIndicator={false}
@@ -167,150 +144,3 @@ const HomeScreen = (props: customProps): React.JSX.Element => {
 };
 
 export default HomeScreen;
-
-{
-  /* <Button
-          title="Get user"
-          onPress={() =>
-            getUserFromServer("ec949b67-c76f-4dbd-8084-f28ce4e61c46")
-          }
-        />
-        <Button
-          title="Get user all data"
-          onPress={() =>
-            getAllUserDataFromServer("ec949b67-c76f-4dbd-8084-f28ce4e61c46")
-          }
-        />
-        <Button
-          title="Get user ID"
-          onPress={() => getUserIdFromServer("monetizacion@gmail.com")}
-        />
-        <Button
-          title="Get Packing"
-          onPress={() =>
-            getFavPackingFromServer("ec949b67-c76f-4dbd-8084-f28ce4e61c46")
-          }
-        />
-        <Button
-          title="Get savedLuggage"
-          onPress={() =>
-            getSavedLuggageFromServer("9840cca1-d935-4082-b71a-4a3f0fc8a751")
-          }
-        />
-        <Button
-          title="propmt Luggage"
-          onPress={() => {
-            try {
-              getPromptLuggageFromServer({
-                destination: "Hamburg",
-                duration: 7,
-                activities: "walk around the city",
-                luggageItems: ["small backpack"],
-                // weatherSensitivity: null,
-                // favoriteClothing: null,
-                accommodationType: "A friend house",
-                utilities: ["washing machine", "dryer"],
-                gender: "male",
-                // height: null,
-                // nationality: null,
-                // age: null,
-                dressStyle: "Sporty",
-              });
-            } catch (error) {
-              console.log("ERROR CON EL PROMPT", error);
-            }
-          }}
-        />
-        <Button
-          color={"red"}
-          title="insert user"
-          onPress={() =>
-            insertUserToServer({
-              Email: "monetizacion@gmail.com",
-              Surname: "Monte",
-              Name: "Mont",
-              //  097fc05c-586e-44db-b796-b0db2da30485
-            })
-          }
-        />
-        <Button
-          color={"red"}
-          title="insert favPacking"
-          onPress={() =>
-            insertFavPackingToServer({
-              Name: "SPAIN",
-              userId: "9840cca1-d935-4082-b71a-4a3f0fc8a751",
-              Luggage_1: "bla bla bla",
-              Luggage_2: "",
-              Luggage_3: "",
-              Luggage_4: "",
-              packing_type: 1,
-            })
-          }
-        />
-        <Button
-          color={"red"}
-          title="insert savedLuggage"
-          onPress={() =>
-            insertSavedLuggageToServer({
-              luggage1: "carry on",
-              luggage2: "",
-              luggage3: "Backpack",
-              luggage4: "",
-              userId: "ec949b67-c76f-4dbd-8084-f28ce4e61c46",
-            })
-          }
-        /> */
-}
-{
-  /* <Button
-          color={"green"}
-          title="update user"
-          onPress={() =>
-            updateUserToServer({
-              Name: "Thor",
-              Surname: "Odinson",
-              Email: "monetizacion@gmail.com",
-              DateOfBirth: new Date("1998-01-01"),
-              userId: "ec949b67-c76f-4dbd-8084-f28ce4e61c46",
-              // height: 180,
-              Gender: "male",
-              // email: "monetizacion@gmail.com",
-            })
-          }
-        /> */
-}
-{
-  /* <Button
-          color={"green"}
-          title="update favPacking"
-          onPress={() =>
-            updateFavPackingToServer({
-              packing_type: 1,
-              userId: "ec949b67-c76f-4dbd-8084-f28ce4e61c46",
-              id: 21,
-            })
-          }
-        />
-        <Button
-          color={"green"}
-          title="update savedLuggage"
-          onPress={() =>
-            updateSavedLuggageToServer({
-              luggage1: "Big suitcase",
-              luggage2: "",
-              luggage3: "Backpack",
-              luggage4: "",
-              userId: "ec949b67-c76f-4dbd-8084-f28ce4e61c46",
-            })
-          }
-        />
-
-        <Button
-          color={"blue"}
-          title="delete user"
-          onPress={() =>
-            deleteUserToServer("aecef0f6-726b-4fdb-b21f-b3252ad97db9")
-          }
-        /> */
-}

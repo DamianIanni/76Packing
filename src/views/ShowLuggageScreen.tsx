@@ -63,8 +63,6 @@ export const ShowLuggageScreen = (props: CustomProps): React.JSX.Element => {
   const [data] = useState(parsed);
   const [modifiedLuggages, setModifiedLuggages] = useState<Luggage[]>(parsed);
 
-  console.log("ARBA", route.params?.packingType === 1);
-
   function parseLuggageData(data: any): Luggage[] {
     const parsedLuggage: Luggage[] = [];
     for (let i = 1; i <= 4; i++) {
@@ -82,7 +80,7 @@ export const ShowLuggageScreen = (props: CustomProps): React.JSX.Element => {
   }
 
   function onGoingBack() {
-    console.log("NAVIGATION STATE", navigation.getState());
+    "NAVIGATION STATE", navigation.getState();
     navigation.reset({
       index: 0,
       routes: [

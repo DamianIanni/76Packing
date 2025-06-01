@@ -41,13 +41,11 @@ export const CardListComponent: React.FC<customProps> = ({
   const theme = new ThemeManager();
   const [refresh, setRefresh] = useState(false);
   const [modifiedLuggage] = useState<Luggage>(item);
-  console.log("POPULAR", previusScreen);
 
   useFocusEffect(
     useCallback(() => {
       return () => {
         // Al salir de foco
-        console.log("Modified:", modifiedLuggage);
         if (modifiedLuggage.content.length === 0) {
           saving(null, index);
         } else {

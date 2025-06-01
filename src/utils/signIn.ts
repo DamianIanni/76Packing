@@ -20,6 +20,12 @@ interface ResponseData {
   familyName: string | null;
 }
 
+export const getUserIdtoken = async () => {
+  const auth = getAuth();
+  const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true);
+  return idToken;
+};
+
 export const signInWithGoogle = async (): Promise<
   ResponseData | boolean | void
 > => {
@@ -51,11 +57,9 @@ export const signInWithGoogle = async (): Promise<
     // Iniciar sesión con Firebase usando la credencial de Google
     await signInWithCredential(auth, googleCredential);
 
-    auth.currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
+    auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
       console.log("Token:", idToken); // <- este es el que funciona con tu backend
     });
-
-    // console.log("USER FROM GOOGLE", userInfo);
 
     const userData = {
       // googleIdToken: userInfo.data.user.id,
@@ -67,7 +71,6 @@ export const signInWithGoogle = async (): Promise<
 
     // Guardar los datos en Redux
     // dispatch(setUserAfterLogin(userData));
-    // console.log("Usuario despachado");
     return userData;
   } catch (error) {
     console.error("Google Sign-In Error:", error);
