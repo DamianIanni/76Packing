@@ -16,12 +16,15 @@ import {
   Platform,
   Animated,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type customProps = {
   navigation: any;
 };
 
 export const FavouriteScreen = (props: customProps): React.JSX.Element => {
+  const insets = useSafeAreaInsets();
+
   const { t } = useLocale();
   const [updateContentState, setUpdateContentState] = useState(false);
   const opacity = useRef(new Animated.Value(0)).current;
@@ -66,7 +69,13 @@ export const FavouriteScreen = (props: customProps): React.JSX.Element => {
   useEffect(() => {}, [updateContentState]);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: theme.colors.background,
+        paddingTop: insets.top,
+      }}
+    >
       <Animated.View style={[style.container, { opacity }]}>
         <StatusBar
           barStyle={theme.themeMode ? "light-content" : "dark-content"}
