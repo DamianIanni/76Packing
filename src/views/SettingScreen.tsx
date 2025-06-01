@@ -2,6 +2,7 @@ import React, { useCallback, useState, useRef } from "react";
 import { ThemeManager } from "../classes/ThemeManager";
 import { LngSelectorComponent } from "../components/lng/LangSelectorComponent";
 import { useFocusEffect } from "@react-navigation/native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import {
   SafeAreaView,
@@ -33,6 +34,7 @@ type CustomProps = {
 };
 
 const SettingScreen = (props: CustomProps): React.JSX.Element => {
+  const insets = useSafeAreaInsets();
   const { t } = useLocale();
   const theme = new ThemeManager();
   const { navigation } = props;
@@ -167,7 +169,13 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
   const Divider = () => <View style={styles.divider}></View>;
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: theme.colors.background,
+        paddingTop: insets.top,
+      }}
+    >
       <Animated.View
         style={[
           styles.container,

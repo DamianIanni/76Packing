@@ -20,6 +20,7 @@ import { ThemeManager } from "../classes/ThemeManager";
 
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import {
   SafeAreaView,
@@ -43,6 +44,8 @@ interface customProps {
 
 const HomeScreen = (props: customProps): React.JSX.Element => {
   // const dispatch = useDispatch();
+  const insets = useSafeAreaInsets();
+
   const { t } = useLocale();
   const opacity = useRef(new Animated.Value(0)).current;
   const [updateContentState, setUpdateContentState] = useState(false);
@@ -95,7 +98,12 @@ const HomeScreen = (props: customProps): React.JSX.Element => {
 
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: theme.colors.background }}
+      style={{
+        flex: 1,
+        backgroundColor: theme.colors.background,
+        paddingTop: insets.top,
+      }}
+
       // onLayout={() => setIsReady(true)}
     >
       <Animated.View style={[style.container, { opacity }]}>
