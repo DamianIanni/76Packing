@@ -173,8 +173,6 @@ export const TravelDataScreen = (props: CustomProps): React.JSX.Element => {
     );
   }
 
-  console.log("SEASONS", seasons);
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView

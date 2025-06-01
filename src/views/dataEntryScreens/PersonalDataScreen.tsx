@@ -47,11 +47,6 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
   const btnText = route.params?.from
     ? t("button.saveBtn")
     : t("button.nextBtn");
-  // const arrGender = [
-  //   {gender: t("profileScreen.genderOptions.male"), genderNumber: 1},
-  //   {gender: t("profileScreen.genderOptions.famale"),genderNumber: 2 },
-  //   {gender: t("profileScreen.genderOptions.noToSay"), genderNumber: 3},
-  // ];
   const arrGender = [
     { label: t("profileScreen.genderOptions.male"), value: "male" },
     { label: t("profileScreen.genderOptions.famale"), value: "female" },
@@ -60,7 +55,6 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
       value: "prefer_not_to_say",
     },
   ];
-  console.log("LA STORE EN EL PERSONAL DATA", store);
 
   const normalizeFontSize = (size: number) => {
     const scale = PixelRatio.getFontScale(); // Obtiene el factor de escala de la fuente del sistema
@@ -272,18 +266,6 @@ export const PersonalDataScreen = (props: CustomProps): React.JSX.Element => {
               valueDate={dateStringified}
             />
           </KeyboardAvoidingView>
-          {/* <KeyboardAvoidingView>
-            <CardInputComponent
-              placeholder="Not required"
-              // isEditable={true}
-              title="gender"
-              //   customWidth={100}
-              z={Platform.OS === "ios" ? 0 : 9}
-              multiline={false}
-              action={(e: string) => setUserGender(e)}
-              value={store.gender}
-            />
-          </KeyboardAvoidingView> */}
           <Pressable
             onPress={() => {
               setShowGenderPickerModal(true);

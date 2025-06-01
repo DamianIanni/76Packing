@@ -47,32 +47,16 @@ export const StyleDataScreen = (props: CustomProps): React.JSX.Element => {
     brands: userBrands,
   };
 
-  // async function dispatchUser() {
-  //   //Below is the real evaluation
-  //   // if (!store.userId || !store.email) {
-  //   //   throw new Error("Faltan datos obligatorios del usuario.");
-  //   // }
-
-  //   dispatch(setUserStyleData(objectDataStyle));
-  //   if (userStyle === "" || userBrands === "") {
-  //     await updateUserStyle({ ...objectDataStyle, userId: uuid! });
-  //   } else {
-  //     await insertUserStyle({ ...objectDataStyle, userId: uuid! });
-  //   }
-  // }
-
   async function performButtonAction() {
     if (route.params?.from) {
       await updateUserStyle({ ...objectDataStyle, userId: uuid! });
       // dispatch(setUserStyleData(objectDataStyle));
       navigation.goBack();
-      console.log("UPDATTE");
 
       // return;
     } else {
       await insertUserStyle({ ...objectDataStyle, userId: uuid! });
       // dispatchUser();
-      console.log("INSERT");
 
       navigation.navigate("MainTabs");
     }

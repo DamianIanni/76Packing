@@ -39,7 +39,6 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
   const opacity = useRef(new Animated.Value(0)).current;
   const store = getReduxStoreUser();
   const dispatch = useAppDispatch();
-  // console.log("Navigation prop:", navigation);
 
   const [showModal, setShowModal] = useState(false);
 
@@ -257,66 +256,6 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
                 </NameText>
               </TouchableOpacity>
               <Divider />
-              {/* <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("TravelData", {
-                    from: "SettingScreen",
-                  })
-                }
-              >
-                <NameText style={{ fontFamily: "Afacad-Bold" }}>
-                  TRAVEL
-                </NameText>
-              </TouchableOpacity>
-              <Divider />
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("ActivitiesScreen", {
-                    from: "SettingScreen",
-                  })
-                }
-              >
-                <NameText style={{ fontFamily: "Afacad-Bold" }}>
-                  ACTIVITIES
-                </NameText>
-              </TouchableOpacity>
-              <Divider />
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("AccommodationScreen", {
-                    from: "SettingScreen",
-                  })
-                }
-              >
-                <NameText style={{ fontFamily: "Afacad-Bold" }}>
-                  ACCOMMODATION
-                </NameText>
-              </TouchableOpacity>
-              <Divider />
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("PackingLoading", {
-                    from: "SettingScreen",
-                  })
-                }
-              >
-                <NameText style={{ fontFamily: "Afacad-Bold" }}>
-                  LOADING SCREEN
-                </NameText>
-              </TouchableOpacity>
-              <Divider />
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("ShowLuggage", {
-                    from: "SettingScreen",
-                  })
-                }
-              >
-                <NameText style={{ fontFamily: "Afacad-Bold" }}>
-                  SHOW LUGGAGE
-                </NameText>
-              </TouchableOpacity>
-              <Divider /> */}
               <TouchableOpacity onPress={() => setShowModal(true)}>
                 <NameText style={{ fontFamily: "Afacad-Bold" }}>
                   {t("settingsScreen.lang")}

@@ -85,11 +85,6 @@ export const PackingLoadingScreen: React.FC<customProps> = ({ navigation }) => {
   const storePrompt = getReduxStorePrompt();
   const userStore = getReduxStoreUser();
 
-  // console.log("LOADING PROPS", navigation);
-
-  // console.log("STORE PROMPT", storePrompt);
-  // console.log("STORE User", userStore);
-
   useFocusEffect(
     useCallback(() => {
       const onBackPress = () => {
@@ -160,8 +155,6 @@ export const PackingLoadingScreen: React.FC<customProps> = ({ navigation }) => {
   async function sendToPlaces(response: any) {
     const obj = settingFavPacking(response);
     const res = await insertFavPackingToServer(obj);
-    console.log("RESIS", res.insertFavPacking.data);
-    // dispatch(setFavPacking(obj));
 
     dispatch(setFavPacking({ ...obj, id: res.insertFavPacking.data }));
     goToShowLuggage();
@@ -219,10 +212,8 @@ export const PackingLoadingScreen: React.FC<customProps> = ({ navigation }) => {
       try {
         const obj = setupObjectForPrompt();
         const data = await getPromptLuggageFromServer(obj); // 👈 Espera la respuesta
-        // console.log("LA DATA DESPUES DE LA PROMPT", data);
 
         if (data.promptLuggage.code === 200) {
-          // sendToPlaces(mockData);
           sendToPlaces(data.promptLuggage.data); // ✅ Se ejecuta sólo si hay data
         }
       } catch (error) {

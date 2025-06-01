@@ -25,8 +25,6 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setFavPacking: (state, action: PayloadAction<FavPackingInterface>) => {
-      // console.log("QuALUMPUR", action.payload);
-      // state.favPacking = [...(state.favPacking ?? []), action.payload];
       const updatedPacking = action.payload;
 
       if (!state.favPacking) {
@@ -123,13 +121,7 @@ const userSlice = createSlice({
       state.style = action.payload.style;
       state.brands = action.payload.brands;
     },
-    // setUserLuggageData: (
-    //   state,
-    //   action: PayloadAction<{ style: string; brands: string }>
-    // ) => {
-    //   state.style = action.payload.style;
-    //   state.brands = action.payload.brands;
-    // },
+
     setSavedLuggageData: (
       state,
       action: PayloadAction<{

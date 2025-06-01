@@ -12,7 +12,6 @@ import {
   insertSavedLuggageToServer,
   updateSavedLuggageToServer,
 } from "../../api/apiServices/mutationServices";
-import { getSavedLuggageFromServer } from "../../api/apiServices/queryServices";
 import { useLocale } from "../../i18n/TranslationContext";
 
 import {
@@ -89,8 +88,6 @@ export const LuggageDataScreen = (props: CustomProps): React.JSX.Element => {
     stripe3: theme.stripeStyle.stripe3 as ViewStyle,
   });
 
-  console.log("STORE IN LUGGAGE", store.savedLuggage);
-
   useEffect(() => {
     if (route.params?.from && store.savedLuggage) {
       setLuggage1(luggage_1 || "");
@@ -108,7 +105,6 @@ export const LuggageDataScreen = (props: CustomProps): React.JSX.Element => {
       setLuggage4(luggage_4 || "");
     }
   }, [useSavedLuggage, store.savedLuggage]);
-  // console.log("LUGGAGE", luggage1, luggage2, luggage3, luggage4);
 
   function isDisabled(): boolean {
     if (route.params?.from) {

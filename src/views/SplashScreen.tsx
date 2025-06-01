@@ -72,42 +72,6 @@ const SplashScreen = (props: CustomProps): React.JSX.Element => {
     dispatch(setAllData({ ...allData.getAllUserData.data, photoUrl: photo }));
   }
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     Animated.timing(opacity, {
-  //       toValue: 0,
-  //       duration: 1000,
-  //       useNativeDriver: true,
-  //     }).start();
-  //   }, 2000);
-  // }, []);
-
-  // useEffect(() => {
-  //   const unsubscribe = auth().onAuthStateChanged(async (user) => {
-  //     const userIdInStorage = await getItemFromAsyncStorage();
-  //     console.log("USER ID IN ASYCN", userIdInStorage);
-
-  //     console.log("USER DESDE AUTH", user);
-  //     let initialRoute: string;
-
-  //     if (!user) {
-  //       initialRoute = "LoginScreen";
-  //     } else if (!checkUUID(userIdInStorage!)) {
-  //       initialRoute = "PersonalData";
-  //     } else {
-  //       initialRoute = "MainTabs";
-  //       saveAllDataInReduxStore(user.email, user.photoURL ?? "");
-  //     }
-  //     // setUserProfilePhotoUrl(user?.photoURL ?? "");
-  //     navigation.reset({
-  //       index: 0,
-  //       routes: [{ name: initialRoute }],
-  //     });
-  //   });
-
-  //   return unsubscribe; // Limpiamos el listener al salir
-  // }, [navigation]);
-
   useEffect(() => {
     let isMounted = true;
     let timeoutHandler: NodeJS.Timeout;
