@@ -37,8 +37,11 @@ export const BigTitle: React.FC<CustomTextProps> = ({
           fontFamily: "Afacad-BoldItalic",
           color: theme.colors.textHeader,
         },
+
         style,
       ]}
+      // numberOfLines={1}
+      // ellipsizeMode="tail"
       // numberOfLines={numberOfLines}
       // {...restProps}
     >
