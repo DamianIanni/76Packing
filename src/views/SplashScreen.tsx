@@ -7,7 +7,9 @@ import {
   StyleSheet,
   ViewStyle,
 } from "react-native";
-import auth from "@react-native-firebase/auth";
+// import auth from "@react-native-firebase/auth";
+import authGoogle from "@react-native-firebase/auth";
+import { auth } from "../../App";
 import { ThemeManager } from "../classes/ThemeManager";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getReduxStoreUser } from "../redux/getReduxStore";
@@ -32,6 +34,7 @@ const SplashScreen = (props: CustomProps): React.JSX.Element => {
   const theme = new ThemeManager();
   const opacity = useRef(new Animated.Value(1)).current;
   const { navigation } = props;
+  // const
 
   const styles = StyleSheet.create({
     mainView: {
@@ -71,13 +74,11 @@ const SplashScreen = (props: CustomProps): React.JSX.Element => {
     const allData = await getAllUserDataFromServer(userId.getUserId.data);
     dispatch(setAllData({ ...allData.getAllUserData.data, photoUrl: photo }));
   }
-
   useEffect(() => {
     let isMounted = true;
     let timeoutHandler: NodeJS.Timeout;
 
     const navigateWithDelay = (route: string) => {
-      // Esperar al menos 2 segundos antes de navegar
       timeoutHandler = setTimeout(() => {
         if (!isMounted) return;
 
@@ -94,7 +95,7 @@ const SplashScreen = (props: CustomProps): React.JSX.Element => {
       }, 2000);
     };
 
-    const unsubscribe = auth().onAuthStateChanged(async (user) => {
+    const handleUser = async (user: any) => {
       const userIdInStorage = await getItemFromAsyncStorage();
       let initialRoute: string;
 
@@ -108,9 +109,18 @@ const SplashScreen = (props: CustomProps): React.JSX.Element => {
       }
 
       navigateWithDelay(initialRoute);
-    });
+    };
 
-    // Timeout máximo de seguridad por si algo sale mal (30s)
+    console.log("auth", authGoogle().currentUser);
+
+    // Escuchar el auth principal (App)
+    const unsubscribe = authGoogle().currentUser
+      ? authGoogle().onAuthStateChanged(handleUser)
+      : auth.onAuthStateChanged(handleUser);
+
+    // const unsubscribe = authGoogle().onAuthStateChanged(handleUser);
+
+    // Fallback por si todo falla
     const fallbackTimeout = setTimeout(() => {
       if (isMounted) {
         navigation.reset({
@@ -127,6 +137,154 @@ const SplashScreen = (props: CustomProps): React.JSX.Element => {
       clearTimeout(fallbackTimeout);
     };
   }, [navigation]);
+
+  // useEffect(() => {
+  //   let isMounted = true;
+  //   let timeoutHandler: NodeJS.Timeout;
+
+  //   const navigateWithDelay = (route: string) => {
+  //     timeoutHandler = setTimeout(() => {
+  //       if (!isMounted) return;
+
+  //       Animated.timing(opacity, {
+  //         toValue: 0,
+  //         duration: 500,
+  //         useNativeDriver: true,
+  //       }).start(() => {
+  //         navigation.reset({
+  //           index: 0,
+  //           routes: [{ name: route }],
+  //         });
+  //       });
+  //     }, 2000);
+  //   };
+
+  //   const handleUser = async (user: any) => {
+  //     const userIdInStorage = await getItemFromAsyncStorage();
+  //     let initialRoute: string;
+
+  //     if (!user) {
+  //       initialRoute = "LoginScreen";
+  //     } else if (!checkUUID(userIdInStorage!)) {
+  //       initialRoute = "PersonalData";
+  //     } else {
+  //       initialRoute = "MainTabs";
+  //       await saveAllDataInReduxStore(user.email, user.photoURL ?? "");
+  //     }
+
+  //     navigateWithDelay(initialRoute);
+  //   };
+
+  //   // Escuchar ambas instancias de auth
+  //   const unsubscribeApp = auth.onAuthStateChanged(handleUser);
+  //   const unsubscribeGoogle = authGoogle().onAuthStateChanged(handleUser);
+
+  //   // Timeout de seguridad por si todo falla
+  //   const fallbackTimeout = setTimeout(() => {
+  //     if (isMounted) {
+  //       navigation.reset({
+  //         index: 0,
+  //         routes: [{ name: "LoginScreen" }],
+  //       });
+  //     }
+  //   }, 30000);
+
+  //   return () => {
+  //     isMounted = false;
+  //     unsubscribeApp();
+  //     unsubscribeGoogle();
+  //     clearTimeout(timeoutHandler);
+  //     clearTimeout(fallbackTimeout);
+  //   };
+  // }, [navigation]);
+
+  // useEffect(() => {
+  //   let isMounted = true;
+  //   let timeoutHandler: NodeJS.Timeout;
+
+  //   const navigateWithDelay = (route: string) => {
+  //     // Esperar al menos 2 segundos antes de navegar
+  //     timeoutHandler = setTimeout(() => {
+  //       if (!isMounted) return;
+
+  //       Animated.timing(opacity, {
+  //         toValue: 0,
+  //         duration: 500,
+  //         useNativeDriver: true,
+  //       }).start(() => {
+  //         navigation.reset({
+  //           index: 0,
+  //           routes: [{ name: route }],
+  //         });
+  //       });
+  //     }, 2000);
+  //   };
+  //   const userApp = auth.currentUser;
+  //   console.log("PRIVADO", userApp);
+
+  //   // const getValidAuthInstance = () => {
+
+  //   //   if (userApp && userApp.uid) {
+  //   //     return auth;
+  //   //   } else if (userFir && userFir.uid) {
+  //   //     return authGoogle();
+  //   //   }
+  //   // };
+
+  //   // const validAuth = getValidAuthInstance();
+  //   let unsubscribe: any;
+
+  //   if (userApp) {
+  //     unsubscribe = auth.onAuthStateChanged(async (user: any) => {
+  //       const userIdInStorage = await getItemFromAsyncStorage();
+  //       let initialRoute: string;
+
+  //       if (!user) {
+  //         initialRoute = "LoginScreen";
+  //       } else if (!checkUUID(userIdInStorage!)) {
+  //         initialRoute = "PersonalData";
+  //       } else {
+  //         initialRoute = "MainTabs";
+  //         await saveAllDataInReduxStore(user.email, user.photoURL ?? "");
+  //       }
+
+  //       navigateWithDelay(initialRoute);
+  //     });
+  //   } else {
+  //     unsubscribe = authGoogle().onAuthStateChanged(async (user: any) => {
+  //       const userIdInStorage = await getItemFromAsyncStorage();
+  //       let initialRoute: string;
+
+  //       if (!user) {
+  //         initialRoute = "LoginScreen";
+  //       } else if (!checkUUID(userIdInStorage!)) {
+  //         initialRoute = "PersonalData";
+  //       } else {
+  //         initialRoute = "MainTabs";
+  //         await saveAllDataInReduxStore(user.email, user.photoURL ?? "");
+  //       }
+
+  //       navigateWithDelay(initialRoute);
+  //     });
+  //   }
+
+  //   // Timeout máximo de seguridad por si algo sale mal (30s)
+  //   const fallbackTimeout = setTimeout(() => {
+  //     if (isMounted) {
+  //       navigation.reset({
+  //         index: 0,
+  //         routes: [{ name: "LoginScreen" }],
+  //       });
+  //     }
+  //   }, 30000);
+
+  //   return () => {
+  //     isMounted = false;
+  //     unsubscribe();
+  //     clearTimeout(timeoutHandler);
+  //     clearTimeout(fallbackTimeout);
+  //   };
+  // }, [navigation]);
 
   return (
     <>

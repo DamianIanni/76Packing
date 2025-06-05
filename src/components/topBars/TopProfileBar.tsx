@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet, Image, TouchableOpacity, Alert } from "react-native";
-// import { ThemeManager } from "../../classes/ThemeManager";
+import { ThemeManager } from "../../classes/ThemeManager";
 import { AddButton } from "../button/AddButton";
 import { NameText } from "../texts/NameText";
 import { getReduxStoreUser } from "../../redux/getReduxStore";
@@ -12,9 +12,10 @@ interface CustomProps {
 }
 
 const TopProfileBar: React.FC<CustomProps> = ({ navigation }) => {
-  // const theme = new ThemeManager();
+  const theme = new ThemeManager();
   const store = getReduxStoreUser();
   const { t } = useLocale();
+  const showDefaultIcon = !store.photoUrl?.trim();
 
   function startProccess() {
     if (store.favPacking && store.favPacking.length > 0) {
@@ -40,8 +41,15 @@ const TopProfileBar: React.FC<CustomProps> = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.iconContainer}>
         <Image
-          source={{ uri: store.photoUrl ? store.photoUrl : "" }}
+          source={
+            store.photoUrl
+              ? { uri: store.photoUrl }
+              : require("../../assets/icons/user.png")
+          }
           style={styles.icon}
+          {...(showDefaultIcon && {
+            tintColor: theme.colors.nonCheckIcon,
+          })}
         />
       </View>
       <NameText style={styles.title}>{store.name}</NameText>

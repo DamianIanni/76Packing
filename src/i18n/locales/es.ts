@@ -23,8 +23,37 @@ export const es = {
       },
       accept: "Aceptar",
       cancel: "Cancelar",
+      send: "Enviar",
+      resetPassword: {
+        succes: "Te enviamos un enlace para restablecer tu contraseña.",
+        error:
+          "No pudimos enviar el correo. Verificá que el email esté bien escrito o registrado.",
+        resetEmailHint:
+          "Introduce tu email para enviarte un enlace para restablecer tu contraseña",
+      },
+    },
+    registerScreen: {
+      register: "Registrarse",
+      nameShort: "Nombre muy corto",
+      surnameShort: "Apellido muy corto",
+      mandatoryEmail: "Email obligatorio",
+      invalidEmail: "Email invalido",
+      mandatoryPassword: "Contraseña obligatoria",
+      eightCharactersPassword: "La contraseña debe tener al menos 8 caracteres",
+      passwordCapitalLetter: "La contraseña debe tener al menos 1 mayuscula",
+      passwordNumber: "La contraseña debe tener al menos 1 numero",
+      passwordSpecialCharacter:
+        "La contraseña debe tener al menos 1 caracterer especial",
+      passwordLowerCase: "La contraseña debe tener al menos 1 minuscula",
     },
     loginScreen: {
+      or: "o",
+      signIn: "Registrarse",
+      reset: "Restablecer contraseña",
+      email: "Email",
+      password: "Contraseña",
+      login: "Login",
+      ////
       google: "Login con Google",
       facebook: "Login con Facebook",
       apple: "Login con Apple",

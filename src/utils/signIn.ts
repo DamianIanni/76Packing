@@ -7,6 +7,7 @@ import {
 // import getAuth from "firebase/auth";
 import { Platform } from "react-native";
 // import { setUserAfterLogin } from "../redux/userSlice";
+import { auth } from "../../App";
 
 // Configurar Google Sign-In con el Web Client ID de Firebase
 GoogleSignin.configure({
@@ -20,10 +21,26 @@ interface ResponseData {
   familyName: string | null;
 }
 
+// export const getUserIdtoken = async () => {
+//   // const auth = getAuth();
+//   const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true);
+//   return idToken;
+// };
+
 export const getUserIdtoken = async () => {
-  const auth = getAuth();
-  const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true);
-  return idToken;
+  const user = auth.currentUser;
+
+  if (!user) {
+    const authFrom = getAuth();
+    const idToken = await authFrom.currentUser?.getIdToken(
+      /* forceRefresh */ true
+    );
+    return idToken;
+  } else {
+    const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true);
+    console.log("🪙 ID Token:", idToken);
+    return idToken;
+  }
 };
 
 export const signInWithGoogle = async (): Promise<
@@ -52,7 +69,10 @@ export const signInWithGoogle = async (): Promise<
       auth.currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
         console.log("Token:", idToken); // <- este es el que funciona con tu backend
       });
-      console.log("Usuario autenticado con éxito en Firebase");
+      console.log(
+        "Usuario autenticado con éxito en Firebase",
+        auth.currentUser.providerData[0].providerId
+      );
     }
     // Iniciar sesión con Firebase usando la credencial de Google
     await signInWithCredential(auth, googleCredential);

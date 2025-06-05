@@ -27,6 +27,8 @@ import { LoginScreen } from "./src/views/LoginScreen";
 import { ActivitiesDataScreen } from "./src/views/dataEntryScreens/ActivitiesDataScreen";
 import { AccommodationDataScreen } from "./src/views/dataEntryScreens/AccommodationDataScreen";
 import { TranslationProvider } from "./src/i18n/TranslationContext";
+import { RegisterScreen } from "./src/views/signInScreens/RegisterScreen";
+import { ResetPassword } from "./src/views/signInScreens/ResetPassword";
 
 import firebase from "@react-native-firebase/app";
 import { initializeApp } from "firebase/app";
@@ -61,7 +63,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // const auth = getAuth(app);
 
-const auth = initializeAuth(app, {
+export const auth = initializeAuth(app, {
   persistence: getReactNativePersistence(ReactNativeAsyncStorage),
 });
 
@@ -219,6 +221,11 @@ export default function App(): React.JSX.Element {
             <Stack.Screen name="StyleData" component={StyleDataScreen} />
             <Stack.Screen name="TravelData" component={TravelDataScreen} />
             <Stack.Screen name="LuggageData" component={LuggageDataScreen} />
+            <Stack.Screen
+              name="ResetPasswordScreen"
+              component={ResetPassword}
+            />
+            <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
             <Stack.Screen
               name="ActivitiesScreen"
               component={ActivitiesDataScreen}

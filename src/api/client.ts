@@ -19,6 +19,7 @@ const httpLink = new HttpLink({ uri: SERVER_URL });
 // Este middleware agrega el token a cada request
 const authLink = setContext(async (_, { headers }) => {
   const token = await getUserIdtoken(); // esta función es asíncrona
+  console.log("TOKEN EN CLIENT", token);
 
   return {
     headers: {
