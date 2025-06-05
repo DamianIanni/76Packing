@@ -7,6 +7,8 @@ import {
   GET_USERID,
   GET_ALL_USER_DATA,
 } from "../queries";
+import { handleGraphQLError } from "../../utils/errorHandler/errorHandler";
+import { errorResponse } from "../../utils/errorHandler/errorResponse";
 
 export interface PackingPromptInput {
   destination: string;
@@ -36,6 +38,8 @@ export const getUserFromServer = async (userId: string) => {
     return data;
   } catch (error) {
     console.log("EL ERROR", error);
+    handleGraphQLError(error, "retreiving your data");
+    return errorResponse(error);
   }
 };
 
@@ -51,6 +55,8 @@ export const getUserIdFromServer = async (email: string) => {
     return data;
   } catch (error) {
     console.log("EL ERROR", error);
+    handleGraphQLError(error, "retreiving your data");
+    return errorResponse(error);
   }
 };
 
@@ -66,6 +72,8 @@ export const getAllUserDataFromServer = async (userId: string) => {
     return data;
   } catch (error) {
     console.log("EL ERROR", error);
+    handleGraphQLError(error, "retreiving your data");
+    return errorResponse(error);
   }
 };
 
@@ -81,6 +89,8 @@ export const getFavPackingFromServer = async (userId: string) => {
     return data;
   } catch (error) {
     console.log("EL ERROR", error);
+    handleGraphQLError(error, "retreiving your luggage");
+    return errorResponse(error);
   }
 };
 
@@ -99,6 +109,8 @@ export const getPromptLuggageFromServer = async (
     return data;
   } catch (error) {
     console.log("EL ERROR", error);
+    handleGraphQLError(error, "asking the AI");
+    return errorResponse(error);
   }
 };
 
@@ -114,5 +126,7 @@ export const getSavedLuggageFromServer = async (userId: string) => {
     return data;
   } catch (error) {
     console.log("EL ERROR", error);
+    handleGraphQLError(error, "retreiving your saved luggage");
+    return errorResponse(error);
   }
 };

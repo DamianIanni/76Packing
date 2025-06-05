@@ -16,6 +16,8 @@ import {
   UPDATE_USER_STYLE,
 } from "../mutations";
 
+import { errorResponse } from "../../utils/errorHandler/errorResponse";
+import { handleGraphQLError } from "../../utils/errorHandler/errorHandler";
 //// USER
 export const insertUserToServer = async (user: {
   Email: string;
@@ -35,6 +37,8 @@ export const insertUserToServer = async (user: {
     return data;
   } catch (error) {
     console.log("EL ERROR", error);
+    handleGraphQLError(error, "creating the user");
+    return errorResponse(error);
   }
 };
 
@@ -58,6 +62,8 @@ export const updateUserToServer = async (user: {
     return data;
   } catch (error) {
     console.log("EL ERROR", error);
+    handleGraphQLError(error, "updating the user");
+    return errorResponse(error);
   }
 };
 
@@ -74,6 +80,8 @@ export const deleteUserToServer = async (userId: string) => {
     return data;
   } catch (error) {
     console.log("EL ERROR", error);
+    handleGraphQLError(error, "deleting the user");
+    return errorResponse(error);
   }
 };
 
@@ -94,6 +102,8 @@ export const insertUserStyle = async (userStyle: {
     return data;
   } catch (error) {
     console.log("EL ERROR", error);
+    handleGraphQLError(error, "saving user style");
+    return errorResponse(error);
   }
 };
 
@@ -114,6 +124,8 @@ export const updateUserStyle = async (userStyle: {
     return data;
   } catch (error) {
     console.log("EL ERROR", error);
+    handleGraphQLError(error, "updating user style");
+    return errorResponse(error);
   }
 };
 
@@ -135,6 +147,8 @@ export const insertFavPackingToServer = async (
     return data;
   } catch (error) {
     console.log("EL ERROR", error);
+    handleGraphQLError(error, "saving your luggage");
+    return errorResponse(error);
   }
 };
 
@@ -159,6 +173,8 @@ export const updateFavPackingToServer = async (favPacking: {
     return data;
   } catch (error) {
     console.log("EL ERROR", error);
+    handleGraphQLError(error, "updating your luggage");
+    return errorResponse(error);
   }
 };
 
@@ -178,6 +194,8 @@ export const insertSavedLuggageToServer = async (
     return data;
   } catch (error) {
     console.log("EL ERROR", error);
+    handleGraphQLError(error, "saving your fav luggage");
+    return errorResponse(error);
   }
 };
 
@@ -196,5 +214,7 @@ export const updateSavedLuggageToServer = async (
     return data;
   } catch (error) {
     console.log("EL ERROR", error);
+    handleGraphQLError(error, "updating your fav luggage");
+    return errorResponse(error);
   }
 };

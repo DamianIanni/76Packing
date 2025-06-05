@@ -23,8 +23,38 @@ export const en = {
       },
       accept: "Accept",
       cancel: "Cancel",
+      send: "Send",
+      resetPassword: {
+        succes: "We've sent you a link to reset your password.",
+        error:
+          "We couldn't send the email. Please check that your email address is spelled correctly or registered correctly.",
+        resetEmailHint:
+          "Put your email to send you a link to reset your password",
+      },
+    },
+    registerScreen: {
+      register: "Register",
+      nameShort: "Name is too short",
+      surnameShort: "Surname is too short",
+      mandatoryEmail: "Email is mandatory",
+      invalidEmail: "Invalid email",
+      mandatoryPassword: "Password is mandatory",
+      eightCharactersPassword: "Password must be at least eight characters",
+      passwordCapitalLetter: "Password must have at least one capital letter",
+      passwordNumber: "Password must have at least one number",
+      passwordSpecialCharacter:
+        "Password must have at least one special character",
+      passwordLowerCase: "Password must have at least one lowercase letter",
     },
     loginScreen: {
+      or: "or",
+      signIn: "Sign in",
+      reset: "Reset password",
+      email: "Email",
+      password: "Password",
+      login: "Login",
+      ////////
+      logInCredentials: "Login",
       google: "Sing in with Google",
       facebook: "Sing in with Facebook",
       apple: "Sing in with Apple",

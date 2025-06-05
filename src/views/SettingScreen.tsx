@@ -20,7 +20,8 @@ import {
 
 // import { CardInputComponent } from "../components/cards/CardInputComponent";
 import { NameText } from "../components/texts/NameText";
-import auth from "@react-native-firebase/auth";
+import authGoogle from "@react-native-firebase/auth";
+import { auth } from "../../App";
 
 import { getReduxStoreUser } from "../redux/getReduxStore";
 import { useAppDispatch } from "../redux/customDispatch";
@@ -41,6 +42,7 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
   const opacity = useRef(new Animated.Value(0)).current;
   const store = getReduxStoreUser();
   const dispatch = useAppDispatch();
+  const showDefaultIcon = !store.photoUrl?.trim();
 
   const [showModal, setShowModal] = useState(false);
 
@@ -144,7 +146,17 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
       await GoogleSignin.signOut();
 
       // Cerrás sesión en Firebase
-      await auth().signOut();
+      const userApp = auth.currentUser;
+      const userFir = authGoogle()?.currentUser;
+
+      if (userApp && userApp.uid) {
+        await auth.signOut();
+        console.log(1);
+      } else if (userFir && userFir.uid) {
+        console.log(2);
+
+        await authGoogle().signOut();
+      }
 
       // Limpiás el store
       dispatch(clearUser());
@@ -189,7 +201,17 @@ const SettingScreen = (props: CustomProps): React.JSX.Element => {
           backgroundColor={theme.colors.background}
         />
         <View style={styles.mainPhotoCointainer}>
-          <Image source={{ uri: store.photoUrl || "" }} style={styles.icon} />
+          <Image
+            source={
+              store.photoUrl
+                ? { uri: store.photoUrl }
+                : require("../assets/icons/user.png")
+            }
+            style={styles.icon}
+            {...(showDefaultIcon && {
+              tintColor: theme.colors.nonCheckIcon,
+            })}
+          />
           <View
             style={{
               maxWidth: "65%",
