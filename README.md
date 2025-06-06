@@ -4,7 +4,9 @@ Packing76 is a mobile application that helps users organize and manage their lug
 
 ![Platform](https://img.shields.io/badge/platform-React%20Native-blue)
 ![License](https://img.shields.io/github/license/DamianIanni/76Packing)
-![Firebase](https://img.shields.io/badge/backend-Firebase-orange)
+![Backend](https://img.shields.io/badge/backend-Node.js-blue)
+![Database](https://img.shields.io/badge/database-SQL-green)
+![Auth](https://img.shields.io/badge/authentication-Firebase%20Auth-orange)
 
 ## 📚 Table of Contents
 
