@@ -77,7 +77,7 @@ npm install
 
 yarn install
 
-⸻
+---
 
 🚀 Running the Project 1. Start Metro Bundler:
 
@@ -105,7 +105,7 @@ yarn ios
 
 ✅ Make sure you have an emulator running or a physical device connected before launching the app.
 
-⸻
+---
 
 🔐 Environment Variables
 
@@ -126,35 +126,39 @@ SERVER_URL=
 These credentials correspond to a Firebase project.
 To get them: 1. Create a Firebase project at https://console.firebase.google.com. 2. Enable Authentication (Email/Password and Google Sign-In). 3. Add Android and iOS apps to your Firebase project and copy the config. 4. Enable Firestore and/or other Firebase services as needed.
 
-⸻
+---
 
 ## 📁 Project Structure
 
+<pre>
+```plaintext
 src/
 │
-├── api/ # API queries and mutatons
-├── assets/ # Assets (images, icons, fonts, etc.)
-├── components/ # UI
-├── classes/ # Theme & styles
-├── views/ # App screens
-├── navigation/ # Navigation setup
-├── store/ # Redux slices & config
-├── i18n/ # Translations
-└── utils/ # Helper functions
+├── api/            # API queries and mutations
+├── assets/         # Assets (images, icons, fonts, etc.)
+├── components/     # UI components
+├── classes/        # Theme & styles
+├── views/          # App screens
+├── navigation/     # Navigation setup
+├── store/          # Redux slices & config
+├── i18n/           # Translations
+└── utils/          # Helper functions
+```
+</pre>
 
-⸻
+---
 
 ## 🧪 Testing
 
 Coming soon
 
-⸻
+---
 
 ## 📄 License
 
 MIT License. See LICENSE for details.
 
-⸻
+---
 
 ## 📬 Contact
 
@@ -162,15 +166,9 @@ Damian Ianni
 📧 damiangussi@gmail.com
 🔗 LinkedIn - https://www.linkedin.com/in/damian-ianni-b50555205/
 
-⸻
+---
 
 ## 🧩 FAQ (Optional)
 
 Q: Do I need a Google account to use the app?
 A: No, you can register using email and password. Google Sign-In is optional.
-
----
-
-```
-
-```
