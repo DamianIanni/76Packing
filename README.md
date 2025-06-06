@@ -31,6 +31,20 @@ Packing76 is a mobile application that helps users organize and manage their lug
 
 ---
 
+## 🌐 Backend & Database
+
+This app is powered by a custom backend server and database, also designed and implemented by me:
+
+- **Backend:** Node.js + TypeScript server deployed on Render
+- **Database:** Normalized SQL database hosted on Railway
+- **API:** GraphQL with Apollo Client integration in the app
+
+👉 [View the backend repository](https://github.com/DamianIanni/76Packing_server)
+
+The server handles AI-powered packing recommendations, user data storage, and synchronizes data with the app in real-time.
+
+---
+
 ## ✨ Features
 
 - 🤖 AI-powered packing recommendations using Mistral via OpenRouter
