@@ -1,97 +1,160 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# 🎒 Packing76
 
-# Getting Started
+Packing76 is a mobile application that helps users organize and manage their luggage when preparing for trips. It includes travel planning, packing list customization, and storage of travel preferences.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+![Platform](https://img.shields.io/badge/platform-React%20Native-blue)
+![License](https://img.shields.io/github/license/DamianIanni/76Packing)
+![Firebase](https://img.shields.io/badge/backend-Firebase-orange)
 
-## Step 1: Start Metro
+## 📚 Table of Contents
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+- [📱 Screenshots / Demo](#-screenshots--demo)
+- [✨ Features](#-features)
+- [🛠️ Technologies Used](#-technologies-used)
+- [⚙️ Installation](#️-installation)
+- [🚀 Running the Project](#-running-the-project)
+- [🔐 Environment Variables](#-environment-variables)
+- [📁 Project Structure](#-project-structure)
+- [🧪 Testing (Optional)](#-testing-optional)
+- [📄 License](#-license)
+- [📬 Contact](#-contact)
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+---
 
-```sh
-# Using npm
+## 📱 Screenshots / Demo
+
+<img src="screenshots/home.png" width="250" /> <img src="screenshots/luggage.png" width="250" />
+
+### 🎥 YouTube Demo
+
+[![Watch the video](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
+
+---
+
+## ✨ Features
+
+- 🔐 User authentication (Email/Password, Google Sign-In)
+- 🔁 Password reset via email
+- 🧳 Packing list management with custom luggage types
+- 🌍 Travel planning: destination, number of days, seasons
+- 🛌 Accommodation and activities tracking
+- 🗣️ Multi-language support (English, Spanish, German)
+- ⚙️ User profile and preference settings
+- ☁️ Cloud sync using Firebase
+- 🔎 GraphQL data fetching with Apollo Client
+
+---
+
+## 🛠️ Technologies Used
+
+- React Native + TypeScript
+- Redux Toolkit for state management
+- React Navigation
+- Firebase Authentication
+- Firebase Hosting / Firestore (if used)
+- Apollo Client + GraphQL
+- AsyncStorage
+- i18next for internationalization
+- Axios (for backend calls)
+
+---
+
+## ⚙️ Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/DamianIanni/76Packing.git
+
+	2.	Navigate to the project folder:
+
+cd 76Packing
+
+	3.	Install dependencies:
+
+# npm
+npm install
+
+# or yarn
+yarn install
+
+
+⸻
+
+🚀 Running the Project
+
+Start Metro bundler:
+
 npm start
-
-# OR using Yarn
+# or
 yarn start
-```
 
-## Step 2: Build and run your app
+Run on Android:
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
 npm run android
 
-# OR using Yarn
-yarn android
-```
+Run on iOS:
 
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
 npm run ios
 
-# OR using Yarn
-yarn ios
+Make sure your emulator is running or a physical device is connected.
+
+⸻
+
+🔐 Environment Variables
+
+Create a .env file in the root and include:
+
+FIREBASE_API_KEY=your_key
+FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+FIREBASE_PROJECT_ID=your_project_id
+GRAPHQL_ENDPOINT=https://your-server-url.com/graphql
+
+
+⸻
+
+📁 Project Structure
+
+src/
+│
+├── components/        # Reusable UI components
+├── screens/           # App screens
+├── navigation/        # Navigation setup
+├── store/             # Redux slices & config
+├── services/          # Firebase, GraphQL services
+├── i18n/              # Translations
+└── utils/             # Helper functions
+
+
+⸻
+
+🧪 Testing (Optional)
+
+Coming soon – or describe here how to run unit tests or E2E tests.
+
+⸻
+
+📄 License
+
+MIT License. See LICENSE for details.
+
+⸻
+
+📬 Contact
+
+Damian Ianni
+📧 damiangussi@gmail.com
+🔗 LinkedIn
+
+⸻
+
+🧩 FAQ (Optional)
+
+Q: Do I need a Google account to use the app?
+A: No, you can register using email and password. Google Sign-In is optional.
+
+Q: Does the app work offline?
+A: Some functionalities do, but a connection is recommended for full sync.
+
+---
 ```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
