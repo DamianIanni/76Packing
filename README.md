@@ -33,6 +33,7 @@ Packing76 is a mobile application that helps users organize and manage their lug
 
 ## ✨ Features
 
+- 🤖 AI-powered packing recommendations using Mistral via OpenRouter
 - 🔐 User authentication (Email/Password, Google Sign-In)
 - 🔁 Password reset via email
 - 🧳 Packing list management with custom luggage types
@@ -51,7 +52,6 @@ Packing76 is a mobile application that helps users organize and manage their lug
 - Redux Toolkit for state management
 - React Navigation
 - Firebase Authentication
-- Firebase Hosting / Firestore (if used)
 - Apollo Client + GraphQL
 - AsyncStorage
 - i18next for internationalization
@@ -59,45 +59,51 @@ Packing76 is a mobile application that helps users organize and manage their lug
 
 ---
 
-## ⚙️ Installation
+⚙️ Installation 1. Clone the repository:
 
-1. Clone the repository:
-
-```bash
 git clone https://github.com/DamianIanni/76Packing.git
 
-	2.	Navigate to the project folder:
+    2.	Navigate to the project directory:
 
 cd 76Packing
 
-	3.	Install dependencies:
+    3.	Install dependencies:
 
-# npm
+# Using npm
+
 npm install
 
-# or yarn
-yarn install
+# or using Yarn
 
+yarn install
 
 ⸻
 
-🚀 Running the Project
-
-Start Metro bundler:
+🚀 Running the Project 1. Start Metro Bundler:
 
 npm start
+
 # or
+
 yarn start
 
-Run on Android:
+    2.	Run on Android:
 
 npm run android
 
-Run on iOS:
+# or
+
+yarn android
+
+    3.	Run on iOS (Mac only, with Xcode installed):
 
 npm run ios
 
-Make sure your emulator is running or a physical device is connected.
+# or
+
+yarn ios
+
+✅ Make sure you have an emulator running or a physical device connected before launching the app.
 
 ⸻
 
@@ -105,11 +111,20 @@ Make sure your emulator is running or a physical device is connected.
 
 Create a .env file in the root and include:
 
-FIREBASE_API_KEY=your_key
-FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
-FIREBASE_PROJECT_ID=your_project_id
-GRAPHQL_ENDPOINT=https://your-server-url.com/graphql
+API_KEY=your_firebase_web_api_key
+PROJECT_ID=your_firebase_project_id
+STORAGE_BUCKET=your_project_id.appspot.com
+MESSAGING_SENDER_ID=your_messaging_sender_id
+ANDROID_APP_ID=your_android_app_id
+IOS_APP_ID=your_ios_app_id
+WEB_CLIENT_ID=your_oauth_web_client_id
 
+# Server
+
+SERVER_URL=
+
+These credentials correspond to a Firebase project.
+To get them: 1. Create a Firebase project at https://console.firebase.google.com. 2. Enable Authentication (Email/Password and Google Sign-In). 3. Add Android and iOS apps to your Firebase project and copy the config. 4. Enable Firestore and/or other Firebase services as needed.
 
 ⸻
 
@@ -117,20 +132,21 @@ GRAPHQL_ENDPOINT=https://your-server-url.com/graphql
 
 src/
 │
-├── components/        # Reusable UI components
-├── screens/           # App screens
-├── navigation/        # Navigation setup
-├── store/             # Redux slices & config
-├── services/          # Firebase, GraphQL services
-├── i18n/              # Translations
-└── utils/             # Helper functions
-
+├── api/ # API queries and mutatons
+├── assets/ # Assets (images, icons, fonts, etc.)
+├── components/ # UI
+├── classes/ # Theme & styles
+├── views/ # App screens
+├── navigation/ # Navigation setup
+├── store/ # Redux slices & config
+├── i18n/ # Translations
+└── utils/ # Helper functions
 
 ⸻
 
-🧪 Testing (Optional)
+🧪 Testing
 
-Coming soon – or describe here how to run unit tests or E2E tests.
+Coming soon
 
 ⸻
 
@@ -144,7 +160,7 @@ MIT License. See LICENSE for details.
 
 Damian Ianni
 📧 damiangussi@gmail.com
-🔗 LinkedIn
+🔗 LinkedIn - https://www.linkedin.com/in/damian-ianni-b50555205/
 
 ⸻
 
@@ -153,8 +169,8 @@ Damian Ianni
 Q: Do I need a Google account to use the app?
 A: No, you can register using email and password. Google Sign-In is optional.
 
-Q: Does the app work offline?
-A: Some functionalities do, but a connection is recommended for full sync.
-
 ---
+
+```
+
 ```
