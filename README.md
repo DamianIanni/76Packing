@@ -59,7 +59,7 @@ Packing76 is a mobile application that helps users organize and manage their lug
 
 ---
 
-⚙️ Installation 1. Clone the repository:
+## ⚙️ Installation 1. Clone the repository:
 
 git clone https://github.com/DamianIanni/76Packing.git
 
@@ -128,7 +128,7 @@ To get them: 1. Create a Firebase project at https://console.firebase.google.com
 
 ⸻
 
-📁 Project Structure
+## 📁 Project Structure
 
 src/
 │
@@ -144,19 +144,19 @@ src/
 
 ⸻
 
-🧪 Testing
+## 🧪 Testing
 
 Coming soon
 
 ⸻
 
-📄 License
+## 📄 License
 
 MIT License. See LICENSE for details.
 
 ⸻
 
-📬 Contact
+## 📬 Contact
 
 Damian Ianni
 📧 damiangussi@gmail.com
@@ -164,7 +164,7 @@ Damian Ianni
 
 ⸻
 
-🧩 FAQ (Optional)
+## 🧩 FAQ (Optional)
 
 Q: Do I need a Google account to use the app?
 A: No, you can register using email and password. Google Sign-In is optional.
