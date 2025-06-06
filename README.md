@@ -73,8 +73,7 @@ cd 76Packing
 
 # Using npm
 
-    ```bash
-
+```
 npm install
 
 ```
@@ -87,8 +86,7 @@ yarn install
 
 # 🚀 Running the Project
 
-
-  1. Start Metro Bundler:
+1. Start Metro Bundler:
 
 npm start
 
@@ -187,4 +185,7 @@ Damian Ianni
 Q: Do I need a Google account to use the app?
 A: No, you can register using email and password. Google Sign-In is optional.
 </pre>
+
+```
+
 ```
