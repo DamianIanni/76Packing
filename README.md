@@ -61,26 +61,31 @@ Packing76 is a mobile application that helps users organize and manage their lug
 
 ## ⚙️ Installation
 
-    1. Clone the repository:
+1. Clone the repository:
 
-git clone https://github.com/DamianIanni/76Packing.git
+   ```bash
+   git clone https://github.com/DamianIanni/76Packing.git
+   ```
 
-    2.	Navigate to the project directory:
+2. Navigate to the project directory:
 
-cd 76Packing
+   ```bash
+   cd 76Packing
+   ```
 
-    3.	Install dependencies:
+3. Install dependencies:
 
-# Using npm
+   ### Using npm
 
-```
-npm install
+   ```bash
+   npm install
+   ```
 
-```
+   ### or using Yarn
 
-# or using Yarn
-
-yarn install
+   ```bash
+   yarn install
+   ```
 
 ---
 
@@ -88,27 +93,45 @@ yarn install
 
 1. Start Metro Bundler:
 
-npm start
+   ### Using npm
 
-# or
+   ```bash
+   npm start
+   ```
 
-yarn start
+   ### or using Yarn
 
-    2.	Run on Android:
+   ```bash
+   yarn start
+   ```
 
-npm run android
+2. Run on Android:
 
-# or
+   ### Using npm
 
-yarn android
+   ```bash
+   npm run android
+   ```
 
-    3.	Run on iOS (Mac only, with Xcode installed):
+   ### or using Yarn
 
-npm run ios
+   ```bash
+   yarn android
+   ```
 
-# or
+3. Run on iOS (Mac only, with Xcode installed):
 
-yarn ios
+   ### Using npm
+
+   ```bash
+   npm run ios
+   ```
+
+   ### or using Yarn
+
+   ```bash
+   yarn ios
+   ```
 
 ✅ Make sure you have an emulator running or a physical device connected before launching the app.
 
