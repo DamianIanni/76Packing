@@ -107,10 +107,11 @@ yarn ios
 
 ---
 
-🔐 Environment Variables
+# 🔐 Environment Variables
 
 Create a .env file in the root and include:
 
+<pre>
 API_KEY=your_firebase_web_api_key
 PROJECT_ID=your_firebase_project_id
 STORAGE_BUCKET=your_project_id.appspot.com
@@ -118,13 +119,16 @@ MESSAGING_SENDER_ID=your_messaging_sender_id
 ANDROID_APP_ID=your_android_app_id
 IOS_APP_ID=your_ios_app_id
 WEB_CLIENT_ID=your_oauth_web_client_id
-
-# Server
-
-SERVER_URL=
+SERVER_URL=your_server_url
+</pre>
 
 These credentials correspond to a Firebase project.
-To get them: 1. Create a Firebase project at https://console.firebase.google.com. 2. Enable Authentication (Email/Password and Google Sign-In). 3. Add Android and iOS apps to your Firebase project and copy the config. 4. Enable Firestore and/or other Firebase services as needed.
+To get them:
+
+- 1.  Create a Firebase project at https://console.firebase.google.com.
+- 2.  Enable Authentication (Email/Password and Google Sign-In).
+- 3.  Add Android and iOS apps to your Firebase project and copy the config.
+- 4.  Enable Firestore and/or other Firebase services as needed.
 
 ---
 
