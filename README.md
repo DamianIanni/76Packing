@@ -194,11 +194,11 @@ MIT License. See LICENSE for details.
 
 ## 📬 Contact
 
-<pre>
-Damian Ianni
+**Damian Ianni**
+
 📧 damiangussi@gmail.com
-🔗 [LinkedIn](https://www.linkedin.com/in/damian-ianni-b50555205/)
-</pre>
+
+[🔗 LinkedIn](https://www.linkedin.com/in/damian-ianni-b50555205/)
 
 ---
 
@@ -208,7 +208,3 @@ Damian Ianni
 Q: Do I need a Google account to use the app?
 A: No, you can register using email and password. Google Sign-In is optional.
 </pre>
-
-```
-
-```
