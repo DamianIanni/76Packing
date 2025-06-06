@@ -59,7 +59,9 @@ Packing76 is a mobile application that helps users organize and manage their lug
 
 ---
 
-## ⚙️ Installation 1. Clone the repository:
+## ⚙️ Installation
+
+    1. Clone the repository:
 
 git clone https://github.com/DamianIanni/76Packing.git
 
@@ -71,7 +73,11 @@ cd 76Packing
 
 # Using npm
 
+    ```bash
+
 npm install
+
+```
 
 # or using Yarn
 
@@ -79,7 +85,10 @@ yarn install
 
 ---
 
-🚀 Running the Project 1. Start Metro Bundler:
+# 🚀 Running the Project
+
+
+  1. Start Metro Bundler:
 
 npm start
 
@@ -125,10 +134,10 @@ SERVER_URL=your_server_url
 These credentials correspond to a Firebase project.
 To get them:
 
-- 1.  Create a Firebase project at https://console.firebase.google.com.
-- 2.  Enable Authentication (Email/Password and Google Sign-In).
-- 3.  Add Android and iOS apps to your Firebase project and copy the config.
-- 4.  Enable Firestore and/or other Firebase services as needed.
+- 1 Create a Firebase project at https://console.firebase.google.com.
+- 2 Enable Authentication (Email/Password and Google Sign-In).
+- 3 Add Android and iOS apps to your Firebase project and copy the config.
+- 4 Enable Firestore and/or other Firebase services as needed.
 
 ---
 
@@ -167,7 +176,7 @@ MIT License. See LICENSE for details.
 <pre>
 Damian Ianni
 📧 damiangussi@gmail.com
-🔗 LinkedIn - https://www.linkedin.com/in/damian-ianni-b50555205/
+🔗 [LinkedIn](https://www.linkedin.com/in/damian-ianni-b50555205/)
 </pre>
 
 ---
@@ -178,3 +187,4 @@ Damian Ianni
 Q: Do I need a Google account to use the app?
 A: No, you can register using email and password. Google Sign-In is optional.
 </pre>
+```
