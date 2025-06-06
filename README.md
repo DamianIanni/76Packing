@@ -131,7 +131,6 @@ To get them: 1. Create a Firebase project at https://console.firebase.google.com
 ## 📁 Project Structure
 
 <pre>
-```plaintext
 src/
 │
 ├── api/            # API queries and mutations
@@ -143,7 +142,6 @@ src/
 ├── store/          # Redux slices & config
 ├── i18n/           # Translations
 └── utils/          # Helper functions
-```
 </pre>
 
 ---
@@ -162,13 +160,17 @@ MIT License. See LICENSE for details.
 
 ## 📬 Contact
 
+<pre>
 Damian Ianni
 📧 damiangussi@gmail.com
 🔗 LinkedIn - https://www.linkedin.com/in/damian-ianni-b50555205/
+</pre>
 
 ---
 
 ## 🧩 FAQ (Optional)
 
+<pre>
 Q: Do I need a Google account to use the app?
 A: No, you can register using email and password. Google Sign-In is optional.
+</pre>
