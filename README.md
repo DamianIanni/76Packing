@@ -23,9 +23,9 @@ Packing76 is a mobile application that helps users organize and manage their lug
 
 ---
 
-## 📱 Screenshots / Demo
+<!-- ## 📱 Screenshots / Demo
 
-<img src="screenshots/home.png" width="250" /> <img src="screenshots/luggage.png" width="250" />
+<img src="screenshots/home.png" width="250" /> <img src="screenshots/luggage.png" width="250" /> -->
 
 ### 🎥 YouTube Demo
 
