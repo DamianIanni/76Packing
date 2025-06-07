@@ -1,97 +1,226 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# 🎒 Packing76
 
-# Getting Started
+Packing76 is a mobile application that helps users organize and manage their luggage when preparing for trips. It includes travel planning, packing list customization, and storage of travel preferences.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+![Platform](https://img.shields.io/badge/platform-React%20Native-blue)
+![License](https://img.shields.io/github/license/DamianIanni/76Packing)
+![Backend](https://img.shields.io/badge/backend-Node.js-blue)
+![Database](https://img.shields.io/badge/database-SQL-green)
+![Auth](https://img.shields.io/badge/authentication-Firebase%20Auth-orange)
 
-## Step 1: Start Metro
+## 📚 Table of Contents
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+- [📱 Screenshots / Demo](#-screenshots--demo)
+- [✨ Features](#-features)
+- [🛠️ Technologies Used](#-technologies-used)
+- [⚙️ Installation](#️-installation)
+- [🚀 Running the Project](#-running-the-project)
+- [🔐 Environment Variables](#-environment-variables)
+- [📁 Project Structure](#-project-structure)
+- [🧪 Testing (Optional)](#-testing-optional)
+- [📄 License](#-license)
+- [📬 Contact](#-contact)
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+---
 
-```sh
-# Using npm
-npm start
+<!-- ## 📱 Screenshots / Demo
 
-# OR using Yarn
-yarn start
-```
+<img src="screenshots/home.png" width="250" /> <img src="screenshots/luggage.png" width="250" /> -->
 
-## Step 2: Build and run your app
+### 🎥 YouTube Demo
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+[🎥 Watch the video on YouTube](https://www.youtube.com/watch?v=HhdqjGm9ZZU)
 
-### Android
+---
 
-```sh
-# Using npm
-npm run android
+## 🌐 Backend & Database
 
-# OR using Yarn
-yarn android
-```
+This app is powered by a custom backend server and database, also designed and implemented by me:
 
-### iOS
+- **Backend:** Node.js + TypeScript server deployed on Render
+- **Database:** Normalized SQL database hosted on Railway
+- **API:** GraphQL with Apollo Client integration in the app
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+👉 [View the backend repository](https://github.com/DamianIanni/76Packing_server)
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+The server handles AI-powered packing recommendations, user data storage, and synchronizes data with the app in real-time.
 
-```sh
-bundle install
-```
+---
 
-Then, and every time you update your native dependencies, run:
+## ✨ Features
 
-```sh
-bundle exec pod install
-```
+- 🤖 AI-powered packing recommendations using Mistral via OpenRouter
+- 🔐 User authentication (Email/Password, Google Sign-In)
+- 🔁 Password reset via email
+- 🧳 Packing list management with custom luggage types
+- 🌍 Travel planning: destination, number of days, seasons
+- 🛌 Accommodation and activities tracking
+- 🗣️ Multi-language support (English, Spanish, German)
+- ⚙️ User profile and preference settings
+- ☁️ Cloud sync using Firebase
+- 🔎 GraphQL data fetching with Apollo Client
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+---
 
-```sh
-# Using npm
-npm run ios
+## 🛠️ Technologies Used
 
-# OR using Yarn
-yarn ios
-```
+- React Native + TypeScript
+- Redux Toolkit for state management
+- React Navigation
+- Firebase Authentication
+- Apollo Client + GraphQL
+- AsyncStorage
+- i18next for internationalization
+- Axios (for backend calls)
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+---
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+## ⚙️ Installation
 
-## Step 3: Modify your app
+1. Clone the repository:
 
-Now that you have successfully run the app, let's make changes!
+   ```bash
+   git clone https://github.com/DamianIanni/76Packing.git
+   ```
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+2. Navigate to the project directory:
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+   ```bash
+   cd 76Packing
+   ```
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+3. Install dependencies:
 
-## Congratulations! :tada:
+   ### Using npm
 
-You've successfully run and modified your React Native App. :partying_face:
+   ```bash
+   npm install
+   ```
 
-### Now what?
+   ### or using Yarn
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+   ```bash
+   yarn install
+   ```
 
-# Troubleshooting
+---
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+# 🚀 Running the Project
 
-# Learn More
+1. Start Metro Bundler:
 
-To learn more about React Native, take a look at the following resources:
+   ### Using npm
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+   ```bash
+   npm start
+   ```
+
+   ### or using Yarn
+
+   ```bash
+   yarn start
+   ```
+
+2. Run on Android:
+
+   ### Using npm
+
+   ```bash
+   npm run android
+   ```
+
+   ### or using Yarn
+
+   ```bash
+   yarn android
+   ```
+
+3. Run on iOS (Mac only, with Xcode installed):
+
+   ### Using npm
+
+   ```bash
+   npm run ios
+   ```
+
+   ### or using Yarn
+
+   ```bash
+   yarn ios
+   ```
+
+✅ Make sure you have an emulator running or a physical device connected before launching the app.
+
+---
+
+# 🔐 Environment Variables
+
+Create a .env file in the root and include:
+
+<pre>
+API_KEY=your_firebase_web_api_key
+PROJECT_ID=your_firebase_project_id
+STORAGE_BUCKET=your_project_id.appspot.com
+MESSAGING_SENDER_ID=your_messaging_sender_id
+ANDROID_APP_ID=your_android_app_id
+IOS_APP_ID=your_ios_app_id
+WEB_CLIENT_ID=your_oauth_web_client_id
+SERVER_URL=your_server_url
+</pre>
+
+These credentials correspond to a Firebase project.
+To get them:
+
+- 1 Create a Firebase project at https://console.firebase.google.com.
+- 2 Enable Authentication (Email/Password and Google Sign-In).
+- 3 Add Android and iOS apps to your Firebase project and copy the config.
+- 4 Enable Firestore and/or other Firebase services as needed.
+
+---
+
+## 📁 Project Structure
+
+<pre>
+src/
+│
+├── api/            # API queries and mutations
+├── assets/         # Assets (images, icons, fonts, etc.)
+├── components/     # UI components
+├── classes/        # Theme & styles
+├── views/          # App screens
+├── navigation/     # Navigation setup
+├── store/          # Redux slices & config
+├── i18n/           # Translations
+└── utils/          # Helper functions
+</pre>
+
+---
+
+## 🧪 Testing
+
+Coming soon
+
+---
+
+## 📄 License
+
+MIT License. See LICENSE for details.
+
+---
+
+## 📬 Contact
+
+**Damian Ianni**
+
+📧 damiangussi@gmail.com
+
+[🔗 LinkedIn](https://www.linkedin.com/in/damian-ianni-b50555205/)
+
+---
+
+## 🧩 FAQ (Optional)
+
+<pre>
+Q: Do I need a Google account to use the app?
+A: No, you can register using email and password. Google Sign-In is optional.
+</pre>
